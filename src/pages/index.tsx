@@ -1,15 +1,10 @@
-import React from 'react';
 import {
   Page,
-  Navbar,
-  NavTitleLarge,
   List,
   ListItem,
   useStore,
   Card,
 } from 'zmp-framework/react';
-import AppItems from '../components/app-items';
-import UserCard from '../components/user-card';
 
 const HomePage = () => {
   const user = useStore('user');
@@ -20,9 +15,6 @@ const HomePage = () => {
       <Card inset>
         <p>Here is your blank ZMP app with tabs-layout. Let's see what we have here.</p>
       </Card>
-
-      {/* Grid apps */}
-      <AppItems />
 
       {/* Route */}
       <List>

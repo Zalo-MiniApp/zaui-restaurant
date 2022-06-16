@@ -1,6 +1,6 @@
 // Import React and ReactDOM
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 // Import ZMP
 import ZMP from 'zmp-framework/core/lite-bundle';
@@ -9,7 +9,7 @@ import ZMP from 'zmp-framework/core/lite-bundle';
 import ZMPReact from 'zmp-framework/react';
 
 // Import tailwind styles
-  import './css/styles.css';
+import './css/styles.css';
 
 // Import ZMP Styles
 import 'zmp-framework/zmp-bundle.min.css';
@@ -24,13 +24,10 @@ import appConfig from '../app-config.json';
 
 if (!(window as any).APP_CONFIG) {
   (window as any).APP_CONFIG = appConfig
-} 
+}
 
 // Init ZMP React Plugin
 ZMP.use(ZMPReact)
 
 // Mount React App
-ReactDOM.render(
-  React.createElement(App),
-  document.getElementById('app'),
-);
+createRoot(document.getElementById('app')!).render(React.createElement(App));

@@ -1,48 +1,26 @@
 import React from 'react';
-import {
-   zmp,
-   zmpready,
-   App,
-   TabView,
-   View,
-   Tabbar,
-   Link,
- } from 'zmp-framework/react';
- import store from '../store';
+import { App, TabView, View } from 'zmp-framework/react';
+import store from '../store';
+import NavigationBar from './navigation-bar';
 
- const MyApp = () => {
-   // ZMP Parameters
-   const zmpparams = {
-     name: 'Nhà hàng Joliboo', // App name
-       theme: 'auto', // Automatic theme detection
-       // App store
-       store: store,
-   };
+const MyApp = () => {
+  // ZMP Parameters
+  const zmpparams = {
+    name: 'Nhà hàng Joliboo', // App name
+    theme: 'auto', // Automatic theme detection
+    // App store
+    store: store,
+  };
 
-   return (
-     <App { ...zmpparams } >
+  return (
+    <App {...zmpparams} >
+      <TabView className="safe-areas">
+        <NavigationBar />
 
-         {/* TabView container */}
-         <TabView className="safe-areas">
-           {/* Tabbar for switching Tab*/}
-           <Tabbar bottom id="app-tab-bar">
-             <Link tabLink="#view-home" iconZMP="zi-home" tabLinkActive>
-               Home
-             </Link>
-             <Link tabLink="#view-catalog" iconZMP="zi-list-1">
-               Catalog
-             </Link>
-             <Link tabLink="#view-settings" iconZMP="zi-setting">
-               Settings
-             </Link>
-           </Tabbar>
-
-           <View id="view-home" main tab tabActive url="/" />
-           <View id="view-catalog" name="catalog" tab url="/catalog/" />
-           <View id="view-settings" name="settings" tab url="/settings/" />
-         </TabView>
-
-     </App>
-   );
- }
- export default MyApp;
+        <View id="view-home" main tab tabActive url="/" />
+        <View id="view-calendar" name="calendar" tab url="/calendar/" />
+      </TabView>
+    </App>
+  );
+}
+export default MyApp;
