@@ -1,20 +1,35 @@
-import {
-  Page,
-  List,
-  ListItem,
-  useStore,
-  Card,
-} from 'zmp-framework/react';
+import { Page, List, ListItem, useStore, Title, Box } from 'zmp-framework/react';
+import Inquiry, { QuickFilter } from '../components/inquiry';
+import RestaurantItem from '../components/restaurant';
+import { Restaurant } from '../models';
+
+function Popular() {
+  const populars = useStore('populars') as Restaurant[];
+
+  return <>
+    <Box mx="4" my="3">
+      <Title>Địa điểm phổ biến</Title>
+    </Box>
+    <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
+      <Box m="0" pr="4" flex className='w-max'>
+        {populars.map(restaurant => <Box ml="4" mr="0" className='snap-start' style={{ width: 'calc(100vw - 120px)' }}>
+          <RestaurantItem key={restaurant.id} layout="cover" restaurant={restaurant} />
+        </Box>)}
+      </Box>
+    </div>
+  </>;
+}
 
 const HomePage = () => {
-  const user = useStore('user');
   return (
     <Page name="home" >
-
-      {/* Page content */}
-      <Card inset>
-        <p>Here is your blank ZMP app with tabs-layout. Let's see what we have here.</p>
-      </Card>
+      <Box m="4">
+        <Title>Hôm nay bạn muốn ăn ở đâu?</Title>
+        <Inquiry />
+        <Title>Phân loại nhanh</Title>
+        <QuickFilter />
+      </Box>
+      <Popular />
 
       {/* Route */}
       <List>

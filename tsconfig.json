@@ -5,7 +5,6 @@
     "module": "esnext", 
     "noImplicitAny": false,
     "preserveConstEnums": true,
-    "baseUrl": "./src",
     "jsx": "react-jsx",
     "lib": ["dom", "es5", "es6", "es7", "es2017"],
     "allowSyntheticDefaultImports": true,

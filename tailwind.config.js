@@ -4,6 +4,10 @@ module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx,vue}'],
   },
   theme: {
-    extend: {},
+    extend: {
+      aspectRatio: {
+        cinema: '21/9',
+      }
+    },
   },
 };

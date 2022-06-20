@@ -1,47 +1,102 @@
 
 import { createStore } from 'zmp-core/lite';
-const store = createStore({
+import { userInfo } from 'zmp-sdk';
+import { District, Restaurant, Location } from './models';
+import firstDemoImage from './static/images/1.png';
+import secondDemoImage from './static/images/2.png';
+
+interface StoreState {
+  user: userInfo,
+  position: Location
+  restaurants: Restaurant[]
+  districts: District[]
+  selectedDistrict: number
+}
+
+const store = createStore<StoreState>({
   state: {
     user: {
-      displayName: 'Zalo',
-      email: 'zte@zalo.me',
-      avatar: 'ZA',
-      online: true,
-      story: true
+      id: '',
+      avatar: '',
+      name: ''
     },
-    products: [
+    position: {
+      lat: 0,
+      long: 0
+    },
+    districts: [{
+      id: 1,
+      name: 'Quận 1',
+    }, {
+      id: 5,
+      name: 'Quận 5',
+    },
+    {
+      id: 7,
+      name: 'Quận 7',
+    }, {
+      id: 13,
+      name: 'Thủ Đức'
+    }],
+    selectedDistrict: 1,
+    restaurants: [
       {
-        id: '1',
-        title: 'Apple iPhone 8',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.'
+        id: 1,
+        name: 'Jolliboo - Lê Thánh Tôn',
+        districtId: 1,
+        location: {
+          lat: 10.776463610730223,
+          long: 106.70098038648123
+        },
+        views: 100,
+        image: firstDemoImage
       },
       {
-        id: '2',
-        title: 'Apple iPhone 8 Plus',
-        description: 'Velit odit autem modi saepe ratione totam minus, aperiam, labore quia provident temporibus quasi est ut aliquid blanditiis beatae suscipit odio vel! Nostrum porro sunt sint eveniet maiores, dolorem itaque!'
-      },
-      {
-        id: '3',
-        title: 'Apple iPhone X',
-        description: 'Expedita sequi perferendis quod illum pariatur aliquam, alias laboriosam! Vero blanditiis placeat, mollitia necessitatibus reprehenderit. Labore dolores amet quos, accusamus earum asperiores officiis assumenda optio architecto quia neque, quae eum.'
-      },
+        id: 2,
+        name: 'Jolliboo - Trần Hưng Đạo',
+        districtId: 1,
+        location: {
+          lat: 10.755009040272618,
+          long: 106.67897941334107
+        },
+        views: 50,
+        image: secondDemoImage
+      }
     ]
   },
   getters: {
     user({ state }) {
       return state.user
     },
-    products({ state }) {
-      return state.products;
+    restaurants({ state }) {
+      return state.restaurants;
+    },
+    populars({ state }) {
+      return state.restaurants.filter(restaurant => restaurant.views >= 50);
+    },
+    nearests({ state }) {
+      const res = [...state.restaurants];
+      res.sort((a, b) => {
+        const aDistance = Math.sqrt(Math.pow(a.location.lat - state.position.lat, 2) + Math.pow(a.location.long - state.position.long, 2));
+        const bDistance = Math.sqrt(Math.pow(b.location.lat - state.position.lat, 2) + Math.pow(b.location.long - state.position.long, 2));
+        return aDistance - bDistance;
+      });
+      return res;
+    },
+    selectedDistrict({ state }) {
+      return state.selectedDistrict;
+    },
+    districts({ state }) {
+      return state.districts;
+    },
+    position({ state }) {
+      return state.position;
     }
   },
   actions: {
-    setUser({ state }, data) {
+    setUser({ state }, data: userInfo) {
       state.user = { ...state.user, ...data }
-    },
-    addProduct({ state }, product) {
-      state.products = [...state.products, product];
-    },
+    }
   },
 })
 

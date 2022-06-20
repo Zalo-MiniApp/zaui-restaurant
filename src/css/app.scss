@@ -1,3 +1,37 @@
 @import "./tailwind.css";
 
 /* Your app custom styles here */
+:root {
+  --zmp-page-bg-color: #F4F5F6;
+  --zmp-searchbar-input-height: 32px;
+  --zmp-button-border-radius: 100px;
+  --zmp-button-padding-vertical: 8px;
+}
+body {
+  background-color: var(--zmp-page-bg-color);
+}
+.inquiry {
+  background-color: transparent;
+  input[type="search"] {
+    border: none;
+    min-height: unset;
+  }
+  .input-clear-button:before {
+    height: 28px;
+  }
+  .input-clear-button:after {
+    font-size: calc(var(--zmp-input-clear-button-size)/ (16 / 10));
+    line-height: 0;
+  }
+}
+.no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.restaurant-with-cover {
+  .zmp-icons {
+    font-size: 1.2em;
+    margin-right: 4px;
+  }
+}

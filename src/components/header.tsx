@@ -1,31 +1,13 @@
-import React from 'react';
-import { Link, Navbar, NavLeft, Icon, NavTitle, NavRight } from 'zmp-framework/react';
+import { Avatar, Box, Text, Title, useStore } from "zmp-framework/react";
+import { userInfo } from "zmp-sdk";
 
-interface NavBarProps {
-  title?: string, 
-  linkRight?: string, 
-  labelRight?: string
+function Header() {
+  const user: userInfo = useStore('user')
+  return <Box>
+    <Title>Nhà hàng Jolliboo</Title>
+    <Avatar src={user.avatar} />
+    <Text>Chào, {user.name}!</Text>
+  </Box>;
 }
 
-const NavbarBack: React.FunctionComponent<NavBarProps> = ({ title, linkRight, labelRight }) => {
-  return (
-    <Navbar>
-      <NavLeft >
-        <Link className="no-ripple" noLinkClass back>
-          <Icon zmp="zi-arrow-left" />
-        </Link>
-      </NavLeft>
-      <NavTitle>{title}</NavTitle>
-      {linkRight && labelRight && (
-        <NavRight>
-          <Link href={linkRight} className="no-ripple" noLinkClass>{labelRight}</Link>
-        </NavRight>
-      )}
-    </Navbar>
-  )
-}
-
-NavbarBack.displayName = 'zmp-navbar';
-
-
-export default NavbarBack;
+export default Header;
