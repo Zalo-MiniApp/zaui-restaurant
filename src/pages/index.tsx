@@ -7,29 +7,42 @@ function Popular() {
   const populars = useStore('populars') as Restaurant[];
 
   return <>
-    <Box mx="4" my="3">
+    <Box mx="4" mt="6">
       <Title>Địa điểm phổ biến</Title>
     </Box>
     <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
       <Box m="0" pr="4" flex className='w-max'>
-        {populars.map(restaurant => <Box ml="4" mr="0" className='snap-start' style={{ width: 'calc(100vw - 120px)' }}>
-          <RestaurantItem key={restaurant.id} layout="cover" restaurant={restaurant} />
+        {populars.map(restaurant => <Box key={restaurant.id} ml="4" mr="0" className='snap-start' style={{ width: 'calc(100vw - 120px)' }}>
+          <RestaurantItem layout="cover" restaurant={restaurant} />
         </Box>)}
       </Box>
     </div>
   </>;
 }
 
+function Nearest() {
+  const nearests = useStore('nearests') as Restaurant[];
+  return <>
+    <Box mx="4" mt="5">
+      <Title>Gần bạn nhất</Title>
+      {nearests.map(restaurant => <Box key={restaurant.id} mx="0" my="3">
+        <RestaurantItem layout="list-item" restaurant={restaurant} />
+      </Box>)}
+    </Box>
+  </>;
+}
+
 const HomePage = () => {
   return (
     <Page name="home" >
-      <Box m="4">
-        <Title>Hôm nay bạn muốn ăn ở đâu?</Title>
+      <Box mx="4" mb="4" mt="0">
+        <Title size='xlarge' bold>Hôm nay bạn muốn ăn ở đâu?</Title>
         <Inquiry />
-        <Title>Phân loại nhanh</Title>
+        <Title className='mt-6 mb-4'>Phân loại nhanh</Title>
         <QuickFilter />
       </Box>
       <Popular />
+      <Nearest />
 
       {/* Route */}
       <List>

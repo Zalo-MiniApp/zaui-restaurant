@@ -2,10 +2,11 @@
 
 /* Your app custom styles here */
 :root {
-  --zmp-page-bg-color: #F4F5F6;
+  --zmp-page-bg-color: #f4f5f6;
   --zmp-searchbar-input-height: 32px;
   --zmp-button-border-radius: 100px;
   --zmp-button-padding-vertical: 8px;
+  --zmp-button-bg-color-tertiary: white;
 }
 body {
   background-color: var(--zmp-page-bg-color);
@@ -20,7 +21,7 @@ body {
     height: 28px;
   }
   .input-clear-button:after {
-    font-size: calc(var(--zmp-input-clear-button-size)/ (16 / 10));
+    font-size: calc(var(--zmp-input-clear-button-size) / (16 / 10));
     line-height: 0;
   }
 }
@@ -33,5 +34,10 @@ body {
   .zmp-icons {
     font-size: 1.2em;
     margin-right: 4px;
+  }
+}
+.restaurant-detail-box {
+  .zmp-icons {
+    margin-right: 2px;
   }
 }

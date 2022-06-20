@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       aspectRatio: {
         cinema: '21/9',
+        card: '4/3',
       }
     },
   },

@@ -48,19 +48,39 @@ const store = createStore<StoreState>({
           lat: 10.776463610730223,
           long: 106.70098038648123
         },
+        address: '12 Lê Thánh Tôn, Quận 1, Hồ Chí Minh',
         views: 100,
-        image: firstDemoImage
+        image: firstDemoImage,
+        hours: {
+          opening: [9, 0, 'AM'],
+          closing: [22, 0, 'PM']
+        },
+        days: {
+          opening: 1,
+          closing: 7
+        },
+        hotline: '021 666 888'
       },
       {
         id: 2,
         name: 'Jolliboo - Trần Hưng Đạo',
+        address: '15A Trần Hưng Đạo, Đa Kao, Quận 1, Hồ Chí Minh',
         districtId: 1,
         location: {
           lat: 10.755009040272618,
           long: 106.67897941334107
         },
         views: 50,
-        image: secondDemoImage
+        image: secondDemoImage,
+        hours: {
+          opening: [9, 0, 'AM'],
+          closing: [22, 0, 'PM']
+        },
+        days: {
+          opening: 1,
+          closing: 7
+        },
+        hotline: '021 666 888'
       }
     ]
   },
