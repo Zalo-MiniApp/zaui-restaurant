@@ -3,7 +3,7 @@
     "title": "Nhà hàng Joliboo",
     "headerColor": "",
     "textColor": "black",
-    "statusBarColor": "#E5E5E5",
+    "statusBarColor": "#f4f5f6",
     "leftButton": "back"
   },
   "debug": false,

@@ -14,7 +14,8 @@ export interface Restaurant {
     opening: number
     closing: number
   },
-  hotline: string
+  hotline: string,
+  map: string
 }
 
 export interface District {
@@ -25,4 +26,31 @@ export interface District {
 export interface Location {
   lat: number,
   long: number
+}
+
+export interface Menu {
+  categories: Category[]
+}
+
+export interface Category {
+  id: number
+  name: string
+  foods: Food[]
+}
+
+export interface Food {
+  id: number
+  name: string
+  price: number
+  description: string
+  image: string
+  categories: string[]
+  extras: {
+    key: string
+    label: string
+    options: {
+      key: string
+      label: string
+    }[]
+  }[]
 }

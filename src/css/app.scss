@@ -41,3 +41,14 @@ body {
     margin-right: 2px;
   }
 }
+.page-current .page-content {
+  padding-bottom: 108px;
+}
+.page[data-name="home"] .page-content {
+  padding-bottom: 200px;
+}
+.button.w-10 {
+  .zmp-icons {
+    margin-right: 0;
+  }
+}

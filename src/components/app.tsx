@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { App, TabView, View, zmpready } from 'zmp-framework/react';
+import { App, Box, TabView, View, zmpready } from 'zmp-framework/react';
 import api from 'zmp-sdk';
 import Header from './header';
 import NavigationBar from './navigation-bar';

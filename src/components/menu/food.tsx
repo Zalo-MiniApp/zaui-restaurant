@@ -1,0 +1,19 @@
+import { FunctionComponent } from "react";
+import { Avatar, Button, Text, Title } from "zmp-framework/react";
+import { Food } from "../../models";
+import Price from "../Price";
+
+interface FoodItemProps {
+  food: Food
+}
+
+const FoodItem: FunctionComponent<FoodItemProps> = ({ food }) => {
+  return <div className="p-6 bg-white text-center" style={{ borderRadius: 50 }}>
+    <Avatar size={96} src={food.image} />
+    <Title size="small">{food.name}</Title>
+    <Text size="xlarge" className="text-orange-500" bold><Price amount={food.price} /></Text>
+    <Button iconZMP="zi-plus" fill className="w-10 m-auto"></Button>
+  </div>;
+}
+
+export default FoodItem;

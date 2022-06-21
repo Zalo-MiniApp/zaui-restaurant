@@ -21,10 +21,10 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant
 
   if (layout === 'cover') {
     return <div onClick={viewDetail} className="bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
-      <img src={restaurant.image} className="object-cover aspect-cinema" />
+      <img src={restaurant.image} className="w-full object-cover aspect-cinema" />
       <Title size="small" className="mt-2 mb-0 mx-4">{restaurant.name}</Title>
       <Box flex mt="0">
-        <Button className="text-red-500" iconZMP="zi-location" small>
+        <Button className="text-red-500" iconZMP="zi-location-solid" small>
           <span className="text-gray-500"><DistrictName id={restaurant.districtId} /></span>
         </Button>
         <Button iconZMP="zi-send-solid" small>

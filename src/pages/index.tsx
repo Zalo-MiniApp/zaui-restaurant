@@ -1,4 +1,4 @@
-import { Page, List, ListItem, useStore, Title, Box } from 'zmp-framework/react';
+import { Page, useStore, Title, Box } from 'zmp-framework/react';
 import Inquiry, { QuickFilter } from '../components/inquiry';
 import RestaurantItem from '../components/restaurant';
 import { Restaurant } from '../models';
@@ -43,13 +43,6 @@ const HomePage = () => {
       </Box>
       <Popular />
       <Nearest />
-
-      {/* Route */}
-      <List>
-        <ListItem title="Dynamic (Component) Route" link="/dynamic-route/?blog=45&post=125&foo=bar" />
-        <ListItem title="Default Route (404)" link="/something-that-doesnt-exist" />
-        <ListItem title="About" link="/about/" />
-      </List>
     </Page>
   );
 }
