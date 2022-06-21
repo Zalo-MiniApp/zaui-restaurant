@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Avatar, Button, Text, Title } from "zmp-framework/react";
+import { Avatar, Button, Text, Title, zmp } from "zmp-framework/react";
 import { Food } from "../../models";
 import Price from "../Price";
 
@@ -8,7 +8,15 @@ interface FoodItemProps {
 }
 
 const FoodItem: FunctionComponent<FoodItemProps> = ({ food }) => {
-  return <div className="p-6 bg-white text-center" style={{ borderRadius: 50 }}>
+  const pick = () => {
+    zmp.views.main.router.navigate({
+      path: '/food-picker/',
+      query: {
+        id: food.id
+      }
+    })
+  }
+  return <div onClick={pick} className="p-6 bg-white text-center" style={{ borderRadius: 50 }}>
     <Avatar size={96} src={food.image} />
     <Title size="small">{food.name}</Title>
     <Text size="xlarge" className="text-orange-500" bold><Price amount={food.price} /></Text>

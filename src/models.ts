@@ -45,12 +45,21 @@ export interface Food {
   description: string
   image: string
   categories: string[]
-  extras: {
+  extras: Extra[]
+}
+
+export interface Extra {
+  key: string
+  label: string
+  options: {
     key: string
     label: string
-    options: {
-      key: string
-      label: string
-    }[]
+  }[]
+}
+
+export interface Cart {
+  items: {
+    quantity: number
+    food: Food
   }[]
 }

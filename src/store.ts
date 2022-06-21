@@ -1,7 +1,7 @@
 
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
-import { District, Restaurant, Location, Menu, Food } from './models';
+import { District, Restaurant, Location, Menu, Food, Cart } from './models';
 import restaurant1 from './static/images/restaurant/1.png';
 import restaurant2 from './static/images/restaurant/2.png';
 import food1 from './static/images/food/1.png';
@@ -17,6 +17,7 @@ interface StoreState {
   selectedDistrict: number
   categories: string[]
   foods: Food[]
+  cart: Cart
 }
 
 const store = createStore<StoreState>({
@@ -176,7 +177,10 @@ const store = createStore<StoreState>({
           label: 'To',
         }]
       }]
-    }]
+    }],
+    cart: {
+      items: []
+    }
   },
   getters: {
     user({ state }) {
@@ -206,6 +210,9 @@ const store = createStore<StoreState>({
     position({ state }) {
       return state.position;
     },
+    foods({ state }) {
+      return state.foods;
+    },
     menu({ state }): Menu {
       return {
         categories: state.categories.map((category, index) => ({
@@ -214,11 +221,21 @@ const store = createStore<StoreState>({
           foods: state.foods.filter(food => food.categories.includes(category))
         }))
       }
+    },
+    cart({ state }) {
+      return state.cart;
+    },
+    total({ state }) {
+      return state.cart.items.reduce((total, item) => total + item.quantity * item.food.price, 0);
     }
   },
   actions: {
     setUser({ state }, data: userInfo) {
       state.user = { ...state.user, ...data }
+    },
+    addToCart({ state }, item: { food: Food, quantity: number }) {
+      state.cart.items.push(item);
+      state.cart = { ...state.cart };
     }
   },
 })

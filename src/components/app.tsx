@@ -4,6 +4,8 @@ import api from 'zmp-sdk';
 import Header from './header';
 import NavigationBar from './navigation-bar';
 import store from '../store';
+import FoodPicker from './menu/food-picker';
+import Cart from './cart';
 
 const MyApp = () => {
   const zmpparams = {
@@ -25,14 +27,28 @@ const MyApp = () => {
   }, [])
 
   return (
-    <App {...zmpparams} >
+    <App {...zmpparams}>
       <TabView className="safe-areas">
         <Header />
 
-        <View id="view-home" main tab tabActive url="/" />
+        <View
+          id="view-home"
+          main
+          tab
+          tabActive
+          url="/"
+          routesAdd={[
+            {
+              path: '/food-picker/',
+              popup: {
+                component: FoodPicker,
+              },
+            }]}
+        />
         <View id="view-calendar" name="calendar" tab url="/calendar/" />
 
         <NavigationBar />
+        <Cart />
       </TabView>
     </App>
   );
