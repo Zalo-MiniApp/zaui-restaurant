@@ -6,14 +6,40 @@ import { Restaurant } from "../models";
 import api from 'zmp-sdk';
 import { createContext, ReactNode, useContext, useState } from "react";
 import Menu from "../components/menu";
-
-function Time({ time }: { time: [number, number, 'AM' | 'PM'] }) {
-  const [hour, minute, ampm] = time;
-  return <>{`${hour}`.padStart(2, '0')}:{`${minute}`.padStart(2, '0')} {ampm}</>;
-}
+import DateBooker from "../components/book/date-booker";
+import TableBooker from "../components/book/table-booker";
+import SeatsPicker from "../components/book/seats-booker";
+import Time from "../components/format/time";
+import TimeBooker from "../components/book/time-booker";
+import { hideNavigationBar, showNavigationBar } from "../components/navigation-bar";
+import Price from "../components/format/price";
+import { pay } from "../services/zalo";
 
 function Day({ day }: { day: number }) {
   return <>{['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'][day - 1]}</>;
+}
+
+function Booking() {
+  const [seats, setSeats] = useState(4);
+  const { restaurant } = useContext(RestaurantContext);
+  return <>
+    <Box mx="4" my="6">
+      <DateBooker onChange={alert} />
+      <Box flex justifyContent="space-between" my="6">
+        <TableBooker />
+        <SeatsPicker value={seats} onChange={setSeats} />
+      </Box>
+      <TimeBooker hours={restaurant.hours} />
+      <Box height={80}></Box>
+    </Box>
+    <Box m="0" p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10">
+      <Box mb="4" flex justifyContent="space-between">
+        <Title>Phí dịch vụ</Title>
+        <Text className="ml-6 text-orange-500 mb-0" bold><Price amount={25000} /></Text>
+      </Box>
+      <Button onClick={() => pay(25000)} fill responsive large className="rounded-xl">Đặt bàn</Button>
+    </Box>
+  </>;
 }
 
 function Information() {
@@ -77,7 +103,7 @@ function RestaurantDetail() {
         </Box>
       </Box>
     </Box>
-    {{ info: <Information />, menu: <Menu /> }[currentTab]}
+    {{ info: <Information />, menu: <Menu />, book: <Booking /> }[currentTab]}
   </>;
 }
 
@@ -88,14 +114,13 @@ const RestaurantContext = createContext({
 function RestaurantPage({ zmproute }) {
   const restaurant = useRestaurant(zmproute.query.id)
 
-  return <Page>
+  return <Page onPageBeforeIn={hideNavigationBar} onPageBeforeOut={showNavigationBar}>
     {restaurant ? <RestaurantContext.Provider value={{ restaurant }}>
       <RestaurantDetail />
     </RestaurantContext.Provider> : <Box flex flexDirection="column" justifyContent="center" alignItems="center">
       <Title>Trang này không khả dụng!</Title>
       <Link back>Quay về</Link>
     </Box>}
-
   </Page>;
 }
 

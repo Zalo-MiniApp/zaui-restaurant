@@ -47,8 +47,15 @@ body {
 .page[data-name="home"] .page-content {
   padding-bottom: 200px;
 }
-.button.w-10 {
+.button.w-10,
+.button.w-8 {
   .zmp-icons {
     margin-right: 0;
+  }
+}
+.date-booker {
+  .swiper-slide-active > .bg-white {
+    background-color: #ff8a00;
+    color: white;
   }
 }

@@ -109,6 +109,7 @@ const store = createStore<StoreState>({
         }, {
           key: 'medium',
           label: 'Vừa',
+          selected: true
         }, {
           key: 'large',
           label: 'To',
@@ -130,6 +131,7 @@ const store = createStore<StoreState>({
         }, {
           key: 'medium',
           label: 'Vừa',
+          selected: true
         }, {
           key: 'large',
           label: 'To',
@@ -151,6 +153,7 @@ const store = createStore<StoreState>({
         }, {
           key: 'medium',
           label: 'Vừa',
+          selected: true
         }, {
           key: 'large',
           label: 'To',
@@ -233,8 +236,12 @@ const store = createStore<StoreState>({
     setUser({ state }, data: userInfo) {
       state.user = { ...state.user, ...data }
     },
-    addToCart({ state }, item: { food: Food, quantity: number }) {
-      state.cart.items.push(item);
+    addToCart({ state }, { cartItemIndex, ...item }: { food: Food, quantity: number, cartItemIndex?: number }) {
+      if (cartItemIndex) {
+        state.cart.items[cartItemIndex] = item;
+      } else {
+        state.cart.items.push(item);
+      }
       state.cart = { ...state.cart };
     }
   },

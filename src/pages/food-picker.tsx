@@ -1,25 +1,44 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Box, Button, Sheet, Text, Title, useStore } from "zmp-framework/react";
-import { Food } from "../../models";
-import store from "../../store";
-import Price from "../Price";
-import ExtraSelection from "./extra-selection";
-import Notch from "./notch";
+import { Cart, Extra, Food } from "../models";
+import store from "../store";
+import ExtraSelection from "../components/menu/extra-selection";
+import Notch from "../components/menu/notch";
+import Price from "../components/format/price";
 
 function FoodPicker({ zmproute, zmprouter }) {
+  const [options, setOptions] = useState<string[]>([]);
+  const [quantity, setQuantity] = useState(1);
   const foods = useStore('foods') as Food[];
+  const cart = useStore('cart') as Cart;
   const food = useMemo(() => {
-    const foodId = zmproute.query?.id;
-    if (foodId) {
-      return foods.find(food => food.id === Number(foodId));
+    if (zmproute.query) {
+      const foodId = zmproute.query.id;
+      if (foodId) {
+        return foods.find(food => food.id === Number(foodId));
+      }
+      const cartItemIndex = zmproute.query.cartItemIndex;
+      if (cartItemIndex) {
+        setQuantity(cart.items[cartItemIndex].quantity);
+        return cart.items[cartItemIndex].food;
+      }
     }
     return undefined;
   }, [])
-  const [quantity, setQuantity] = useState(1);
   const addToCart = () => {
     store.dispatch('addToCart', {
+      cartItemIndex: zmproute.query?.cartItemIndex,
       quantity,
-      food,
+      food: {
+        ...food,
+        extras: food?.extras.map((e, index) => ({
+          ...e,
+          options: e.options.map(o => ({
+            ...o,
+            selected: options[index] === o.key
+          }))
+        }))
+      } as Food,
     }).then(() => {
       zmprouter.back();
     })
@@ -35,8 +54,11 @@ function FoodPicker({ zmproute, zmprouter }) {
       <Text className="ml-6 text-orange-500 mb-0" size="xlarge" bold><Price amount={food.price} /></Text>
     </Box>
     <hr />
-    {food.extras.map(extra => <Box m="5" key={extra.key}>
-      <ExtraSelection extra={extra} />
+    {food.extras.map((extra, index) => <Box m="5" key={extra.key}>
+      <ExtraSelection extra={extra} onChange={selected => setOptions(o => {
+        o[index] = selected;
+        return [...o];
+      })} />
     </Box>)}
     <hr />
     <Box m="4">

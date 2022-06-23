@@ -1,13 +1,17 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Box, Button, Title } from "zmp-framework/react";
 import { Extra } from "../../models";
 
 interface ExtraSelectionProps {
   extra: Extra
+  onChange: (key: string) => any
 }
 
-const ExtraSelection: FunctionComponent<ExtraSelectionProps> = ({ extra }) => {
-  const [selected, setSelected] = useState(extra.options[0].key);
+const ExtraSelection: FunctionComponent<ExtraSelectionProps> = ({ extra, onChange }) => {
+  const [selected, setSelected] = useState(extra.options.find(o => o.selected)?.key ?? extra.options[0].key);
+  useEffect(() => {
+    onChange(selected);
+  }, [selected])
   return <>
     <Title size="small">{extra.label}</Title>
     <Box m="0" mt="4" flex alignItems="center" justifyContent="space-between">

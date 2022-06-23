@@ -4,7 +4,7 @@ import api from 'zmp-sdk';
 import Header from './header';
 import NavigationBar from './navigation-bar';
 import store from '../store';
-import FoodPicker from './menu/food-picker';
+import FoodPicker from '../pages/food-picker';
 import Cart from './cart';
 
 const MyApp = () => {

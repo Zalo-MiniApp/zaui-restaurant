@@ -7,8 +7,8 @@ export interface Restaurant {
   image: string
   address: string
   hours: {
-    opening: [number, number, 'AM' | 'PM'],
-    closing: [number, number, 'AM' | 'PM'],
+    opening: Hours,
+    closing: Hours,
   },
   days: {
     opening: number
@@ -54,6 +54,7 @@ export interface Extra {
   options: {
     key: string
     label: string
+    selected?: boolean
   }[]
 }
 
@@ -63,3 +64,5 @@ export interface Cart {
     food: Food
   }[]
 }
+
+export type Hours = [number, number, 'AM' | 'PM'];
