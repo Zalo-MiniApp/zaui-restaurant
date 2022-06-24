@@ -1,11 +1,11 @@
-import { FunctionComponent, useEffect, useMemo, useRef, useState } from "react";
+import { FunctionComponent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box, Button, Swiper, SwiperSlide, Text, Title } from "zmp-framework/react";
 
 interface DateBookerProps {
   onChange: (date: Date) => void;
 }
 
-const DateBooker: FunctionComponent<DateBookerProps> = () => {
+const DateBooker: FunctionComponent<DateBookerProps> = ({ onChange }) => {
   const swiperRef = useRef<any>();
   const [month, setMonth] = useState(new Date().getMonth());
   const [year, setYear] = useState(new Date().getFullYear());
@@ -44,7 +44,11 @@ const DateBooker: FunctionComponent<DateBookerProps> = () => {
 
   useEffect(() => {
     slideToDay(new Date().getDate());
-  }, [])
+  }, [month, year]);
+
+  const handleSlideChange = useCallback((swiper) => {
+    onChange(datesOfMonth[swiper.activeIndex])
+  }, [datesOfMonth])
 
   return <>
     <Box flex alignItems="center">
@@ -52,11 +56,11 @@ const DateBooker: FunctionComponent<DateBookerProps> = () => {
       <Button onClick={prev} className="w-8 ml-4" typeName="secondary" iconZMP="zi-chevron-left" small></Button>
       <Button onClick={next} className="w-8 ml-4" typeName="secondary" iconZMP="zi-chevron-right" small></Button>
     </Box>
-    <Swiper ref={swiperRef} className="date-booker" slidesPerView={5} centeredSlides>
+    <Swiper key={`${month}/${year}`} ref={swiperRef} className="date-booker fade-corner" slidesPerView={5} centeredSlides onSlideChange={handleSlideChange}>
       {datesOfMonth.map((date) => <SwiperSlide>
         <div onClick={() => slideToDay(date.getDate())} className="bg-white rounded-full h-20 flex flex-col items-center justify-center w-12 m-auto">
           <span className="whitespace-nowrap mt-2 mb-1 text-xs">{getDayName(date)}</span>
-          <Title size="large">{date.getDate()}</Title>
+          <Title bold>{date.getDate()}</Title>
         </div>
       </SwiperSlide>)}
     </Swiper>

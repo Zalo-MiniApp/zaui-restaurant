@@ -30,8 +30,8 @@ const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
       }}
     >
       <Box mx="0" flex justifyContent="space-between" alignItems="center">
-        <Title size="small">Booking ID: {booking.id}</Title>
-        <Text className="ml-6 text-orange-500 mb-0" size="xlarge" bold><Price amount={total} /></Text>
+        <Title size="small" className="whitespace-nowrap">Booking ID: {booking.id}</Title>
+        <Text className="ml-6 text-orange-500 mb-0 whitespace-nowrap" size="xlarge" bold><Price amount={total} /></Text>
       </Box>
       <div className="border rounded-xl">
         <RestaurantItem

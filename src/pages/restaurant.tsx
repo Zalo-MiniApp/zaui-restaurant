@@ -27,9 +27,13 @@ function Booking() {
   const [hour, setHour] = useState(restaurant.hours.opening);
   const [date, setDate] = useState(new Date());
   const [table, setTable] = useState('05');
+  const total = useStore('total') as number;
+
+  console.log(date);
 
   const book = async () => {
-    await pay(25000);
+    await pay(25000 + total);
+    console.log(date);
     await store.dispatch('book', {
       restaurant: restaurant,
       id: + new Date() + '',
@@ -51,7 +55,7 @@ function Booking() {
         <TableBooker value={table} onChange={setTable} />
         <SeatsPicker value={seats} onChange={setSeats} />
       </Box>
-      <TimeBooker hours={restaurant.hours} value={hour} onChange={setHour} />
+      <TimeBooker hours={restaurant.hours} onChange={setHour} />
       <Box height={80}></Box>
     </Box>
     <Box m="0" p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10">
@@ -102,11 +106,11 @@ function RestaurantDetail() {
     store.dispatch('changeRestaurantTab', tab)
   }
 
-  const TabItem = ({ tab, children }: { tab: TabType, children: ReactNode }) => <Button fill typeName={currentTab === tab ? 'primary' : 'tertiary'} onClick={() => setCurrentTab(tab)}>{children}</Button>;
+  const TabItem = ({ tab, children }: { tab: TabType, children: ReactNode }) => <Button fill typeName={currentTab === tab ? 'primary' : 'tertiary'} onClick={() => setCurrentTab(tab)} className="mx-2">{children}</Button>;
 
   return <>
     <Box mt="5">
-      <img src={restaurant.image} className="object-cover aspect-video rounded-xl" />
+      <img src={restaurant.image} className="w-full object-cover aspect-video rounded-xl" />
       <Box mx="4" className="bg-white rounded-2xl text-center relative restaurant-detail-box" p="4" style={{ marginTop: -60 }}>
         <Title bold>{restaurant.name}</Title>
         <Text className="text-gray-500">{restaurant.address}</Text>
@@ -120,7 +124,7 @@ function RestaurantDetail() {
             </span>
           </Button>
         </Box>
-        <Box flex justifyContent="space-between" mb="0">
+        <Box flex justifyContent="center" mb="0">
           <TabItem tab="info">Thông tin</TabItem>
           <TabItem tab="menu">Thực đơn</TabItem>
           <TabItem tab="book">Đặt bàn</TabItem>

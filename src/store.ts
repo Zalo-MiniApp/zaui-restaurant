@@ -2,12 +2,6 @@
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
 import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType } from './models';
-import restaurant1 from './static/images/restaurant/1.png';
-import restaurant2 from './static/images/restaurant/2.png';
-import food1 from './static/images/food/1.png';
-import food2 from './static/images/food/2.png';
-import food3 from './static/images/food/3.png';
-import food4 from './static/images/food/4.png';
 
 interface StoreState {
   user: userInfo,
@@ -63,7 +57,7 @@ const store = createStore<StoreState>({
         },
         address: '15A Lê Thánh Tôn, Quận 1, Hồ Chí Minh',
         views: 100,
-        image: restaurant1,
+        image: 'https://picsum.photos/id/1060/480/320/',
         hours: {
           opening: [9, 0, 'AM'],
           closing: [22, 0, 'PM']
@@ -86,7 +80,7 @@ const store = createStore<StoreState>({
           long: 106.67897941334107
         },
         views: 50,
-        image: restaurant2,
+        image: 'https://picsum.photos/id/1068/480/320/',
         hours: {
           opening: [9, 0, 'AM'],
           closing: [22, 0, 'PM']
@@ -104,7 +98,7 @@ const store = createStore<StoreState>({
       id: 1,
       name: 'Daily Pizza',
       price: 400000,
-      image: food1,
+      image: 'https://picsum.photos/id/1080/480/320/',
       categories: ['Pizza', 'Pasta', 'Salad', 'Sandwich', 'Drink'],
       description: `Pizza Hải Sản Xốt Pesto Với Hải Sản (Tôm, Mực) Nhân Đôi Cùng Với Nấm Trên Nền Xốt Pesto Đặc Trưng, Phủ Phô Mai Mozzarella Từ New Zealand Và Quế Tây.`,
       options: [{
@@ -139,7 +133,7 @@ const store = createStore<StoreState>({
       id: 2,
       name: 'Prosciutto',
       price: 400000,
-      image: food2,
+      image: 'https://picsum.photos/id/139/480/320/',
       categories: ['Pizza'],
       description: `Pizza Hải Sản Xốt Pesto Với Hải Sản (Tôm, Mực) Nhân Đôi Cùng Với Nấm Trên Nền Xốt Pesto Đặc Trưng, Phủ Phô Mai Mozzarella Từ New Zealand Và Quế Tây.`,
       options: [{
@@ -174,7 +168,7 @@ const store = createStore<StoreState>({
       id: 3,
       name: 'Prosciutto',
       price: 400000,
-      image: food3,
+      image: 'https://picsum.photos/id/225/480/320/',
       categories: ['Pizza', 'Drink'],
       description: `Pizza Hải Sản Xốt Pesto Với Hải Sản (Tôm, Mực) Nhân Đôi Cùng Với Nấm Trên Nền Xốt Pesto Đặc Trưng, Phủ Phô Mai Mozzarella Từ New Zealand Và Quế Tây.`,
       options: [{
@@ -209,7 +203,7 @@ const store = createStore<StoreState>({
       id: 4,
       name: 'Daily Pizza',
       price: 400000,
-      image: food4,
+      image: 'https://picsum.photos/id/326/480/320/',
       categories: ['Pizza', 'Drink'],
       description: `Pizza Hải Sản Xốt Pesto Với Hải Sản (Tôm, Mực) Nhân Đôi Cùng Với Nấm Trên Nền Xốt Pesto Đặc Trưng, Phủ Phô Mai Mozzarella Từ New Zealand Và Quế Tây.`,
       options: [{

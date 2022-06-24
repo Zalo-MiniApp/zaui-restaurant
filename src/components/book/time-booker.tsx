@@ -4,7 +4,6 @@ import { Hours } from "../../models";
 import Time from "../format/time";
 
 interface TimeBookerProps {
-  value: Hours
   onChange: (value: Hours) => void
   hours: {
     opening: Hours,
@@ -12,7 +11,7 @@ interface TimeBookerProps {
   },
 }
 
-const TimeBooker: FunctionComponent<TimeBookerProps> = ({ value, onChange, hours }) => {
+const TimeBooker: FunctionComponent<TimeBookerProps> = ({ onChange, hours }) => {
   const swiperRef = useRef<any>()
   const availableHours = useMemo(() => {
     const res: Hours[] = [];
@@ -38,7 +37,7 @@ const TimeBooker: FunctionComponent<TimeBookerProps> = ({ value, onChange, hours
 
   return <Box m="0">
     <Title size="small" className="mx-2">Thời gian khả dụng</Title>
-    <Swiper ref={swiperRef} className="date-booker" slidesPerView={3} centeredSlides>
+    <Swiper ref={swiperRef} className="date-booker" slidesPerView={3} centeredSlides onSlideChange={swiper => onChange(availableHours[swiper.activeIndex])}>
       {availableHours.map((hour, i) => <SwiperSlide>
         <div onClick={() => slideTo(i)} className="flex rounded-full bg-white h-12 items-center justify-center py-3 mx-2 whitespace-nowrap"><Time time={hour} /></div>
       </SwiperSlide>)}

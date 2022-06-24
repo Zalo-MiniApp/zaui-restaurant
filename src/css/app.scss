@@ -54,6 +54,7 @@ body {
 }
 .button.w-10,
 .button.w-8 {
+  padding: 0;
   .zmp-icons {
     margin-right: 0;
   }
@@ -62,6 +63,31 @@ body {
   .swiper-slide-active > .bg-white {
     background-color: #ff8a00;
     color: white;
+  }
+  &.fade-corner {
+    position: relative;
+    &:before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      z-index: 10;
+      opacity: 0.5;
+      background: linear-gradient(to right, var(--zmp-page-bg-color) 80%, transparent);
+    }
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 80px;
+      z-index: 10;
+      opacity: 0.5;
+      background: linear-gradient(to left, var(--zmp-page-bg-color) 80%, transparent);
+    }
   }
 }
 .checkbox {

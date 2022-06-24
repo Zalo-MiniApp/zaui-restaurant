@@ -32,12 +32,12 @@ function BookingDetail({ zmproute, zmprouter }) {
       {booking.bookingInfo && <>
         <Section left="Ngày, giờ" right={<>{booking.bookingInfo.date.toLocaleDateString()} - <Time time={booking.bookingInfo.hour} /></>} />
         <Section left="Bàn số" right={booking.bookingInfo.seats} />
-        <Section left="Số ghế" right={booking.bookingInfo.seats} />
+        <Section left="Số ghế" right={booking.bookingInfo.table} />
       </>}
       <Section left="Chi tiết" right={<Price amount={total} />} />
-      {booking.cart && <Box>
+      {booking.cart && booking.cart.items.length ? <Box>
         {booking.cart.items.map((item, i) => <CartItem key={i} item={item} />)}
-      </Box>}
+      </Box> : <Box my="4" flex justifyContent="center">Không có món ăn</Box>}
       <hr />
       <Box m="6">
         <Button onClick={() => zmprouter.back()} large typeName="secondary" responsive className="rounded-xl">Huỷ</Button>
