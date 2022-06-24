@@ -47,6 +47,13 @@ export interface Food {
   image: string
   categories: string[]
   extras: Extra[]
+  options: Option[]
+}
+
+export interface Option {
+  key: string
+  label: string
+  selected: boolean
 }
 
 export interface Extra {
@@ -60,10 +67,13 @@ export interface Extra {
 }
 
 export interface Cart {
-  items: {
-    quantity: number
-    food: Food
-  }[]
+  items: CartItem[]
+}
+
+export interface CartItem {
+  quantity: number
+  food: Food
+  note: string
 }
 
 export type Hours = [number, number, 'AM' | 'PM'];
@@ -75,6 +85,7 @@ export interface Booking {
   bookingInfo?: {
     date: Date
     hour: Hours
+    table: string
     seats: number
   }
 }

@@ -7,6 +7,7 @@ import { useCurrentRoute, useRestaurant } from "../../hooks";
 import store from "../../store";
 import { pay } from "../../services/zalo";
 import { message } from "../../utils/notificaiton";
+import CartItem from "./cart-item";
 
 function CartDetail() {
   const cart = useStore('cart') as Cart;
@@ -20,19 +21,7 @@ function CartDetail() {
   }
 
   return <Box pt="1">
-    {cart.items.map((item, i) => <Box flex justifyContent="space-between">
-      <Box flex>
-        <Button className="w-10" fill>{item.quantity}x</Button>
-        <div className="ml-6">
-          <Title size="small">{item.food.name}</Title>
-          {item.food.extras.map(extra => <Text>{extra.label} {extra.options.find(o => o.selected)?.label}</Text>)}
-        </div>
-      </Box>
-      <Box flex flexDirection="column" alignItems="flex-end" justifyContent="space-between">
-        <Text className="mr-2 ml-2 text-orange-500 mb-0" bold><Price amount={item.food.price * item.quantity} /></Text>
-        <Button onClick={() => edit(i)}>Thay đổi</Button>
-      </Box>
-    </Box>)}
+    {cart.items.map((item, i) => <CartItem key={i} item={item} onEdit={() => edit(i)} />)}
   </Box>;
 }
 
@@ -67,6 +56,7 @@ function CartPreview() {
       restaurant: restaurant,
     } as Booking)
     message('Đặt thức ăn thành công');
+    zmp.views.main.router.navigate('/calendar/');
   }
 
   return <Sheet
@@ -74,10 +64,11 @@ function CartPreview() {
     backdrop={false}
     opened={cart.items.length > 0 && currentRoute.path === '/restaurant/' && currentTab !== 'book'}
     closeByBackdropClick={false}
-    className="h-min border-t"
+    className="h-auto border-t"
     swipeToStep
     onSheetStepOpen={() => setExpanded(true)}
     onSheetStepClose={() => setExpanded(false)}
+    onSheetClose={() => setExpanded(false)}
   >
     <Notch color="#637875" />
     <Box p="1"></Box>

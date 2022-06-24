@@ -1,30 +1,30 @@
 import { FunctionComponent, useMemo, useState } from "react";
-import { Box, Button, Card, Text, Title } from "zmp-framework/react";
+import { Box, Button, Card, Text, Title, zmp } from "zmp-framework/react";
+import { useBookingTotal } from "../../hooks";
 import { Booking } from "../../models";
 import store from "../../store";
 import Price from "../format/price";
 import Time from "../format/time";
 import RestaurantItem from "../restaurant";
+import Swipeable from "../swipeable";
 
 interface BookingItemProps {
   booking: Booking
 }
 
 const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
-  const total = useMemo(() => {
-    const serviceFee = 25000;
-    if (!booking.cart) return serviceFee;
-    return booking.cart.items.reduce((total, item) => total + item.food.price * item.quantity, serviceFee);
-  }, [booking])
+  const [total] = useBookingTotal(booking);
   const [selectingState, setSelectingState] = useState(false);
   const unbook = (bookingId: string) => {
     store.dispatch('unbook', bookingId);
   }
 
   return <Box flex alignItems="center">
-    <div
+    <Swipeable
       onClick={() => setSelectingState(s => !s)}
-      className="bg-white rounded-xl pb-8 pt-6 px-4 relative duration-200 w-full"
+      onSwipeLeft={() => setSelectingState(true)}
+      onSwipeRight={() => setSelectingState(false)}
+      className="bg-white rounded-xl pb-8 pt-6 px-4 relative duration-200 w-full z-10"
       style={{
         left: selectingState ? -64 : 0
       }}
@@ -42,12 +42,22 @@ const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
             {' - '}
             {booking.bookingInfo.date.toLocaleDateString()}
           </Text> : <Text size="small" className="text-gray-500">Chỉ đặt thức ăn</Text>}
-          onClick={() => { }}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setSelectingState(false);
+            zmp.views.main.router.navigate({
+              path: '/booking-detail/',
+              query: {
+                id: booking.id
+              }
+            })
+          }}
         />
       </div>
-    </div>
-    {selectingState && <Button onClick={() => unbook(booking.id)} typeName="secondary" className="absolute right-4">Huỷ</Button>}
-  </Box>;
+    </Swipeable>
+    <Button onClick={() => unbook(booking.id)} typeName="secondary" className={`absolute right-4 ${selectingState ? 'opacity-100' : 'opacity-0'}`}>Huỷ</Button>
+  </Box >;
 }
 
 export default BookingItem;

@@ -7,15 +7,26 @@
   --zmp-button-border-radius: 100px;
   --zmp-button-padding-vertical: 8px;
   --zmp-button-bg-color-tertiary: white;
+  --zmp-appbar-app-offset: 108px;
 }
 body {
   background-color: var(--zmp-page-bg-color);
+}
+.view-main.hidden-nav {
+  height: 100%;
+}
+.header {
+  position: relative;
+  z-index: 6000;
 }
 .inquiry {
   background-color: transparent;
   input[type="search"] {
     border: none;
     min-height: unset;
+  }
+  &.searchbar .input-clear-button:after {
+    line-height: 32px;
   }
   .input-clear-button:before {
     height: 28px;
@@ -41,12 +52,6 @@ body {
     margin-right: 2px;
   }
 }
-.page-current .page-content {
-  padding-bottom: 108px;
-}
-.page[data-name="home"] .page-content {
-  padding-bottom: 200px;
-}
 .button.w-10,
 .button.w-8 {
   .zmp-icons {
@@ -57,5 +62,11 @@ body {
   .swiper-slide-active > .bg-white {
     background-color: #ff8a00;
     color: white;
+  }
+}
+.checkbox {
+  margin: 16px 0;
+  .icon-checkbox {
+    margin-right: 8px;
   }
 }

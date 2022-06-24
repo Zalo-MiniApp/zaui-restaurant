@@ -9,7 +9,7 @@ interface RestaurantProps {
   restaurant: Restaurant;
   before?: React.ReactNode;
   after?: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant, before, after, onClick }) => {

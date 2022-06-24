@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { useStore, zmp } from "zmp-framework/react"
 import { Router } from "zmp-core/types";
-import { Restaurant } from "./models"
+import { Booking, Restaurant } from "./models"
 
 export const useRestaurant = (id: number) => {
   const restaurants = useStore('restaurants') as Restaurant[]
@@ -25,4 +25,13 @@ export const useCurrentRoute = () => {
     }
   }, [])
   return [currentRoute];
+}
+
+export const useBookingTotal = (booking?: Booking) => {
+  const total = useMemo(() => {
+    const serviceFee = 25000;
+    if (!booking || !booking.cart) return serviceFee;
+    return booking.cart.items.reduce((total, item) => total + item.food.price * item.quantity, serviceFee);
+  }, [booking])
+  return [total];
 }

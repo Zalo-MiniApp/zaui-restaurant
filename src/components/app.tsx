@@ -6,6 +6,7 @@ import NavigationBar from './navigation-bar';
 import store from '../store';
 import FoodPicker from '../pages/food-picker';
 import Cart from './cart';
+import BookingDetail from '../pages/booking-detail';
 
 const MyApp = () => {
   const zmpparams = {
@@ -28,28 +29,26 @@ const MyApp = () => {
 
   return (
     <App {...zmpparams}>
-      <TabView className="safe-areas">
-        <Header />
-
-        <View
-          id="view-home"
-          main
-          tab
-          tabActive
-          url="/"
-          routesAdd={[
-            {
-              path: '/food-picker/',
-              popup: {
-                component: FoodPicker,
-              },
-            }]}
-        />
-        <View id="view-calendar" name="calendar" tab url="/calendar/" />
-
-        <NavigationBar />
-        <Cart />
-      </TabView>
+      <Header />
+      <View
+        main
+        url="/"
+        routesAdd={[
+          {
+            path: '/food-picker/',
+            sheet: {
+              component: FoodPicker,
+            }
+          }, {
+            path: '/booking-detail/',
+            sheet: {
+              component: BookingDetail,
+            }
+          }
+        ]}
+      />
+      <NavigationBar />
+      <Cart />
     </App>
   );
 }

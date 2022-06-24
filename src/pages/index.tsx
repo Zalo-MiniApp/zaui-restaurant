@@ -11,13 +11,16 @@ function Popular() {
     <Box mx="4" mt="6">
       <Title>Địa điểm phổ biến</Title>
     </Box>
-    <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
-      <Box m="0" pr="4" flex className='w-max'>
-        {populars.map(restaurant => <Box key={restaurant.id} ml="4" mr="0" className='snap-start' style={{ width: 'calc(100vw - 120px)' }}>
-          <RestaurantItem layout="cover" restaurant={restaurant} />
-        </Box>)}
-      </Box>
-    </div>
+    {populars.length ?
+      <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
+        <Box m="0" pr="4" flex className='w-max'>
+          {populars.map(restaurant => <Box key={restaurant.id} ml="4" mr="0" className='snap-start' style={{ width: 'calc(100vw - 120px)' }}>
+            <RestaurantItem layout="cover" restaurant={restaurant} />
+          </Box>)}
+        </Box>
+      </div> :
+      <Box mx="4">Không có địa điểm nào ở khu vực này</Box>
+    }
   </>;
 }
 
@@ -38,11 +41,9 @@ const HomePage = () => {
 
   return (
     <Page name="home" >
-      <Box mt="5">
+      <Box mx="4" mb="4" mt="5">
         <Avatar src={user.avatar} />
         <Text>Chào, {user.name}!</Text>
-      </Box>
-      <Box mx="4" mb="4" mt="0">
         <Title size='xlarge' bold>Hôm nay bạn muốn ăn ở đâu?</Title>
         <Inquiry />
         <Title className='mt-6 mb-4'>Phân loại nhanh</Title>

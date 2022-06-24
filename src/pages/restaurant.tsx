@@ -26,6 +26,7 @@ function Booking() {
   const { restaurant } = useContext(RestaurantContext);
   const [hour, setHour] = useState(restaurant.hours.opening);
   const [date, setDate] = useState(new Date());
+  const [table, setTable] = useState('05');
 
   const book = async () => {
     await pay(25000);
@@ -35,17 +36,19 @@ function Booking() {
       bookingInfo: {
         seats,
         hour,
-        date
+        date,
+        table
       }
     } as BookingModel)
     message('Đặt bàn thành công');
+    zmp.views.main.router.navigate('/calendar/');
   }
 
   return <>
     <Box mx="4" my="6">
       <DateBooker onChange={setDate} />
       <Box flex justifyContent="space-between" my="6">
-        <TableBooker />
+        <TableBooker value={table} onChange={setTable} />
         <SeatsPicker value={seats} onChange={setSeats} />
       </Box>
       <TimeBooker hours={restaurant.hours} value={hour} onChange={setHour} />
@@ -142,6 +145,7 @@ function RestaurantPage({ zmproute }) {
       <Title>Trang này không khả dụng!</Title>
       <Link back>Quay về</Link>
     </Box>}
+    <Box height={200}></Box>
   </Page>;
 }
 

@@ -11,6 +11,7 @@ import food4 from './static/images/food/4.png';
 
 interface StoreState {
   user: userInfo,
+  keyword: string
   position: Location
   restaurantTab: TabType
   restaurants: Restaurant[]
@@ -29,6 +30,7 @@ const store = createStore<StoreState>({
       avatar: '',
       name: ''
     },
+    keyword: '',
     position: {
       lat: 0,
       long: 0
@@ -105,6 +107,19 @@ const store = createStore<StoreState>({
       image: food1,
       categories: ['Pizza', 'Pasta', 'Salad', 'Sandwich', 'Drink'],
       description: `Pizza Hải Sản Xốt Pesto Với Hải Sản (Tôm, Mực) Nhân Đôi Cùng Với Nấm Trên Nền Xốt Pesto Đặc Trưng, Phủ Phô Mai Mozzarella Từ New Zealand Và Quế Tây.`,
+      options: [{
+        key: 'cheese',
+        label: 'Thêm phô mai',
+        selected: true
+      }, {
+        key: 'no-onion',
+        label: 'Không hành',
+        selected: false
+      }, {
+        key: 'seafood',
+        label: 'Thêm hải sản',
+        selected: false
+      }],
       extras: [{
         key: 'size',
         label: 'Size (Khẩu phần)',
@@ -127,6 +142,19 @@ const store = createStore<StoreState>({
       image: food2,
       categories: ['Pizza'],
       description: `Pizza Hải Sản Xốt Pesto Với Hải Sản (Tôm, Mực) Nhân Đôi Cùng Với Nấm Trên Nền Xốt Pesto Đặc Trưng, Phủ Phô Mai Mozzarella Từ New Zealand Và Quế Tây.`,
+      options: [{
+        key: 'cheese',
+        label: 'Thêm phô mai',
+        selected: true
+      }, {
+        key: 'no-onion',
+        label: 'Không hành',
+        selected: false
+      }, {
+        key: 'seafood',
+        label: 'Thêm hải sản',
+        selected: false
+      }],
       extras: [{
         key: 'size',
         label: 'Size (Khẩu phần)',
@@ -149,6 +177,19 @@ const store = createStore<StoreState>({
       image: food3,
       categories: ['Pizza', 'Drink'],
       description: `Pizza Hải Sản Xốt Pesto Với Hải Sản (Tôm, Mực) Nhân Đôi Cùng Với Nấm Trên Nền Xốt Pesto Đặc Trưng, Phủ Phô Mai Mozzarella Từ New Zealand Và Quế Tây.`,
+      options: [{
+        key: 'cheese',
+        label: 'Thêm phô mai',
+        selected: true
+      }, {
+        key: 'no-onion',
+        label: 'Không hành',
+        selected: false
+      }, {
+        key: 'seafood',
+        label: 'Thêm hải sản',
+        selected: false
+      }],
       extras: [{
         key: 'size',
         label: 'Size (Khẩu phần)',
@@ -171,6 +212,19 @@ const store = createStore<StoreState>({
       image: food4,
       categories: ['Pizza', 'Drink'],
       description: `Pizza Hải Sản Xốt Pesto Với Hải Sản (Tôm, Mực) Nhân Đôi Cùng Với Nấm Trên Nền Xốt Pesto Đặc Trưng, Phủ Phô Mai Mozzarella Từ New Zealand Và Quế Tây.`,
+      options: [{
+        key: 'cheese',
+        label: 'Thêm phô mai',
+        selected: true
+      }, {
+        key: 'no-onion',
+        label: 'Không hành',
+        selected: false
+      }, {
+        key: 'seafood',
+        label: 'Thêm hải sản',
+        selected: false
+      }],
       extras: [{
         key: 'size',
         label: 'Size (Khẩu phần)',
@@ -195,11 +249,17 @@ const store = createStore<StoreState>({
     user({ state }) {
       return state.user
     },
+    keyword({ state }) {
+      return state.keyword
+    },
     restaurants({ state }) {
       return state.restaurants;
     },
     populars({ state }) {
-      return state.restaurants.filter(restaurant => restaurant.views >= 50);
+      return state.restaurants
+        .filter(restaurant => restaurant.name.toLowerCase().includes(state.keyword.toLowerCase()))
+        .filter(restaurant => state.selectedDistrict === 0 || restaurant.districtId === state.selectedDistrict)
+        .filter(restaurant => restaurant.views >= 50);
     },
     nearests({ state }) {
       const res = [...state.restaurants];
@@ -254,20 +314,29 @@ const store = createStore<StoreState>({
         cart: {
           items: [{
             quantity: 1,
-            food: state.foods[0]
+            food: state.foods[0],
+            note: ''
           }, {
             quantity: 2,
-            food: state.foods[1]
+            food: state.foods[1],
+            note: 'Kèm ớt trái'
           }]
         },
         bookingInfo: {
           date: new Date(),
           hour: [20, 0, 'PM'],
+          table: '05',
           seats: 4,
         }
       })
     },
-    addToCart({ state }, { cartItemIndex, ...item }: { food: Food, quantity: number, cartItemIndex?: number }) {
+    setKeyword({ state }, keyword: string) {
+      state.keyword = keyword;
+    },
+    changeDistrict({ state }, districtId: number) {
+      state.selectedDistrict = districtId;
+    },
+    addToCart({ state }, { cartItemIndex, ...item }: { food: Food, quantity: number, note: string, cartItemIndex?: number }) {
       if (cartItemIndex) {
         state.cart.items[cartItemIndex] = item;
       } else {
