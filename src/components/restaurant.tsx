@@ -7,9 +7,12 @@ import DistrictName from "./district-name";
 interface RestaurantProps {
   layout: 'cover' | 'list-item';
   restaurant: Restaurant;
+  before?: React.ReactNode;
+  after?: React.ReactNode;
+  onClick?: () => void;
 }
 
-const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant }) => {
+const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant, before, after, onClick }) => {
   const viewDetail = () => {
     zmp.views.main.router.navigate({
       path: '/restaurant',
@@ -20,7 +23,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant
   }
 
   if (layout === 'cover') {
-    return <div onClick={viewDetail} className="bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
+    return <div onClick={onClick ?? viewDetail} className="bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
       <img src={restaurant.image} className="w-full object-cover aspect-cinema" />
       <Title size="small" className="mt-2 mb-0 mx-4">{restaurant.name}</Title>
       <Box flex mt="0">
@@ -35,12 +38,25 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant
       </Box>
     </div>
   }
-  return <div onClick={viewDetail} className="bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
+  return <div onClick={onClick ?? viewDetail} className="bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
     <Box m="0" flex>
       <img src={restaurant.image} className="w-32 aspect-card object-cover rounded-xl" />
       <Box my="4" mx="5">
+        {before}
         <Title size="small">{restaurant.name}</Title>
-        <Text size="small" className="text-gray-500">{restaurant.address}</Text>
+        {after}
+        <Box flex>
+          <Button iconZMP="zi-star-solid" small className="text-yellow-400 pl-0">
+            <span className="text-gray-500">
+              {restaurant.rating}
+            </span>
+          </Button>
+          <Button iconZMP="zi-send-solid" small>
+            <span className="text-gray-500">
+              <Distance location={restaurant.location} />
+            </span>
+          </Button>
+        </Box>
       </Box>
     </Box>
   </div>

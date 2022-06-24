@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/react";
-import { Cart } from "../../models";
+import { Cart, TabType, Booking } from "../../models";
 import Notch from "../menu/notch";
 import Price from "../format/price";
+import { useCurrentRoute, useRestaurant } from "../../hooks";
+import store from "../../store";
+import { pay } from "../../services/zalo";
+import { message } from "../../utils/notificaiton";
 
 function CartDetail() {
   const cart = useStore('cart') as Cart;
@@ -36,6 +40,8 @@ function CartPreview() {
   const cart = useStore('cart') as Cart;
   const total = useStore('total') as number;
   const [expaned, setExpanded] = useState(false);
+  const [currentRoute] = useCurrentRoute();
+  const restaurant = useRestaurant(Number(currentRoute.query?.id));
 
   const sheetRef = useRef<any>();
 
@@ -48,9 +54,25 @@ function CartPreview() {
     document.querySelector('.sheet-backdrop')?.classList[expaned ? 'add' : 'remove']('backdrop-in');
   }, [expaned])
 
+  const currentTab = useStore('restaurantTab') as TabType;
+
+  const book = () => {
+    store.dispatch('changeRestaurantTab', 'book' as TabType)
+  }
+
+  const payFoods = async () => {
+    await pay(total);
+    await store.dispatch('book', {
+      id: + new Date() + '',
+      restaurant: restaurant,
+    } as Booking)
+    message('Đặt thức ăn thành công');
+  }
+
   return <Sheet
     ref={sheetRef}
-    opened={cart.items.length > 0}
+    backdrop={false}
+    opened={cart.items.length > 0 && currentRoute.path === '/restaurant/' && currentTab !== 'book'}
     closeByBackdropClick={false}
     className="h-min border-t"
     swipeToStep
@@ -73,13 +95,13 @@ function CartPreview() {
         <Text className="ml-6 text-orange-500 mb-0" size="xlarge" bold><Price amount={total} /></Text>
       </Box>
       <Box m="0" px="6" pt="6">
-        <Button large fill responsive className="rounded-xl" onClick={expaned ? () => { } : nextStep}>
+        <Button large fill responsive className="rounded-xl" onClick={expaned ? book : nextStep}>
           {expaned ? <span>Đặt bàn với thực đơn</span> : <span>Tiếp theo</span>}
         </Button>
       </Box>
     </div>
     <Box m="0" px="6" pb="6">
-      <Button large fill responsive className="rounded-xl" typeName="secondary">Chỉ đặt món ăn</Button>
+      <Button onClick={payFoods} large fill responsive className="rounded-xl" typeName="secondary">Chỉ đặt món ăn</Button>
     </Box>
   </Sheet>;
 }

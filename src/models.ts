@@ -14,8 +14,9 @@ export interface Restaurant {
     opening: number
     closing: number
   },
-  hotline: string,
+  hotline: string
   map: string
+  rating: number
 }
 
 export interface District {
@@ -66,3 +67,16 @@ export interface Cart {
 }
 
 export type Hours = [number, number, 'AM' | 'PM'];
+
+export interface Booking {
+  id: string
+  restaurant: Restaurant
+  cart?: Cart
+  bookingInfo?: {
+    date: Date
+    hour: Hours
+    seats: number
+  }
+}
+
+export type TabType = 'info' | 'menu' | 'book';

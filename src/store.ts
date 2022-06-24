@@ -1,7 +1,7 @@
 
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
-import { District, Restaurant, Location, Menu, Food, Cart } from './models';
+import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType } from './models';
 import restaurant1 from './static/images/restaurant/1.png';
 import restaurant2 from './static/images/restaurant/2.png';
 import food1 from './static/images/food/1.png';
@@ -12,12 +12,14 @@ import food4 from './static/images/food/4.png';
 interface StoreState {
   user: userInfo,
   position: Location
+  restaurantTab: TabType
   restaurants: Restaurant[]
   districts: District[]
   selectedDistrict: number
   categories: string[]
   foods: Food[]
   cart: Cart
+  bookings: Booking[]
 }
 
 const store = createStore<StoreState>({
@@ -46,11 +48,13 @@ const store = createStore<StoreState>({
       name: 'Thủ Đức'
     }],
     selectedDistrict: 1,
+    restaurantTab: 'info',
     restaurants: [
       {
         id: 1,
         name: 'Jolliboo - Lê Thánh Tôn',
         districtId: 1,
+        rating: 4.5,
         location: {
           lat: 10.776463610730223,
           long: 106.70098038648123
@@ -74,6 +78,7 @@ const store = createStore<StoreState>({
         name: 'Jolliboo - Trần Hưng Đạo',
         address: '15A Trần Hưng Đạo, Đa Kao, Quận 1, Hồ Chí Minh',
         districtId: 1,
+        rating: 4.5,
         location: {
           lat: 10.755009040272618,
           long: 106.67897941334107
@@ -183,7 +188,8 @@ const store = createStore<StoreState>({
     }],
     cart: {
       items: []
-    }
+    },
+    bookings: []
   },
   getters: {
     user({ state }) {
@@ -230,11 +236,36 @@ const store = createStore<StoreState>({
     },
     total({ state }) {
       return state.cart.items.reduce((total, item) => total + item.quantity * item.food.price, 0);
+    },
+    bookings({ state }) {
+      return state.bookings;
+    },
+    restaurantTab({ state }) {
+      return state.restaurantTab;
     }
   },
   actions: {
     setUser({ state }, data: userInfo) {
       state.user = { ...state.user, ...data }
+      // mock booking
+      state.bookings.push({
+        id: '1234567890',
+        restaurant: state.restaurants[0],
+        cart: {
+          items: [{
+            quantity: 1,
+            food: state.foods[0]
+          }, {
+            quantity: 2,
+            food: state.foods[1]
+          }]
+        },
+        bookingInfo: {
+          date: new Date(),
+          hour: [20, 0, 'PM'],
+          seats: 4,
+        }
+      })
     },
     addToCart({ state }, { cartItemIndex, ...item }: { food: Food, quantity: number, cartItemIndex?: number }) {
       if (cartItemIndex) {
@@ -243,6 +274,18 @@ const store = createStore<StoreState>({
         state.cart.items.push(item);
       }
       state.cart = { ...state.cart };
+    },
+    book({ state }, booking: Booking) {
+      if (!booking.cart) {
+        booking.cart = state.cart;
+      }
+      state.bookings = [...state.bookings, booking];
+    },
+    unbook({ state }, bookingId: string) {
+      state.bookings = state.bookings.filter(b => b.id !== bookingId);
+    },
+    changeRestaurantTab({ state }, tab: TabType) {
+      state.restaurantTab = tab;
     }
   },
 })

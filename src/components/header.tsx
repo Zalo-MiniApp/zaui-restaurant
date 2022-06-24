@@ -1,24 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
-import { Router } from "zmp-core/types";
-import { Avatar, Box, Text, Title, useStore, zmp } from "zmp-framework/react";
-import { userInfo } from "zmp-sdk";
-import { useRestaurant } from "../hooks";
-import { Restaurant } from "../models";
+import { useMemo } from "react";
+import { Box, Link, Title } from "zmp-framework/react";
+import { useCurrentRoute, useRestaurant } from "../hooks";
 
 function Header() {
-  const user: userInfo = useStore('user')
-  const [currentRoute, setCurrentRoute] = useState({
-    path: '/',
-  } as Router.Route)
-  useEffect(() => {
-    const handleRouteChange = (route) => {
-      setCurrentRoute(route)
-    }
-    zmp.on('routeChange', handleRouteChange);
-    return () => {
-      zmp.off('routeChange', handleRouteChange)
-    }
-  }, [])
+  const [currentRoute] = useCurrentRoute();
 
   const restaurant = useRestaurant(Number(currentRoute.query?.id));
 
@@ -31,12 +16,11 @@ function Header() {
     return 'Nhà hàng Jolliboo'
   }, [currentRoute])
 
-  return <Box>
-    <Title>{title}</Title>
-    {currentRoute?.path === '/' && <Box mt="5">
-      <Avatar src={user.avatar} />
-      <Text>Chào, {user.name}!</Text>
-    </Box>}
+  return <Box className="header">
+    <Title className="flex items-center">
+      {currentRoute.path !== '/' && <Link iconZMP="zi-arrow-left" className="pl-2 pr-4" back />}
+      {title}
+    </Title>
   </Box>;
 }
 

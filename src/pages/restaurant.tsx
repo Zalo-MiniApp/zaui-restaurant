@@ -1,8 +1,8 @@
-import { Box, Button, Icon, Link, Page, Text, Title } from "zmp-framework/react";
+import { Box, Button, Icon, Link, Page, Text, Title, useStore, zmp } from "zmp-framework/react";
 import Distance from "../components/distance";
 import DistrictName from "../components/district-name";
 import { useRestaurant } from "../hooks";
-import { Restaurant } from "../models";
+import { Booking as BookingModel, Restaurant, TabType } from "../models";
 import api from 'zmp-sdk';
 import { createContext, ReactNode, useContext, useState } from "react";
 import Menu from "../components/menu";
@@ -14,6 +14,8 @@ import TimeBooker from "../components/book/time-booker";
 import { hideNavigationBar, showNavigationBar } from "../components/navigation-bar";
 import Price from "../components/format/price";
 import { pay } from "../services/zalo";
+import store from "../store";
+import { message } from "../utils/notificaiton";
 
 function Day({ day }: { day: number }) {
   return <>{['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'][day - 1]}</>;
@@ -22,14 +24,31 @@ function Day({ day }: { day: number }) {
 function Booking() {
   const [seats, setSeats] = useState(4);
   const { restaurant } = useContext(RestaurantContext);
+  const [hour, setHour] = useState(restaurant.hours.opening);
+  const [date, setDate] = useState(new Date());
+
+  const book = async () => {
+    await pay(25000);
+    await store.dispatch('book', {
+      restaurant: restaurant,
+      id: + new Date() + '',
+      bookingInfo: {
+        seats,
+        hour,
+        date
+      }
+    } as BookingModel)
+    message('Đặt bàn thành công');
+  }
+
   return <>
     <Box mx="4" my="6">
-      <DateBooker onChange={alert} />
+      <DateBooker onChange={setDate} />
       <Box flex justifyContent="space-between" my="6">
         <TableBooker />
         <SeatsPicker value={seats} onChange={setSeats} />
       </Box>
-      <TimeBooker hours={restaurant.hours} />
+      <TimeBooker hours={restaurant.hours} value={hour} onChange={setHour} />
       <Box height={80}></Box>
     </Box>
     <Box m="0" p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10">
@@ -37,7 +56,7 @@ function Booking() {
         <Title>Phí dịch vụ</Title>
         <Text className="ml-6 text-orange-500 mb-0" bold><Price amount={25000} /></Text>
       </Box>
-      <Button onClick={() => pay(25000)} fill responsive large className="rounded-xl">Đặt bàn</Button>
+      <Button fill responsive large className="rounded-xl" onClick={book}>Đặt bàn</Button>
     </Box>
   </>;
 }
@@ -75,8 +94,10 @@ function Information() {
 
 function RestaurantDetail() {
   const { restaurant } = useContext(RestaurantContext);
-  type TabType = 'info' | 'menu' | 'book';
-  const [currentTab, setCurrentTab] = useState<TabType>('info');
+  const currentTab = useStore('restaurantTab') as TabType;
+  const setCurrentTab = (tab) => {
+    store.dispatch('changeRestaurantTab', tab)
+  }
 
   const TabItem = ({ tab, children }: { tab: TabType, children: ReactNode }) => <Button fill typeName={currentTab === tab ? 'primary' : 'tertiary'} onClick={() => setCurrentTab(tab)}>{children}</Button>;
 

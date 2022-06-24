@@ -1,4 +1,5 @@
-import { Page, useStore, Title, Box } from 'zmp-framework/react';
+import { Page, useStore, Title, Box, Avatar, Text } from 'zmp-framework/react';
+import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
 import RestaurantItem from '../components/restaurant';
 import { Restaurant } from '../models';
@@ -26,15 +27,21 @@ function Nearest() {
     <Box mx="4" mt="5">
       <Title>Gần bạn nhất</Title>
       {nearests.map(restaurant => <Box key={restaurant.id} mx="0" my="3">
-        <RestaurantItem layout="list-item" restaurant={restaurant} />
+        <RestaurantItem layout="list-item" restaurant={restaurant} after={<Text size="small" className="text-gray-500">{restaurant.address}</Text>} />
       </Box>)}
     </Box>
   </>;
 }
 
 const HomePage = () => {
+  const user: userInfo = useStore('user')
+
   return (
     <Page name="home" >
+      <Box mt="5">
+        <Avatar src={user.avatar} />
+        <Text>Chào, {user.name}!</Text>
+      </Box>
       <Box mx="4" mb="4" mt="0">
         <Title size='xlarge' bold>Hôm nay bạn muốn ăn ở đâu?</Title>
         <Inquiry />
