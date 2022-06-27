@@ -42,8 +42,8 @@ const HomePage = () => {
   return (
     <Page name="home" >
       <Box mx="4" mb="4" mt="5">
-        <Avatar src={user.avatar} />
-        <Text>Chào, {user.name}!</Text>
+        <Avatar className='border' src={user.avatar}></Avatar>
+        <Text>{user.name ? <>Chào, {user.name}!</> : '...'}</Text>
         <Title size='xlarge' bold>Hôm nay bạn muốn ăn ở đâu?</Title>
         <Inquiry />
         <Title size='small' className='mt-6 mb-4'>Phân loại nhanh</Title>
