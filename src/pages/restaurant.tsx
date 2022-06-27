@@ -29,11 +29,8 @@ function Booking() {
   const [table, setTable] = useState('05');
   const total = useStore('total') as number;
 
-  console.log(date);
-
   const book = async () => {
     await pay(25000 + total);
-    console.log(date);
     await store.dispatch('book', {
       restaurant: restaurant,
       id: + new Date() + '',
@@ -58,9 +55,9 @@ function Booking() {
       <TimeBooker hours={restaurant.hours} onChange={setHour} />
       <Box height={80}></Box>
     </Box>
-    <Box m="0" p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10">
+    <Box m="0" p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10 border">
       <Box mb="4" flex justifyContent="space-between">
-        <Title>Phí dịch vụ</Title>
+        <Title size="small">Phí dịch vụ</Title>
         <Text className="ml-6 text-orange-500 mb-0" bold><Price amount={25000} /></Text>
       </Box>
       <Button fill responsive large className="rounded-xl" onClick={book}>Đặt bàn</Button>
@@ -73,25 +70,25 @@ function Information() {
 
   return <Box mx="2">
     <Box mx="2" mt="5">
-      <Title>Thông tin</Title>
+      <Title size="small">Thông tin</Title>
       <Text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptas, corporis, doloremque nisi recusandae consequatur, magni ipsum deleniti sequi illo porro maxime voluptatibus vero animi excepturi repellat. Deleniti, corporis excepturi.</Text>
     </Box>
     <Box mx="2" mt="6">
-      <Title>Giờ mở cửa</Title>
-      <Box flex alignItems="center" justifyContent="space-between">
+      <Title size="small">Giờ mở cửa</Title>
+      <Box flex mx="0" alignItems="center" justifyContent="space-between">
         <span><Icon zmp="zi-clock-1" className="text-green-500 mr-1" /><Time time={restaurant.hours.opening} /> - <Time time={restaurant.hours.closing} /></span>
         <span><Icon zmp="zi-calendar" className="text-orange-500 mr-1" /><Day day={restaurant.days.opening} /> - <Day day={restaurant.days.closing} /></span>
       </Box>
     </Box>
     <Box mx="2" mt="6">
-      <Title>Hotline liên hệ</Title>
-      <Box flex alignItems="center" justifyContent="space-between">
+      <Title size="small">Hotline liên hệ</Title>
+      <Box flex mx="0" alignItems="center" justifyContent="space-between">
         <Button style={{ padding: 0 }} onClick={() => api.openPhone({ phoneNumber: restaurant.hotline })}><Icon zmp="zi-call" className="text-green-500 mr-1" />{restaurant.hotline}</Button>
       </Box>
     </Box>
     <Box mx="2" mt="6">
-      <Title>Địa chỉ</Title>
-      <Box flex alignItems="center" justifyContent="space-between" mb="5">
+      <Title size="small">Địa chỉ</Title>
+      <Box flex mx="0" alignItems="center" justifyContent="space-between" mb="5">
         <span><Icon zmp="zi-location-solid" className="text-red-500 mr-1" />{restaurant.address}</span>
       </Box>
       <iframe className="w-full aspect-cinema rounded-xl" src={restaurant.map} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
@@ -106,11 +103,13 @@ function RestaurantDetail() {
     store.dispatch('changeRestaurantTab', tab)
   }
 
-  const TabItem = ({ tab, children }: { tab: TabType, children: ReactNode }) => <Button fill typeName={currentTab === tab ? 'primary' : 'tertiary'} onClick={() => setCurrentTab(tab)} className="mx-2">{children}</Button>;
+  const TabItem = ({ tab, children }: { tab: TabType, children: ReactNode }) => <Button fill typeName={currentTab === tab ? 'primary' : 'tertiary'} onClick={() => setCurrentTab(tab)} className="mx-2 px-4">{children}</Button>;
 
   return <>
     <Box mt="5">
-      <img src={restaurant.image} className="w-full object-cover aspect-video rounded-xl" />
+      <div className="relative aspect-video w-full">
+        <img src={restaurant.image} className="absolute w-full h-full object-cover rounded-xl" />
+      </div>
       <Box mx="4" className="bg-white rounded-2xl text-center relative restaurant-detail-box" p="4" style={{ marginTop: -60 }}>
         <Title bold>{restaurant.name}</Title>
         <Text className="text-gray-500">{restaurant.address}</Text>

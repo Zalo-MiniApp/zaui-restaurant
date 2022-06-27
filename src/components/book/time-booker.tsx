@@ -1,4 +1,4 @@
-import { FunctionComponent, useMemo, useRef } from "react";
+import { FunctionComponent, useEffect, useMemo, useRef } from "react";
 import { Box, Button, Swiper, SwiperSlide, Title } from "zmp-framework/react";
 import { Hours } from "../../models";
 import Time from "../format/time";
@@ -15,7 +15,8 @@ const TimeBooker: FunctionComponent<TimeBookerProps> = ({ onChange, hours }) => 
   const swiperRef = useRef<any>()
   const availableHours = useMemo(() => {
     const res: Hours[] = [];
-    let hour = hours.opening[0];
+    const currentHour = new Date().getHours();
+    let hour = Math.max(hours.opening[0], currentHour + 1);
     let minute = hours.opening[1];
     while (hour < hours.closing[0] || (hour === hours.closing[0] && minute < hours.closing[1])) {
       res.push([hour < 13 ? hour : hour - 12, minute, hour < 13 ? 'AM' : 'PM']);
@@ -35,10 +36,14 @@ const TimeBooker: FunctionComponent<TimeBookerProps> = ({ onChange, hours }) => 
     swiperRef.current.el.swiper.slideTo(index);
   }
 
+  useEffect(() => {
+    onChange(availableHours[0]);
+  }, [])
+
   return <Box m="0">
     <Title size="small" className="mx-2">Thời gian khả dụng</Title>
     <Swiper ref={swiperRef} className="date-booker" slidesPerView={3} centeredSlides onSlideChange={swiper => onChange(availableHours[swiper.activeIndex])}>
-      {availableHours.map((hour, i) => <SwiperSlide>
+      {availableHours.map((hour, i) => <SwiperSlide key={i}>
         <div onClick={() => slideTo(i)} className="flex rounded-full bg-white h-12 items-center justify-center py-3 mx-2 whitespace-nowrap"><Time time={hour} /></div>
       </SwiperSlide>)}
     </Swiper>

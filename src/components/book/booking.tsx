@@ -24,14 +24,14 @@ const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
       onClick={() => setSelectingState(s => !s)}
       onSwipeLeft={() => setSelectingState(true)}
       onSwipeRight={() => setSelectingState(false)}
-      className="bg-white rounded-xl pb-8 pt-6 px-4 relative duration-200 w-full z-10"
+      className="bg-white rounded-xl pb-8 pt-4 px-4 relative duration-200 w-full z-10"
       style={{
         left: selectingState ? -64 : 0
       }}
     >
-      <Box mx="0" flex justifyContent="space-between" alignItems="center">
-        <Title size="small" className="whitespace-nowrap">Booking ID: {booking.id}</Title>
-        <Text className="ml-6 text-orange-500 mb-0 whitespace-nowrap" size="xlarge" bold><Price amount={total} /></Text>
+      <Box mx="0" my="4" flex justifyContent="space-between" alignItems="center">
+        <Title size="small" className="whitespace-nowrap mb-0">Booking ID: {booking.id}</Title>
+        <Text className="ml-6 text-orange-500 mb-0 whitespace-nowrap" size="large" bold><Price amount={total} /></Text>
       </Box>
       <div className="border rounded-xl">
         <RestaurantItem

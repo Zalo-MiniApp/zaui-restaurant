@@ -24,7 +24,9 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant
 
   if (layout === 'cover') {
     return <div onClick={onClick ?? viewDetail} className="bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
-      <img src={restaurant.image} className="w-full object-cover aspect-cinema" />
+      <div className="aspect-cinema relative">
+        <img src={restaurant.image} className="absolute w-full h-full object-cover" />
+      </div>
       <Title size="small" className="mt-2 mb-0 mx-4">{restaurant.name}</Title>
       <Box flex mt="0">
         <Button className="text-red-500" iconZMP="zi-location-solid" small>
@@ -40,12 +42,14 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant
   }
   return <div onClick={onClick ?? viewDetail} className="bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
     <Box m="0" flex>
-      <img src={restaurant.image} className="w-32 aspect-card object-cover rounded-xl" />
+      <div className="flex-none aspect-card relative w-32">
+        <img src={restaurant.image} className="absolute w-full h-full object-cover rounded-xl" />
+      </div>
       <Box my="4" mx="5">
         {before}
         <Title size="small">{restaurant.name}</Title>
         {after}
-        <Box flex>
+        <Box mx="0" mb="0" flex>
           <Button iconZMP="zi-star-solid" small className="text-yellow-400 pl-0">
             <span className="text-gray-500">
               {restaurant.rating}

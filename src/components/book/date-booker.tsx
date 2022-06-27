@@ -57,8 +57,8 @@ const DateBooker: FunctionComponent<DateBookerProps> = ({ onChange }) => {
       <Button onClick={next} className="w-8 ml-4" typeName="secondary" iconZMP="zi-chevron-right" small></Button>
     </Box>
     <Swiper key={`${month}/${year}`} ref={swiperRef} className="date-booker fade-corner" slidesPerView={5} centeredSlides onSlideChange={handleSlideChange}>
-      {datesOfMonth.map((date) => <SwiperSlide>
-        <div onClick={() => slideToDay(date.getDate())} className="bg-white rounded-full h-20 flex flex-col items-center justify-center w-12 m-auto">
+      {datesOfMonth.map((date, i) => <SwiperSlide key={i}>
+        <div onClick={() => slideToDay(date.getDate())} className="bg-white rounded-full h-20 pb-2 box-content flex flex-col items-center justify-center w-12 m-auto">
           <span className="whitespace-nowrap mt-2 mb-1 text-xs">{getDayName(date)}</span>
           <Title bold>{date.getDate()}</Title>
         </div>

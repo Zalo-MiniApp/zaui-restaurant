@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Box, Button, Page, useStore } from "zmp-framework/react";
 import BookingItem from "../components/book/booking";
 import { Booking } from "../models";
@@ -27,8 +27,19 @@ function PageHeader({ status, setStatus }) {
 }
 
 function CalendarPage() {
-  const [status, setStatus] = useState('upcoming');
-  const bookings = useStore('bookings') as Booking[];
+  const [status, setStatus] = useState<'upcoming' | 'finished'>('upcoming');
+  const allBookings = useStore('bookings') as Booking[];
+  const bookings = useMemo(() => {
+    return allBookings.filter(b => {
+      const startOfToday = new Date();
+      startOfToday.setHours(0, 0, 0, 0);
+      if (status == "finished") {
+        return b.bookingInfo && b.bookingInfo.date < startOfToday;
+      } else {
+        return !b.bookingInfo || b.bookingInfo.date >= startOfToday;
+      }
+    });
+  }, [status, allBookings])
 
   return <Page>
     <PageHeader status={status} setStatus={setStatus} />

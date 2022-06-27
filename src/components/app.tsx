@@ -7,6 +7,7 @@ import store from '../store';
 import FoodPicker from '../pages/food-picker';
 import Cart from './cart';
 import BookingDetail from '../pages/booking-detail';
+import { useSheetStatusBar } from '../hooks';
 
 const MyApp = () => {
   const zmpparams = {
@@ -26,6 +27,8 @@ const MyApp = () => {
   useEffect(() => {
     init();
   }, [])
+
+  useSheetStatusBar();
 
   return (
     <App {...zmpparams}>

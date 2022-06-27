@@ -67,7 +67,9 @@ function FoodPicker({ zmproute, zmprouter }) {
   >
     <Notch />
     <div className={`sheet-modal-swipe-step ${expanded ? '' : 'pb-1'}`}>
-      <img className="w-full aspect-video object-cover" src={food.image} />
+      <div className="w-full aspect-video relative">
+        <img className="absolute w-full h-full object-cover" src={food.image} />
+      </div>
       <Box mt="6" mb="5" flex justifyContent="center" alignItems="center">
         <Button fill className="w-10" onClick={() => setQuantity(q => q - 1)}><div className="border-t border-white w-4" /></Button>
         <Text className="mx-4">{quantity}</Text>

@@ -9,7 +9,7 @@ function Popular() {
 
   return <>
     <Box mx="4" mt="6">
-      <Title>Địa điểm phổ biến</Title>
+      <Title size='small'>Địa điểm phổ biến</Title>
     </Box>
     {populars.length ?
       <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
@@ -28,7 +28,7 @@ function Nearest() {
   const nearests = useStore('nearests') as Restaurant[];
   return <>
     <Box mx="4" mt="5">
-      <Title>Gần bạn nhất</Title>
+      <Title size='small'>Gần bạn nhất</Title>
       {nearests.map(restaurant => <Box key={restaurant.id} mx="0" my="3">
         <RestaurantItem layout="list-item" restaurant={restaurant} after={<Text size="small" className="text-gray-500">{restaurant.address}</Text>} />
       </Box>)}
@@ -46,7 +46,7 @@ const HomePage = () => {
         <Text>Chào, {user.name}!</Text>
         <Title size='xlarge' bold>Hôm nay bạn muốn ăn ở đâu?</Title>
         <Inquiry />
-        <Title className='mt-6 mb-4'>Phân loại nhanh</Title>
+        <Title size='small' className='mt-6 mb-4'>Phân loại nhanh</Title>
         <QuickFilter />
       </Box>
       <Popular />

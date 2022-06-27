@@ -16,7 +16,7 @@ const CartItem: FunctionComponent<CartItemProps> = ({ item, onEdit }) => {
         <Title size="small">{item.food.name}</Title>
         {item.food.extras.map(extra => <Text key={extra.key}>{extra.label} {extra.options.find(o => o.selected)?.label}</Text>)}
         {item.food.options.filter(o => o.selected).map(option => <Text key={option.key}>{option.label}</Text>)}
-        Ghi chú: {item.note}
+        {item.note && <>Ghi chú: {item.note}</>}
       </div>
     </Box>
     <Box flex flexDirection="column" alignItems="flex-end" justifyContent="space-between">

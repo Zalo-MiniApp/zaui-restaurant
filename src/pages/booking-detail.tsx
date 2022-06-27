@@ -22,20 +22,22 @@ function BookingDetail({ zmproute, zmprouter }) {
   const booking = useMemo(() => bookings.find(b => b.id === zmproute.query.id), [zmproute])
   const [total] = useBookingTotal(booking);
 
-  return <Sheet backdrop swipeToClose className="h-auto">
+  return <Sheet backdrop swipeToClose className="h-auto" swipeHandler=".swiper-handler">
     <Notch color="black" />
     {booking && <>
-      <Box p="4" mt="6" flex justifyContent="center">
-        <Title>{booking.bookingInfo ? 'Thông tin đặt bàn' : 'Pizza'}</Title>
+      <Box className="swiper-handler" p="4" mt="6" flex justifyContent="center">
+        <Title size="small">{booking.bookingInfo ? 'Thông tin đặt bàn' : 'Pizza'}</Title>
       </Box>
       <hr />
-      {booking.bookingInfo && <>
-        <Section left="Ngày, giờ" right={<>{booking.bookingInfo.date.toLocaleDateString()} - <Time time={booking.bookingInfo.hour} /></>} />
-        <Section left="Bàn số" right={booking.bookingInfo.seats} />
-        <Section left="Số ghế" right={booking.bookingInfo.table} />
-      </>}
-      <Section left="Chi tiết" right={<Price amount={total} />} />
-      {booking.cart && booking.cart.items.length ? <Box>
+      <div className="swiper-handler">
+        {booking.bookingInfo && <>
+          <Section left="Ngày, giờ" right={<>{booking.bookingInfo.date.toLocaleDateString()} - <Time time={booking.bookingInfo.hour} /></>} />
+          <Section left="Bàn số" right={booking.bookingInfo.seats} />
+          <Section left="Số ghế" right={booking.bookingInfo.table} />
+        </>}
+        <Section left="Chi tiết" right={<Price amount={total} />} />
+      </div>
+      {booking.cart && booking.cart.items.length ? <Box m="0" p="2" className="overflow-y-auto" style={{ maxHeight: `calc(50vh - ${booking.bookingInfo ? 54 * 4 : 0}px)`, minHeight: 120 }}>
         {booking.cart.items.map((item, i) => <CartItem key={i} item={item} />)}
       </Box> : <Box my="4" flex justifyContent="center">Không có món ăn</Box>}
       <hr />

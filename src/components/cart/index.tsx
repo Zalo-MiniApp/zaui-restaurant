@@ -3,7 +3,7 @@ import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/re
 import { Cart, TabType, Booking } from "../../models";
 import Notch from "../menu/notch";
 import Price from "../format/price";
-import { useCurrentRoute, useRestaurant } from "../../hooks";
+import { matchStatusBar, useCurrentRoute, useRestaurant } from "../../hooks";
 import store from "../../store";
 import { pay } from "../../services/zalo";
 import { message } from "../../utils/notificaiton";
@@ -17,10 +17,13 @@ function CartDetail() {
       query: {
         cartItemIndex: i
       }
-    })
+    });
+    setTimeout(() => {
+      document.querySelector('.sheet-backdrop')?.classList.add('backdrop-in');
+    }, 300); // workaround for backdrop not showing
   }
 
-  return <Box pt="1">
+  return <Box m="0" p="2" pt="3" className="overflow-y-auto" style={{ maxHeight: '50vh' }}>
     {cart.items.map((item, i) => <CartItem key={i} item={item} onEdit={() => edit(i)} />)}
   </Box>;
 }
@@ -36,6 +39,7 @@ function CartPreview() {
 
   const nextStep = () => {
     sheetRef.current.zmpSheet().stepOpen();
+    matchStatusBar(true);
     setExpanded(true);
   }
 
@@ -46,6 +50,7 @@ function CartPreview() {
   const currentTab = useStore('restaurantTab') as TabType;
 
   const book = () => {
+    matchStatusBar(false);
     store.dispatch('changeRestaurantTab', 'book' as TabType)
   }
 
@@ -56,6 +61,7 @@ function CartPreview() {
       restaurant: restaurant,
     } as Booking)
     message('Đặt thức ăn thành công');
+    matchStatusBar(false);
     zmp.views.main.router.navigate('/calendar/');
   }
 
@@ -64,24 +70,31 @@ function CartPreview() {
     backdrop={false}
     opened={cart.items.length > 0 && currentRoute.path === '/restaurant/' && currentTab !== 'book'}
     closeByBackdropClick={false}
-    className="h-auto border-t"
+    className="h-auto border-t cart-preview"
     swipeToStep
-    onSheetStepOpen={() => setExpanded(true)}
-    onSheetStepClose={() => setExpanded(false)}
+    onSheetStepOpen={() => {
+      setExpanded(true);
+      matchStatusBar(true);
+    }}
+    onSheetStepClose={() => {
+      setExpanded(false);
+      matchStatusBar(false);
+    }}
     onSheetClose={() => setExpanded(false)}
+    swipeHandler=".swipe-handler"
   >
     <Notch color="#637875" />
-    <Box p="1"></Box>
-    <div className={`sheet-modal-swipe-step ${expaned ? 'pb-4' : 'pb-6'}`}>
+    <Box className="swipe-handler" p="1"></Box>
+    <div className={`swipe-handler sheet-modal-swipe-step ${expaned ? 'pb-4' : 'pb-6'}`}>
       {expaned && <>
-        <Box p="4" flex justifyContent="center">Pizza</Box>
+        <Box p="4" flex justifyContent="center"><Title size="small">Pizza</Title></Box>
         <hr />
         <Title size="small" className="mx-6 my-4">Chi tiết</Title>
         <hr />
         <CartDetail />
         <hr />
       </>}
-      <Box m="0" px="6" mt="6" flex justifyContent="space-between">
+      <Box className="swipe-handler" m="0" px="6" mt="6" flex justifyContent="space-between">
         <Title bold size="small">Tổng cộng ({cart.items.length} món)</Title>
         <Text className="ml-6 text-orange-500 mb-0" size="xlarge" bold><Price amount={total} /></Text>
       </Box>
