@@ -17,7 +17,7 @@ function Header() {
   }, [currentRoute])
 
   return <Box className="header">
-    <Title className="flex items-center">
+    <Title size="small" className="flex items-center">
       {currentRoute.path !== '/' && <Link iconZMP="zi-arrow-left" className="pl-2 pr-4" back />}
       {title}
     </Title>

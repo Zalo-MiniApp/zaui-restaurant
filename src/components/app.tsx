@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { App, Box, TabView, View, zmpready } from 'zmp-framework/react';
+import { App, View } from 'zmp-framework/react';
 import api from 'zmp-sdk';
 import Header from './header';
 import NavigationBar from './navigation-bar';
@@ -9,6 +9,7 @@ import Cart from './cart';
 import BookingDetail from '../pages/booking-detail';
 import { useSheetStatusBar } from '../hooks';
 import ErrorBoundary from './error-boundary';
+import { getUser, requestLocation } from '../services/zalo';
 
 const MyApp = () => {
   const zmpparams = {
@@ -19,10 +20,8 @@ const MyApp = () => {
 
   const init = async () => {
     await api.login();
-    const result = await api.getUserInfo({
-      avatarType: 'small'
-    });
-    zmpready(() => store.dispatch('setUser', result.userInfo))
+    getUser();
+    requestLocation();
   }
 
   useEffect(() => {

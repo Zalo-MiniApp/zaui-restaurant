@@ -2,11 +2,12 @@
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
 import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType } from './models';
+import { calcCrowFliesDistance } from './utils/location';
 
 interface StoreState {
   user: userInfo,
   keyword: string
-  position: Location
+  position: Location | null
   restaurantTab: TabType
   restaurants: Restaurant[]
   districts: District[]
@@ -25,10 +26,7 @@ const store = createStore<StoreState>({
       name: ''
     },
     keyword: '',
-    position: {
-      lat: 0,
-      long: 0
-    },
+    position: null,
     districts: [{
       id: 1,
       name: 'Quận 1',
@@ -48,7 +46,7 @@ const store = createStore<StoreState>({
     restaurants: [
       {
         id: 1,
-        name: 'ZMP Restaurant - Lê Thánh Tôn',
+        name: 'Chi nhánh - Lê Thánh Tôn',
         districtId: 1,
         rating: 4.5,
         location: {
@@ -71,7 +69,7 @@ const store = createStore<StoreState>({
       },
       {
         id: 2,
-        name: 'ZMP Restaurant - Trần Hưng Đạo',
+        name: 'Chi nhánh - Trần Hưng Đạo',
         address: '15A Trần Hưng Đạo, Đa Kao, Quận 1, Hồ Chí Minh',
         districtId: 1,
         rating: 4.5,
@@ -257,11 +255,13 @@ const store = createStore<StoreState>({
     },
     nearests({ state }) {
       const res = [...state.restaurants];
-      res.sort((a, b) => {
-        const aDistance = Math.sqrt(Math.pow(a.location.lat - state.position.lat, 2) + Math.pow(a.location.long - state.position.long, 2));
-        const bDistance = Math.sqrt(Math.pow(b.location.lat - state.position.lat, 2) + Math.pow(b.location.long - state.position.long, 2));
-        return aDistance - bDistance;
-      });
+      if (state.position) {
+        res.sort((a, b) => {
+          const aDistance = calcCrowFliesDistance(state.position!, a.location);
+          const bDistance = calcCrowFliesDistance(state.position!, b.location);
+          return aDistance - bDistance;
+        });
+      }
       return res;
     },
     selectedDistrict({ state }) {
@@ -323,6 +323,9 @@ const store = createStore<StoreState>({
           seats: 4,
         }
       })
+    },
+    setPosition({ state }, data: Location) {
+      state.position = data;
     },
     setKeyword({ state }, keyword: string) {
       state.keyword = keyword;
