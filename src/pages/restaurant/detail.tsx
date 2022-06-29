@@ -16,7 +16,7 @@ function RestaurantDetail() {
     store.dispatch('changeRestaurantTab', tab)
   }
 
-  const TabItem = ({ tab, children }: { tab: TabType, children: ReactNode }) => <Button fill typeName={currentTab === tab ? 'primary' : 'tertiary'} onClick={() => setCurrentTab(tab)} className="mx-2 px-4">{children}</Button>;
+  const TabItem = ({ tab, children }: { tab: TabType, children: ReactNode }) => <Button fill typeName={currentTab === tab ? 'primary' : 'tertiary'} onClick={() => setCurrentTab(tab)} className="mx-2 px-4 flex-none">{children}</Button>;
 
   return <>
     <Box m="5">

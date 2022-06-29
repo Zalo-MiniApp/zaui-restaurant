@@ -1,31 +1,96 @@
 # ZMP Restaurant
 
-## ZMP CLI Options
+Starter template for building restaurant's mini program. Main features:
+- View popular or nearby restaurants
+- View restaurant's details and menu
+- Book a table or order food online
+- View booking history
 
-ZMP app created with following options:
+|                  Preview                   |                      Open Zalo and scan this QR                      |
+| :----------------------------------------: | :------------------------------------------------------------------: |
+| ![Preview](./docs/preview.jpg "Home page") | ![Entry point](./docs/qr.png "Scan this QR to preview the template") |
 
-```
+## Pre-requisites
+
+1. [Install Node JS](https://nodejs.org/en/download/)
+1. [Install Mini App DevTools CLI](https://miniapp.zalo.me/docs/dev-tools)
+1. Download or clone this repository
+
+## Setup
+
+1. Install dependencies
+	```bash
+	npm install
+	```
+
+1. Start dev server using `zmp-cli`
+	```bash
+	zmp start
+	```
+
+1. Open `localhost:3000` on your browser and start coding 🔥
+
+## Deployment
+
+1. Create a mini program. For instruction on how to create a mini program, please refer to [Coffee Shop Tutorial](https://mini.zalo.me/docs/tutorial/step-1/#1-tạo-một-ứng-dụng-zalo-mini-program-mới-trên-trang-chủ-của-zalo-mini-program)
+
+1. Setup payment methods if you want to accept online payments
+	![](./docs/payment.png "Payment method")
+
+2. Deploy your mini program to Zalo using the mini app ID created in step 1.
+	```bash
+	zmp login
+	zmp deploy
+	```
+
+1. Open Zalo and scan the QR code to preview your mini program
+
+## Usage:
+
+The repository contains sample UI component for building your application. You might wish to integrate internal APIs to fetch restaurants, menu, booking history,... or modify the code to suit your business needs.
+
+Folder structure:
+
+* **`src`**: Contain all logic source code of your Mini App. Insdie `src` folder:
+
+	* **`components`**: reuseable components written in React.JS
+	* **`css`**: Stylesheets, pre-processors also supported
+	* **`pages`**: a Page is also a component but will act as an entire view and must be registered inside `app-config.json` (https://mini.zalo.me/docs/framework/getting-started/app-config/#pages). Sheets (such as `food-picker.tsx`, `booking-detail.tsx`) are also pages, to handle the native back button on Android behavior. They won't be registered inside `app-config.json` but in `View` component's `routesAdd` property.
+	* **`services`**: reuseable logic for complex tasks that should be separated from your component, such as fetching API, get location from Zalo or caching stuff,...
+	* **`static`**: contain binary assets of your Mini App, such as icon, background, etc,...
+	* **`utils`**: reusable utility functions, such as distance calculation, notification, etc,...
+	* **`app.ts`**: entry point of your Mini App
+	* **`hooks.ts`**: reusable custom hooks
+	* **`model.ts`**: contain TypeScript type and interface declarations
+	* **`modules.d.ts`**: contain TypeScript declarations for third party modules
+	* **`store.ts`**: centralized state management (https://mini.zalo.me/docs/framework/getting-started/store/)
+
+* **`app-config.json`**: Global configuration for your Mini App (https://miniapp.zalo.me/docs/framework/getting-started/app-config)
+
+The other files (such as `tailwind.config.js`, `vite.config.ts`, `tsconfig.json`, `postcss.config.js`) are configurations for libraries used in your application. Visit the library's documentation to learn how to use them.
+
+## Recipes
+
+### Changing restaurant's name
+
+You just have to change the `app.title` property in `app-config.json`:
+
+```json
 {
-  "cwd": "/Users/lap15182-local/Desktop/zalo/mp-template-food",
-  "newProject": true,
-  "name": "ZMP Restaurant",
-  "framework": "react-typescript",
-  "template": "tabs",
-  "cssPreProcessor": "scss",
-  "includeTailwind": true,
-  "theming": {
-    "customColor": false,
-    "color": "#007aff",
-    "darkTheme": false,
-    "iconFonts": true,
-    "fillBars": false,
-    "useUiKits": true
+  "app": {
+    "title": "ZMP Restaurant",
   },
-  "customBuild": false
 }
 ```
 
-## NPM Scripts
+### Changing restaurant's logo
 
-* 🔥 `start` - run development server
-* 🙏 `deploy` - deploy mini app for production
+Visit [Zalo Mini Program](https://mini.zalo.me/) and go to your mini program's settings to change the logo.
+
+
+## License
+
+Copyright (c) Zalo Group. and its affiliates. All rights reserved.
+
+The examples provided by Zalo Group are for non-commercial testing and evaluation
+purposes only. Zalo Group reserves all rights not expressly granted.

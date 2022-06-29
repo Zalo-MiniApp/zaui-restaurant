@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { Box, Button, Text, Title, zmp } from "zmp-framework/react";
+import { Box, Button, Icon, Text, Title, zmp } from "zmp-framework/react";
 import { Restaurant } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
@@ -23,9 +23,13 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant
   }
 
   if (layout === 'cover') {
-    return <div onClick={onClick ?? viewDetail} className="bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
+    return <div onClick={onClick ?? viewDetail} className="relative bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover">
       <div className="aspect-cinema relative">
         <img src={restaurant.image} className="absolute w-full h-full object-cover" />
+      </div>
+      <div className="absolute left-3 top-3 py-1 px-3 flex items-center font-semibold text-sm text-white bg-blue-600 rounded-full">
+        <Icon zmp="zi-star-solid" />
+        {restaurant.rating}
       </div>
       <Title size="small" className="mt-2 mb-0 mx-4">{restaurant.name}</Title>
       <Box flex mt="0">

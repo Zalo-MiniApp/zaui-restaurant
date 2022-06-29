@@ -10,10 +10,11 @@ import BookingDetail from '../pages/booking-detail';
 import { useSheetStatusBar } from '../hooks';
 import ErrorBoundary from './error-boundary';
 import { getUser, requestLocation } from '../services/zalo';
+import appConfig from '../../app-config.json';
 
 const MyApp = () => {
   const zmpparams = {
-    name: 'ZMP Restaurant',
+    name: appConfig.app.title,
     theme: 'auto',
     store: store,
   };
