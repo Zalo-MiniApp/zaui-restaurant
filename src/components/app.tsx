@@ -8,6 +8,7 @@ import FoodPicker from '../pages/food-picker';
 import Cart from './cart';
 import BookingDetail from '../pages/booking-detail';
 import { useSheetStatusBar } from '../hooks';
+import ErrorBoundary from './error-boundary';
 
 const MyApp = () => {
   const zmpparams = {
@@ -31,28 +32,30 @@ const MyApp = () => {
   useSheetStatusBar();
 
   return (
-    <App {...zmpparams}>
-      <Header />
-      <View
-        main
-        url="/"
-        routesAdd={[
-          {
-            path: '/food-picker/',
-            sheet: {
-              component: FoodPicker,
+    <ErrorBoundary>
+      <App {...zmpparams}>
+        <Header />
+        <View
+          main
+          url="/"
+          routesAdd={[
+            {
+              path: '/food-picker/',
+              sheet: {
+                component: FoodPicker,
+              }
+            }, {
+              path: '/booking-detail/',
+              sheet: {
+                component: BookingDetail,
+              }
             }
-          }, {
-            path: '/booking-detail/',
-            sheet: {
-              component: BookingDetail,
-            }
-          }
-        ]}
-      />
-      <NavigationBar />
-      <Cart />
-    </App>
+          ]}
+        />
+        <NavigationBar />
+        <Cart />
+      </App>
+    </ErrorBoundary>
   );
 }
 export default MyApp;

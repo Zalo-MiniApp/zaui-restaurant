@@ -5,6 +5,7 @@ import store from "../store";
 import ExtraSelection from "../components/menu/extra-selection";
 import Notch from "../components/menu/notch";
 import Price from "../components/format/price";
+import { createPortal } from "react-dom";
 
 function FoodPicker({ zmproute, zmprouter }) {
   const [extras, setExtras] = useState<string[]>([]);
@@ -56,6 +57,7 @@ function FoodPicker({ zmproute, zmprouter }) {
       zmprouter.back();
     })
   }
+  const [opened, setOpened] = useState(false);
 
   return food ? <Sheet
     backdrop
@@ -64,9 +66,11 @@ function FoodPicker({ zmproute, zmprouter }) {
     swipeToStep
     onSheetStepOpen={() => setExpanded(true)}
     onSheetStepClose={() => setExpanded(false)}
+    onSheetOpen={() => setOpened(true)}
+    onSheetClose={() => setOpened(false)}
   >
     <Notch />
-    <div className={`sheet-modal-swipe-step ${expanded ? '' : 'pb-1'}`}>
+    <div className={`sheet-modal-swipe-step`}>
       <div className="w-full aspect-video relative">
         <img className="absolute w-full h-full object-cover" src={food.image} />
       </div>
@@ -89,9 +93,6 @@ function FoodPicker({ zmproute, zmprouter }) {
         <Text>{food.description}</Text>
       </Box>
       <hr />
-      {!expanded && <Box m="6">
-        <Button onClick={addToCart} large fill responsive className="rounded-xl">Đồng ý</Button>
-      </Box>}
     </div>
     <hr />
     <Box m="4" mb="6">
@@ -109,10 +110,14 @@ function FoodPicker({ zmproute, zmprouter }) {
       <Input type="text" placeholder="Nhập ghi chú" value={note} onChange={e => setNote(e.target.value)} />
     </Box>
     <hr />
-    {expanded && <Box m="6">
-      <Button onClick={addToCart} large fill responsive className="rounded-xl">Đồng ý</Button>
-    </Box>}
-  </Sheet> : <></>;
+    <Box height={64}></Box>
+    {createPortal(
+      <Box m="0" px="6" py="4" className="fixed bottom-0 right-0 left-0 bg-white border-t duration-300" style={{ zIndex: 10000000, transform: opened ? 'none' : 'translateY(100%)' }}>
+        <Button onClick={addToCart} large fill responsive className="rounded-xl">Đồng ý</Button>
+      </Box>,
+      document.querySelector('#zmp-root')!
+    )}
+  </Sheet > : <></>;
 }
 
 export default FoodPicker;
