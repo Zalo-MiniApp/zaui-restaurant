@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/react";
-import Notch from "../components/menu/notch";
+import Notch from "../components/notch";
 import Price from "../components/format/price";
 import { Booking } from "../models";
 import { useBookingTotal } from "../hooks";

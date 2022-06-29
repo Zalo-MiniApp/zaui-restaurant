@@ -48,7 +48,7 @@ const store = createStore<StoreState>({
     restaurants: [
       {
         id: 1,
-        name: 'Jolliboo - Lê Thánh Tôn',
+        name: 'ZMP Restaurant - Lê Thánh Tôn',
         districtId: 1,
         rating: 4.5,
         location: {
@@ -66,12 +66,12 @@ const store = createStore<StoreState>({
           opening: 1,
           closing: 7
         },
-        hotline: '021 666 888',
+        hotline: '0123 456 789',
         map: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.394868527438!2d106.70554879999999!3d10.781038700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f492daac79b%3A0x16e334e4778de0c1!2zMTVhIEzDqiBUaMOhbmggVMO0biwgQuG6v24gTmdow6ksIFF14bqtbiAxLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmg!5e0!3m2!1svi!2s!4v1655781904560!5m2!1svi!2s'
       },
       {
         id: 2,
-        name: 'Jolliboo - Trần Hưng Đạo',
+        name: 'ZMP Restaurant - Trần Hưng Đạo',
         address: '15A Trần Hưng Đạo, Đa Kao, Quận 1, Hồ Chí Minh',
         districtId: 1,
         rating: 4.5,
@@ -89,7 +89,7 @@ const store = createStore<StoreState>({
           opening: 1,
           closing: 7
         },
-        hotline: '021 666 888',
+        hotline: '0123 456 789',
         map: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.585876004013!2d106.69000821538795!3d10.766364992328358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1640b88ca3%3A0x8d9f87825b5b807!2zMTIxLzE1IMSQLiBUcuG6p24gSMawbmcgxJDhuqFvLCBQaMaw4budbmcgUGjhuqFtIE5nxakgTMOjbywgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1655782080310!5m2!1svi!2s'
       }
     ],

@@ -12,7 +12,7 @@ import ErrorBoundary from './error-boundary';
 
 const MyApp = () => {
   const zmpparams = {
-    name: 'Nhà hàng Joliboo',
+    name: 'ZMP Restaurant',
     theme: 'auto',
     store: store,
   };

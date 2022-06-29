@@ -13,7 +13,7 @@ function Header() {
         return restaurant.name
       }
     }
-    return 'Nhà hàng Jolliboo'
+    return 'ZMP Restaurant'
   }, [currentRoute])
 
   return <Box className="header">

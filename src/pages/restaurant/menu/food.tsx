@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { Avatar, Button, Text, Title, zmp } from "zmp-framework/react";
-import { Food } from "../../models";
-import Price from "../format/price";
+import { Food } from "../../../models";
+import Price from "../../../components/format/price";
 
 interface FoodItemProps {
   food: Food

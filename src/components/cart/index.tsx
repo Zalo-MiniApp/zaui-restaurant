@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/react";
 import { Cart, TabType, Booking } from "../../models";
-import Notch from "../menu/notch";
+import Notch from "../notch";
 import Price from "../format/price";
 import { matchStatusBar, useCurrentRoute, useRestaurant } from "../../hooks";
 import store from "../../store";

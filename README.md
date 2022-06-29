@@ -1,4 +1,4 @@
-# Nhà hàng Joliboo
+# ZMP Restaurant
 
 ## ZMP CLI Options
 
@@ -8,7 +8,7 @@ ZMP app created with following options:
 {
   "cwd": "/Users/lap15182-local/Desktop/zalo/mp-template-food",
   "newProject": true,
-  "name": "Nhà hàng Joliboo",
+  "name": "ZMP Restaurant",
   "framework": "react-typescript",
   "template": "tabs",
   "cssPreProcessor": "scss",

@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { Box, Button, Title } from "zmp-framework/react";
-import { Extra } from "../../models";
+import { Extra } from "../../../models";
 
 interface ExtraSelectionProps {
   extra: Extra

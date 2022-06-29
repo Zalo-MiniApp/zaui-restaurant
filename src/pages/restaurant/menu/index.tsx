@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Box, Button, useStore } from "zmp-framework/react";
-import { Menu } from "../../models";
+import { Menu } from "../../../models";
 import FoodItem from "./food";
 
 function MenuTable() {
