@@ -8,7 +8,11 @@ module.exports = {
       aspectRatio: {
         cinema: '21/9',
         card: '4/3',
-      }
+      },
+      colors: {
+        'primary': 'var(--zmp-theme-color)',
+        'secondary': 'var(--zmp-secondary-color)',
+      },
     },
   },
 };

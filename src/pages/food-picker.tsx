@@ -78,7 +78,7 @@ function FoodPicker({ zmproute, zmprouter }) {
         <Button fill className="w-10" onClick={() => setQuantity(q => q - 1)}><div className="border-t border-white w-4" /></Button>
         <Text className="mx-4">{quantity}</Text>
         <Button fill className="w-10" iconZMP="zi-plus" onClick={() => setQuantity(q => q + 1)}></Button>
-        <Text className="ml-6 text-orange-500 mb-0" size="xlarge" bold><Price amount={food.price} /></Text>
+        <Text className="ml-6 text-secondary mb-0" size="xlarge" bold><Price amount={food.price} /></Text>
       </Box>
       <hr />
       {food.extras.map((extra, index) => <Box m="5" key={extra.key}>

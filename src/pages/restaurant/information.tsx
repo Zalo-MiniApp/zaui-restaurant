@@ -17,7 +17,7 @@ function Information() {
       <Title size="small">Giờ mở cửa</Title>
       <Box flex mx="0" alignItems="center" justifyContent="space-between">
         <span><Icon zmp="zi-clock-1" className="text-green-500 mr-1" /><Time time={restaurant.hours.opening} /> - <Time time={restaurant.hours.closing} /></span>
-        <span><Icon zmp="zi-calendar" className="text-orange-500 mr-1" /><Day day={restaurant.days.opening} /> - <Day day={restaurant.days.closing} /></span>
+        <span><Icon zmp="zi-calendar" className="text-secondary mr-1" /><Day day={restaurant.days.opening} /> - <Day day={restaurant.days.closing} /></span>
       </Box>
     </Box>
     <Box mx="2" mt="6">

@@ -19,7 +19,7 @@ const FoodItem: FunctionComponent<FoodItemProps> = ({ food }) => {
   return <div onClick={pick} className="p-6 bg-white text-center" style={{ borderRadius: 50 }}>
     <Avatar size={96} src={food.image} />
     <Title size="small">{food.name}</Title>
-    <Text size="xlarge" className="text-orange-500" bold><Price amount={food.price} /></Text>
+    <Text size="xlarge" className="text-secondary" bold><Price amount={food.price} /></Text>
     <Button iconZMP="zi-plus" fill className="w-10 m-auto"></Button>
   </div>;
 }

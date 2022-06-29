@@ -1,14 +1,14 @@
 # ZMP Restaurant
 
-Starter template for building restaurant's mini program. Main features:
+Starter template for building a restaurant's mini program. Main features:
 - View popular or nearby restaurants
 - View restaurant's details and menu
 - Book a table or order food online
 - View booking history
 
-|                  Preview                   |                      Open Zalo and scan this QR                      |
-| :----------------------------------------: | :------------------------------------------------------------------: |
-| ![Preview](./docs/preview.jpg "Home page") | ![Entry point](./docs/qr.png "Scan this QR to preview the template") |
+|                          Preview                           |               Open Zalo and scan this QR                |
+| :--------------------------------------------------------: | :-----------------------------------------------------: |
+| <img src="./docs/preview.jpg" alt="Home page" width="250"> | <img src="./docs/qr.png" alt="Entry point" width="250"> |
 
 ## Pre-requisites
 
@@ -47,16 +47,16 @@ Starter template for building restaurant's mini program. Main features:
 
 ## Usage:
 
-The repository contains sample UI component for building your application. You might wish to integrate internal APIs to fetch restaurants, menu, booking history,... or modify the code to suit your business needs.
+The repository contains sample UI components for building your application. You might wish to integrate internal APIs to fetch restaurants, menu, booking history,... or modify the code to suit your business needs.
 
 Folder structure:
 
-* **`src`**: Contain all logic source code of your Mini App. Insdie `src` folder:
+* **`src`**: Contain all logic source code of your Mini App. Inside `src` folder:
 
-	* **`components`**: reuseable components written in React.JS
+	* **`components`**: reusable components written in React.JS
 	* **`css`**: Stylesheets, pre-processors also supported
-	* **`pages`**: a Page is also a component but will act as an entire view and must be registered inside `app-config.json` (https://mini.zalo.me/docs/framework/getting-started/app-config/#pages). Sheets (such as `food-picker.tsx`, `booking-detail.tsx`) are also pages, to handle the native back button on Android behavior. They won't be registered inside `app-config.json` but in `View` component's `routesAdd` property.
-	* **`services`**: reuseable logic for complex tasks that should be separated from your component, such as fetching API, get location from Zalo or caching stuff,...
+	* **`pages`**: a Page is also a component but will act as an entire view and must be registered inside `app-config.json` (https://mini.zalo.me/docs/framework/getting-started/app-config/#pages). Sheets (such as `food-picker.tsx`, `booking-detail.tsx`) are also pages, to handle the native back button on Android behavior. They won't be registered inside `app-config.json` but in the `View` component's `routesAdd` property.
+	* **`services`**: reusable logic for complex tasks that should be separated from your component, such as fetching API, getting location from Zalo or caching stuff,...
 	* **`static`**: contain binary assets of your Mini App, such as icon, background, etc,...
 	* **`utils`**: reusable utility functions, such as distance calculation, notification, etc,...
 	* **`app.ts`**: entry point of your Mini App
@@ -73,7 +73,7 @@ The other files (such as `tailwind.config.js`, `vite.config.ts`, `tsconfig.json`
 
 ### Changing restaurant's name
 
-You just have to change the `app.title` property in `app-config.json`:
+Just change the `app.title` property in `app-config.json`:
 
 ```json
 {
@@ -87,6 +87,22 @@ You just have to change the `app.title` property in `app-config.json`:
 
 Visit [Zalo Mini Program](https://mini.zalo.me/) and go to your mini program's settings to change the logo.
 
+### Changing color theme
+
+You can change the primary and the secondary color theme by setting the variable in `src/css/app.scss`:
+
+```scss
+:root {
+	--zmp-theme-color: #0068ff;
+	--zmp-secondary-color: #ff8a00;
+}
+```
+
+| Default                                                                  | black + black                                                        | #008001 + #9A0007                                                    |
+| ------------------------------------------------------------------------ | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| <img src="./docs/variant-default.png" alt="Default variant" width="200"> | <img src="./docs/variant-black.png" alt="Black variant" width="200"> | <img src="./docs/variant-green.png" alt="Green variant" width="200"> |
+
+The two colors will affect most of the application components. To make a deeper color change, override the other colors in `src/css/app.scss`. For the list of available colors, please visit [Color Theme](https://mini.zalo.me/docs/framework/components/color-themes/).
 
 ## License
 

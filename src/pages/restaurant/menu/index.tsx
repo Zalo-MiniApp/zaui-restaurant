@@ -15,7 +15,7 @@ function MenuTable() {
       <Box flex className="w-max">
         {menu.categories.map((category, index) => <Button
           key={category.id}
-          className={`border-b-2 rounded-none px-4 snap-start ${selectedCategory === index ? 'border-blue-500' : ''}`}
+          className={`border-b-2 rounded-none px-4 snap-start ${selectedCategory === index ? 'border-primary' : ''}`}
           typeName={selectedCategory === index ? undefined : 'ghost'}
           onClick={() => setSelectedCategory(index)}
         >

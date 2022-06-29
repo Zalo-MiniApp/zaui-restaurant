@@ -20,7 +20,7 @@ const CartItem: FunctionComponent<CartItemProps> = ({ item, onEdit }) => {
       </div>
     </Box>
     <Box flex flexDirection="column" alignItems="flex-end" justifyContent="space-between">
-      <Text className="mr-2 ml-2 text-orange-500 mb-0" bold><Price amount={item.food.price * item.quantity} /></Text>
+      <Text className="mr-2 ml-2 text-secondary mb-0" bold><Price amount={item.food.price * item.quantity} /></Text>
       {onEdit && <Button onClick={onEdit}>Thay đổi</Button>}
     </Box>
   </Box>;

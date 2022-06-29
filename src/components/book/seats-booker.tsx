@@ -14,7 +14,7 @@ const SeatsBooker: FunctionComponent<SeatsBookerProps> = ({ value, onChange }) =
         typeName="secondary"
         className="w-10"
         onClick={() => onChange(Math.max(value - 1, 1))}
-      ><div className="border-t border-blue-600 w-4" /></Button>
+      ><div className="border-t border-primary w-4" /></Button>
       <span>{value}</span>
       <Button
         iconZMP="zi-plus"

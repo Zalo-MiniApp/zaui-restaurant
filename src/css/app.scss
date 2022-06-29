@@ -2,6 +2,8 @@
 
 /* Your app custom styles here */
 :root {
+  --zmp-theme-color: #0068ff;
+  --zmp-secondary-color: #ff8a00;
   --zmp-page-bg-color: #f4f5f6;
   --zmp-searchbar-input-height: 32px;
   --zmp-button-border-radius: 100px;
@@ -61,7 +63,7 @@ body {
 }
 .date-booker {
   .swiper-slide-active > .bg-white {
-    background-color: #ff8a00;
+    background-color: var(--zmp-secondary-color);
     color: white;
   }
   &.fade-corner {

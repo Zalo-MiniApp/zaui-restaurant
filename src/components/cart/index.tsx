@@ -96,7 +96,7 @@ function CartPreview() {
       </>}
       <Box className="swipe-handler" m="0" px="6" mt="6" flex justifyContent="space-between">
         <Title bold size="small">Tổng cộng ({cart.items.length} món)</Title>
-        <Text className="ml-6 text-orange-500 mb-0" size="xlarge" bold><Price amount={total} /></Text>
+        <Text className="ml-6 text-secondary mb-0" size="xlarge" bold><Price amount={total} /></Text>
       </Box>
       <Box m="0" px="6" pt="6">
         <Button large fill responsive className="rounded-xl" onClick={expaned ? book : nextStep}>

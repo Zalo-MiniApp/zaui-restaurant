@@ -27,7 +27,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant
       <div className="aspect-cinema relative">
         <img src={restaurant.image} className="absolute w-full h-full object-cover" />
       </div>
-      <div className="absolute left-3 top-3 py-1 px-3 flex items-center font-semibold text-sm text-white bg-blue-600 rounded-full">
+      <div className="absolute left-3 top-3 py-1 px-3 flex items-center font-semibold text-sm text-white bg-primary rounded-full">
         <Icon zmp="zi-star-solid" />
         {restaurant.rating}
       </div>

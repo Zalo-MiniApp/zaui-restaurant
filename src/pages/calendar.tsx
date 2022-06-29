@@ -14,7 +14,7 @@ function PageHeader({ status, setStatus }) {
       <Box m="0" flex>
         {['upcoming', 'finished'].map(s => <Button
           key={s}
-          className={`border-b-2 rounded-none px-4 flex-1 mx-4 ${status === s ? 'border-blue-500' : ''}`}
+          className={`border-b-2 rounded-none px-4 flex-1 mx-4 ${status === s ? 'border-primary' : ''}`}
           typeName={status === s ? undefined : 'ghost'}
           onClick={() => setStatus(s)}
         >
