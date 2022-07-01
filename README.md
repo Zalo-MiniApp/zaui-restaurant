@@ -13,7 +13,7 @@ Starter template for building a restaurant's mini program. Main features:
 ## Pre-requisites
 
 1. [Install Node JS](https://nodejs.org/en/download/)
-1. [Install Mini App DevTools CLI](https://miniapp.zalo.me/docs/dev-tools)
+1. [Install Mini App DevTools CLI](https://mini.zalo.me/docs/dev-tools)
 1. Download or clone this repository
 
 ## Setup
@@ -65,7 +65,7 @@ Folder structure:
 	* **`modules.d.ts`**: contain TypeScript declarations for third party modules
 	* **`store.ts`**: centralized state management (https://mini.zalo.me/docs/framework/getting-started/store/)
 
-* **`app-config.json`**: Global configuration for your Mini App (https://miniapp.zalo.me/docs/framework/getting-started/app-config)
+* **`app-config.json`**: Global configuration for your Mini App (https://mini.zalo.me/docs/framework/getting-started/app-config)
 
 The other files (such as `tailwind.config.js`, `vite.config.ts`, `tsconfig.json`, `postcss.config.js`) are configurations for libraries used in your application. Visit the library's documentation to learn how to use them.
 
