@@ -6,7 +6,7 @@ import Price from "../format/price";
 import { matchStatusBar, useCurrentRoute, useRestaurant } from "../../hooks";
 import store from "../../store";
 import { pay } from "../../services/zalo";
-import { message } from "../../utils/notificaiton";
+import { message } from "../../utils/notification";
 import CartItem from "./cart-item";
 
 function CartDetail() {

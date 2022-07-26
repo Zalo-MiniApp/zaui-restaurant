@@ -8,7 +8,7 @@ import TimeBooker from "../../components/book/time-booker";
 import Price from "../../components/format/price";
 import { pay } from "../../services/zalo";
 import store from "../../store";
-import { message } from "../../utils/notificaiton";
+import { message } from "../../utils/notification";
 import RestaurantContext from "./context";
 
 function Booking() {
