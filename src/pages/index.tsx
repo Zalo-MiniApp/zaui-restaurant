@@ -1,5 +1,6 @@
 import { Page, useStore, Title, Box, Avatar, Text } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
+import { getConfig } from '../components/config-provider';
 import Inquiry, { QuickFilter } from '../components/inquiry';
 import RestaurantItem from '../components/restaurant';
 import { Restaurant } from '../models';
@@ -45,8 +46,10 @@ const HomePage = () => {
         <Avatar className='shadow align-middle mb-2' src={user.avatar}>Hi</Avatar>
         <Text>{user.name ? <>Chào, {user.name}!</> : '...'}</Text>
         <Title size='xlarge' bold>Hôm nay bạn muốn ăn ở đâu?</Title>
-        <Inquiry />
-        <Title size='small' className='mt-6 mb-4'>Phân loại nhanh</Title>
+        {getConfig(c => c.template.searchBar) && <>
+          <Inquiry />
+          <Title size='small' className='mt-6 mb-4'>Phân loại nhanh</Title>
+        </>}
         <QuickFilter />
       </Box>
       <Popular />

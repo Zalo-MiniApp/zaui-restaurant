@@ -3,7 +3,7 @@ import api from 'zmp-sdk';
 import { zmpready } from "zmp-framework/react";
 import store from "../store";
 import { Location } from "../models";
-import appConfig from '../../app-config.json';
+import { getConfig } from "../components/config-provider";
 
 export const getUser = () => new Promise((resolve) => {
   api.getUserInfo({
@@ -18,7 +18,7 @@ export const getUser = () => new Promise((resolve) => {
 
 export const pay = (amount: number, description?: string) => new Promise((resolve, reject) => {
   Payment.createOrder({
-    desc: description ?? `Thanh toán cho ${appConfig.app.title}`,
+    desc: description ?? `Thanh toán cho ${getConfig(c => c.app.title)}`,
     item: [],
     amount: amount,
     success: (data) => {

@@ -10,11 +10,11 @@ import BookingDetail from '../pages/booking-detail';
 import { useSheetStatusBar } from '../hooks';
 import ErrorBoundary from './error-boundary';
 import { getUser, requestLocation } from '../services/zalo';
-import appConfig from '../../app-config.json';
+import { ConfigProvider, getConfig } from './config-provider';
 
 const MyApp = () => {
   const zmpparams = {
-    name: appConfig.app.title,
+    name: getConfig(c => c.app.title),
     theme: 'auto',
     store: store,
   };
@@ -33,28 +33,33 @@ const MyApp = () => {
 
   return (
     <ErrorBoundary>
-      <App {...zmpparams}>
-        <Header />
-        <View
-          main
-          url="/"
-          routesAdd={[
-            {
-              path: '/food-picker/',
-              sheet: {
-                component: FoodPicker,
+      <ConfigProvider cssVariables={{
+        '--zmp-theme-color': getConfig(c => c.template.primaryColor),
+        '--zmp-secondary-color': getConfig(c => c.template.secondaryColor),
+      }}>
+        <App {...zmpparams}>
+          <Header />
+          <View
+            main
+            url="/"
+            routesAdd={[
+              {
+                path: '/food-picker/',
+                sheet: {
+                  component: FoodPicker,
+                }
+              }, {
+                path: '/booking-detail/',
+                sheet: {
+                  component: BookingDetail,
+                }
               }
-            }, {
-              path: '/booking-detail/',
-              sheet: {
-                component: BookingDetail,
-              }
-            }
-          ]}
-        />
-        <NavigationBar />
-        <Cart />
-      </App>
+            ]}
+          />
+          <NavigationBar />
+          <Cart />
+        </App>
+      </ConfigProvider>
     </ErrorBoundary>
   );
 }

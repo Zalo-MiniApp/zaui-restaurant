@@ -10,6 +10,7 @@ import { pay } from "../../services/zalo";
 import store from "../../store";
 import { message } from "../../utils/notification";
 import RestaurantContext from "./context";
+import { getConfig } from "../../components/config-provider";
 
 function Booking() {
   const [seats, setSeats] = useState(4);
@@ -20,7 +21,8 @@ function Booking() {
   const total = useStore('total') as number;
 
   const book = async () => {
-    await pay(25000 + total);
+    const serviceFee = getConfig(c => c.template.serviceFee);
+    await pay(serviceFee + total);
     await store.dispatch('book', {
       restaurant: restaurant,
       id: + new Date() + '',
@@ -48,7 +50,7 @@ function Booking() {
     <Box m="0" p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10 border">
       <Box mb="4" flex justifyContent="space-between">
         <Title size="small">Phí dịch vụ</Title>
-        <Text className="ml-6 text-secondary mb-0" bold><Price amount={25000} /></Text>
+        <Text className="ml-6 text-secondary mb-0" bold><Price amount={getConfig(c => c.template.serviceFee)} /></Text>
       </Box>
       <Button fill responsive large className="rounded-xl" onClick={book}>Đặt bàn</Button>
     </Box>

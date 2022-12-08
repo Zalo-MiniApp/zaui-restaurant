@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { Box, Link, Title } from "zmp-framework/react";
 import { useCurrentRoute, useRestaurant } from "../hooks";
-import appConfig from '../../app-config.json';
+import { getConfig } from "./config-provider";
 
 function Header() {
   const [currentRoute] = useCurrentRoute();
@@ -14,7 +14,7 @@ function Header() {
         return restaurant.name
       }
     }
-    return appConfig.app.title;
+    return getConfig(c => c.app.title);
   }, [currentRoute])
 
   return <Box className="header">

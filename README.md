@@ -89,13 +89,13 @@ Visit [Zalo Mini Program](https://mini.zalo.me/) and go to your mini program's s
 
 ### Changing color theme
 
-You can change the primary and the secondary color theme by setting the variable in `src/css/app.scss`:
+You can change the primary and the secondary color theme by setting the colors in `app-config.json`:
 
-```scss
-:root {
-	--zmp-theme-color: #0068ff;
-	--zmp-secondary-color: #ff8a00;
-}
+```json
+"template": {
+  "primaryColor": "#0068ff",
+  "secondaryColor": "#ff8a00",
+},
 ```
 
 | Default                                                                  | black + black                                                        | #008001 + #9A0007                                                    |

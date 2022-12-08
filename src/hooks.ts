@@ -4,7 +4,7 @@ import { Router } from "zmp-core/types";
 import { Booking, Restaurant } from "./models"
 import { Sheet } from 'zmp-core/types'
 import api from 'zmp-sdk';
-import appConfig from '../app-config.json';
+import { getConfig } from "./components/config-provider";
 
 export const useRestaurant = (id: number) => {
   const restaurants = useStore('restaurants') as Restaurant[]
@@ -32,7 +32,7 @@ export const useCurrentRoute = () => {
 
 export const matchStatusBar = (sheetOpened: boolean) => {
   api.setNavigationBarColor({
-    statusBarColor: sheetOpened ? '#404040' : appConfig.app.statusBarColor,
+    statusBarColor: sheetOpened ? '#404040' : getConfig(c => c.app.statusBarColor),
     color: '',
   });
 }
@@ -60,7 +60,7 @@ export const useSheetStatusBar = () => {
 
 export const useBookingTotal = (booking?: Booking) => {
   const total = useMemo(() => {
-    const serviceFee = 25000;
+    const serviceFee = getConfig(c => c.template.serviceFee);
     if (!booking || !booking.cart) return serviceFee;
     return booking.cart.items.reduce((total, item) => total + item.food.price * item.quantity, serviceFee);
   }, [booking])

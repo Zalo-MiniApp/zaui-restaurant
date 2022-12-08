@@ -20,10 +20,10 @@ import './css/app.scss';
 
 // Import App Component
 import App from './components/app';
-import appConfig from '../app-config.json';
+import { getConfig } from './components/config-provider';
 
 if (!(window as any).APP_CONFIG) {
-  (window as any).APP_CONFIG = appConfig
+  (window as any).APP_CONFIG = getConfig(c => c)
 }
 
 // Init ZMP React Plugin

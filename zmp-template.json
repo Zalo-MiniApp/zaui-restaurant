@@ -1,0 +1,19 @@
+{
+  "name": "ZMP Restaurant",
+  "options": {
+    "primaryColor": {
+      "type": "color",
+      "optional": true
+    },
+    "secondaryColor": {
+      "type": "color",
+      "optional": true
+    },
+    "serviceFee": {
+      "type": "number"
+    },
+    "searchBar": {
+      "type": "boolean"
+    }
+  }
+}
