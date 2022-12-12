@@ -1,10 +1,16 @@
 {
   "app": {
     "title": "ZMP Restaurant",
-    "headerColor": "#1843EF",
-    "textColor": "white",
-    "statusBarColor": "#1843EF",
+    "headerColor": "",
+    "textColor": "black",
+    "statusBarColor": "#f4f5f6",
     "leftButton": "back"
+  },
+  "template": {
+    "primaryColor": "#0068ff",
+    "secondaryColor": "#ff8a00",
+    "serviceFee": 25000,
+    "searchBar": true
   },
   "debug": false,
   "listCSS": [],

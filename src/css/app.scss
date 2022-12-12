@@ -1,12 +1,68 @@
+@import "./tailwind.css";
 
-    .page {
-      padding: 16px 16px 96px 16px;
+body {
+  background-color: var(--zmp-page-bg-color);
+}
+
+.section-container {
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}    
+
+/* Your app custom styles here */
+:root {
+  --zmp-theme-color: #0068ff;
+  --zmp-secondary-color: #ff8a00;
+  --zmp-page-bg-color: #f4f5f6;
+}
+
+.no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+.zaui-input-prefix {
+  .zaui-btn-icon-only .zaui-btn-icon {
+    width: 16px;
+    height: 16px;
+  }
+  + .zaui-input {
+    padding-left: 0;
+  }
+}
+.zaui-btn-prefix-icon.zaui-btn-small .zaui-icon {
+  vertical-align: unset;
+}
+.date-booker {
+  .swiper-slide-active > .bg-white {
+    background-color: var(--zmp-secondary-color);
+    color: white;
+  }
+  &.fade-corner {
+    position: relative;
+    &:before {
+      content: " ";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 80px;
+      z-index: 10;
+      opacity: 0.5;
+      background: linear-gradient(to right, var(--zmp-page-bg-color) 80%, transparent);
     }
-    
-    .section-container {
-      padding: 16px;
-      background: #ffffff;
-      border-radius: 8px;
-      margin-bottom: 24px;
-    }    
-    
+    &::after {
+      content: " ";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 80px;
+      z-index: 10;
+      opacity: 0.5;
+      background: linear-gradient(to left, var(--zmp-page-bg-color) 80%, transparent);
+    }
+  }
+}
