@@ -26,7 +26,7 @@ function CartDetail() {
     }, 300); // workaround for backdrop not showing
   }
 
-  return <Box m={0} p="2" pt="3" className="overflow-y-auto" style={{ maxHeight: '50vh' }}>
+  return <Box m={0} p={2} pt={3} className="overflow-y-auto" style={{ maxHeight: '50vh' }}>
     {cart.items.map((item, i) => <CartItem key={i} item={item} onEdit={() => edit(i)} />)}
   </Box>;
 }
@@ -97,17 +97,17 @@ function CartPreview() {
         <CartDetail />
         <hr />
       </>}
-      <Box className="swipe-handler" m={0} px="6" mt="6" flex justifyContent="space-between">
+      <Box className="swipe-handler" m={0} px={6} mt={6} flex justifyContent="space-between">
         <Title bold size="small">Tổng cộng ({cart.items.length} món)</Title>
         <Text className="ml-6 text-secondary mb-0" size="xlarge" bold><Price amount={total} /></Text>
       </Box>
-      <Box m={0} px="6" pt="6">
+      <Box m={0} px={6} pt={6}>
         <Button large fill responsive className="rounded-xl" onClick={expaned ? book : nextStep}>
           {expaned ? <span>Đặt bàn với thực đơn</span> : <span>Tiếp theo</span>}
         </Button>
       </Box>
     </div>
-    <Box m={0} px="6" pb="6">
+    <Box m={0} px={6} pb={6}>
       <Button onClick={payFoods} large fill responsive className="rounded-xl" typeName="secondary">Chỉ đặt món ăn</Button>
     </Box>
   </Sheet>;

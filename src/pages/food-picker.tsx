@@ -76,7 +76,7 @@ function FoodPicker({ zmproute, zmprouter }) {
       <div className="w-full aspect-video relative">
         <img className="absolute w-full h-full object-cover" src={food.image} />
       </div>
-      <Box mt="6" mb={5} flex justifyContent="center" alignItems="center">
+      <Box mt={6} mb={5} flex justifyContent="center" alignItems="center">
         <Button fill className="w-10" onClick={() => setQuantity(q => q - 1)}><div className="border-t border-white w-4" /></Button>
         <Text className="mx-4">{quantity}</Text>
         <Button fill className="w-10" iconZMP="zi-plus" onClick={() => setQuantity(q => q + 1)}></Button>
@@ -97,7 +97,7 @@ function FoodPicker({ zmproute, zmprouter }) {
       <hr />
     </div>
     <hr />
-    <Box m={4} mb="6">
+    <Box m={4} mb={6}>
       <Title size="small">Tuỳ chọn</Title>
       {food.options.map((option, i) => <Checkbox
         key={option.key}
@@ -107,14 +107,14 @@ function FoodPicker({ zmproute, zmprouter }) {
           return [...o];
         })}>{option.label}</Checkbox>)}
     </Box>
-    <Box m={4} mb="6">
+    <Box m={4} mb={6}>
       <Title size="small" className="mb-4">Ghi chú</Title>
       <Input type="text" placeholder="Nhập ghi chú" value={note} onChange={e => setNote(e.target.value)} />
     </Box>
     <hr />
     <Box height={64}></Box>
     {createPortal(
-      <Box m={0} px="6" py={4} className="fixed bottom-0 right-0 left-0 bg-white border-t duration-300" style={{ zIndex: 10000000, transform: opened ? 'none' : 'translateY(100%)' }}>
+      <Box m={0} px={6} py={4} className="fixed bottom-0 right-0 left-0 bg-white border-t duration-300" style={{ zIndex: 10000000, transform: opened ? 'none' : 'translateY(100%)' }}>
         <Button onClick={addToCart} large fill responsive className="rounded-xl">Đồng ý</Button>
       </Box>,
       document.querySelector('#zmp-root')!

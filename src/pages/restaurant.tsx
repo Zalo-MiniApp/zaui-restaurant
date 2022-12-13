@@ -1,13 +1,15 @@
 import { Box, Page } from "zmp-ui";
+import { useLocation } from 'react-router-dom';
 import { useRestaurant } from "../hooks";
-import { hideNavigationBar, showNavigationBar } from "../components/navigation-bar";
 import RestaurantContext from "./restaurant/context";
 import RestaurantDetail from "./restaurant/detail";
+import React from "react";
 
-function RestaurantPage({ zmproute }) {
-  const restaurant = useRestaurant(zmproute.query.id)!;
+function RestaurantPage() {
+  const location = useLocation();
+  const restaurant = useRestaurant(Number(new URLSearchParams(location.search).get('id')))!;
 
-  return <Page onPageBeforeIn={hideNavigationBar} onPageBeforeOut={showNavigationBar}>
+  return <Page>
     <RestaurantContext.Provider value={{ restaurant }}>
       <RestaurantDetail />
     </RestaurantContext.Provider>

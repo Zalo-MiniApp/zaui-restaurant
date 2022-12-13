@@ -26,7 +26,7 @@ function BookingDetail({ zmproute, zmprouter }) {
   return <Sheet backdrop swipeToClose className="h-auto" swipeHandler=".swiper-handler">
     <Notch color="black" />
     {booking && <>
-      <Box className="swiper-handler" p={4} mt="6" flex justifyContent="center">
+      <Box className="swiper-handler" p={4} mt={6} flex justifyContent="center">
         <Title size="small">{booking.bookingInfo ? 'Thông tin đặt bàn' : 'Pizza'}</Title>
       </Box>
       <hr />
@@ -38,11 +38,11 @@ function BookingDetail({ zmproute, zmprouter }) {
         </>}
         <Section left="Chi tiết" right={<Price amount={total} />} />
       </div>
-      {booking.cart && booking.cart.items.length ? <Box m={0} p="2" className="overflow-y-auto" style={{ maxHeight: `calc(50vh - ${booking.bookingInfo ? 54 * 4 : 0}px)`, minHeight: 120 }}>
+      {booking.cart && booking.cart.items.length ? <Box m={0} p={2} className="overflow-y-auto" style={{ maxHeight: `calc(50vh - ${booking.bookingInfo ? 54 * 4 : 0}px)`, minHeight: 120 }}>
         {booking.cart.items.map((item, i) => <CartItem key={i} item={item} />)}
       </Box> : <Box my={4} flex justifyContent="center">Không có món ăn</Box>}
       <hr />
-      <Box m="6">
+      <Box m={6}>
         <Button onClick={() => zmprouter.back()} large typeName="secondary" responsive className="rounded-xl">Huỷ</Button>
       </Box>
     </>}

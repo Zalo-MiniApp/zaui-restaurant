@@ -54,7 +54,7 @@ const RestaurantItem: FunctionComponent<RestaurantProps> = ({ layout, restaurant
       <div className="flex-none aspect-card relative w-32">
         <img src={restaurant.image} className="absolute w-full h-full object-cover rounded-xl" />
       </div>
-      <Box my={4} mx={5}>
+      <Box my={4} mx={5} className="min-w-0">
         {before}
         <Title size="small">{restaurant.name}</Title>
         {after}

@@ -104,7 +104,7 @@ export const menuState = selector({
     const foods = get(foodsState);
     return {
       categories: categories.map((category, index) => ({
-        id: index,
+        id: String(index),
         name: category,
         foods: foods.filter(food => food.categories.includes(category))
       }))

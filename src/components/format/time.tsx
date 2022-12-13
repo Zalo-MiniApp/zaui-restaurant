@@ -1,3 +1,4 @@
+import React from 'react';
 import { Hours } from '../../models'
 
 function Time({ time }: { time: Hours }) {

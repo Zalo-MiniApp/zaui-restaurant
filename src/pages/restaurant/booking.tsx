@@ -1,5 +1,5 @@
-import { Box, Button, Text, Title, zmp } from "zmp-ui";
-import { Booking as BookingModel } from "../../models";
+import React from "react";
+import { Box, Button, Text } from "zmp-ui";
 import { useContext, useState } from "react";
 import DateBooker from "../../components/book/date-booker";
 import TableBooker from "../../components/book/table-booker";
@@ -12,6 +12,9 @@ import RestaurantContext from "./context";
 import { getConfig } from "../../components/config-provider";
 import { useRecoilValue } from "recoil";
 import { totalState } from "../../state";
+import { useNavigate } from 'react-router-dom';
+
+const { Title } = Text;
 
 function Booking() {
   const [seats, setSeats] = useState(4);
@@ -20,40 +23,41 @@ function Booking() {
   const [date, setDate] = useState(new Date());
   const [table, setTable] = useState('05');
   const total = useRecoilValue(totalState);
+  const navigate = useNavigate();
 
   const book = async () => {
     const serviceFee = getConfig(c => c.template.serviceFee);
     await pay(serviceFee + total);
-    await store.dispatch('book', {
-      restaurant: restaurant,
-      id: + new Date() + '',
-      bookingInfo: {
-        seats,
-        hour,
-        date,
-        table
-      }
-    } as BookingModel)
+    // await store.dispatch('book', {
+    //   restaurant: restaurant,
+    //   id: + new Date() + '',
+    //   bookingInfo: {
+    //     seats,
+    //     hour,
+    //     date,
+    //     table
+    //   }
+    // } as BookingModel)
     message('Đặt bàn thành công');
-    zmp.views.main.router.navigate('/calendar/');
+    navigate('/calendar');
   }
 
   return <>
-    <Box mx={4} my="6">
+    <Box mx={4} my={6}>
       <DateBooker onChange={setDate} />
-      <Box flex justifyContent="space-between" my="6">
+      <Box flex justifyContent="space-between" my={6}>
         <TableBooker value={table} onChange={setTable} />
         <SeatsPicker value={seats} onChange={setSeats} />
       </Box>
       <TimeBooker hours={restaurant.hours} onChange={setHour} />
       <Box height={80}></Box>
     </Box>
-    <Box m={0} p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10 border">
+    <Box m={0} p={6} className="bg-white fixed bottom-0 left-0 right-0 shadow z-10 border">
       <Box mb={4} flex justifyContent="space-between">
         <Title size="small">Phí dịch vụ</Title>
-        <Text className="ml-6 text-secondary mb-0" bold><Price amount={getConfig(c => c.template.serviceFee)} /></Text>
+        <Text className="ml-6 text-secondary font-semibold" size="xLarge"><Price amount={getConfig(c => c.template.serviceFee)} /></Text>
       </Box>
-      <Button fill responsive large className="rounded-xl" onClick={book}>Đặt bàn</Button>
+      <Button fullWidth onClick={book}>Đặt bàn</Button>
     </Box>
   </>;
 }

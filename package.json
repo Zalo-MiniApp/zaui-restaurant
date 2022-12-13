@@ -1,7 +1,7 @@
 {
   "name": "zmp-restaurant",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.1.0",
   "description": "ZMP Restaurant",
   "repository": "",
   "license": "UNLICENSED",
@@ -26,6 +26,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "recoil": "^0.7.6",
+    "swiper": "^8.4.5",
     "zmp-sdk": "^2.23.2",
     "zmp-ui": "^1.5.0"
   },

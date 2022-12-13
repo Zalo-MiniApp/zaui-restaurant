@@ -2,7 +2,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 
-
+import 'swiper/css';
 // Import tailwind styles
 import './css/tailwind.css';
 

@@ -1,27 +1,30 @@
+import React from "react";
 import { useMemo } from "react";
-import { Box, Link, Title } from "zmp-ui";
-import { useCurrentRoute, useRestaurant } from "../hooks";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Box, Button, Icon, Text } from "zmp-ui";
+import { useRestaurant } from "../hooks";
 import { getConfig } from "./config-provider";
 
 function Header() {
-  const [currentRoute] = useCurrentRoute();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const restaurant = useRestaurant(Number(currentRoute.query?.id));
+  const restaurant = useRestaurant(Number(new URLSearchParams(location.search).get('id')));
 
   const title = useMemo(() => {
-    if (currentRoute.path === '/restaurant/') {
+    if (location.pathname === '/restaurant') {
       if (restaurant) {
         return restaurant.name
       }
     }
     return getConfig(c => c.app.title);
-  }, [currentRoute])
+  }, [location.pathname])
 
   return <Box className="header">
-    <Title size="small" className="flex items-center">
-      {currentRoute.path !== '/' && <Link iconZMP="zi-arrow-left" className="pl-2 pr-4" back />}
+    <Text.Title size="small" className="flex items-center p-2 pr-20">
+      {location.pathname !== '/' && <Button variant="tertiary" type="neutral" className="pl-2 pr-4" onClick={() => navigate(-1)} icon={<Icon icon="zi-arrow-left" />} />}
       {title}
-    </Title>
+    </Text.Title>
   </Box>;
 }
 

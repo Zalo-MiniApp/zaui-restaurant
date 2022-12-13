@@ -1,26 +1,22 @@
-import { FunctionComponent } from "react";
-import { Avatar, Button, Text, Title, zmp } from "zmp-ui";
+import { FunctionComponent, useState } from "react";
+import { Avatar, Button, Icon, Text } from "zmp-ui";
 import { Food } from "../../../models";
 import Price from "../../../components/format/price";
+import React from "react";
+
+const { Title } = Text;
 
 interface FoodItemProps {
   food: Food
 }
 
 const FoodItem: FunctionComponent<FoodItemProps> = ({ food }) => {
-  const pick = () => {
-    zmp.views.main.router.navigate({
-      path: '/food-picker/',
-      query: {
-        id: food.id
-      }
-    })
-  }
-  return <div onClick={pick} className="p-6 bg-white text-center" style={{ borderRadius: 50 }}>
+  const [picking, setPicking] = useState(false);
+  return <div onClick={() => setPicking(true)} className="p-6 bg-white text-center space-y-2" style={{ borderRadius: 50 }}>
     <Avatar size={96} src={food.image} />
     <Title size="small">{food.name}</Title>
-    <Text size="xlarge" className="text-secondary" bold><Price amount={food.price} /></Text>
-    <Button iconZMP="zi-plus" fill className="w-10 m-auto"></Button>
+    <Text size="xLarge" className="text-secondary font-semibold"><Price amount={food.price} /></Text>
+    <Button icon={<Icon icon="zi-plus" />}></Button>
   </div>;
 }
 

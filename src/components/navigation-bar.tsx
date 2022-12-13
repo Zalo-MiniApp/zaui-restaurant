@@ -1,27 +1,38 @@
-import { Link, Tabbar, zmp } from "zmp-ui";
-import { useCurrentRoute } from "../hooks";
+import React, { useEffect, useState } from "react";
+import { BottomNavigation, Icon } from "zmp-ui";
+import { useNavigate } from 'react-router-dom';
 
 export const hideNavigationBar = () => {
-  zmp.toolbar.hide("#app-tab-bar");
-  zmp.$('.view-main')[0].classList.add('hidden-nav');
+  throw new Error("To be implemented");
 }
 
 export const showNavigationBar = () => {
-  zmp.toolbar.show("#app-tab-bar");
-  zmp.$('.view-main')[0].classList.remove('hidden-nav');
+  throw new Error("To be implemented");
 }
 
 function NavigationBar() {
-  const [currentRoute] = useCurrentRoute();
-
-  return <Tabbar bottom id="app-tab-bar">
-    <Link href="/" animate={false} iconZMP="zi-home" tabLinkActive={currentRoute.path === '/'}>
-      Trang chủ
-    </Link>
-    <Link href="/calendar" animate={false} iconZMP="zi-calendar" tabLinkActive={currentRoute.path.startsWith('/calendar')}>
-      Lịch của tôi
-    </Link>
-  </Tabbar>;
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("/");
+  useEffect(() => {
+    navigate(activeTab);
+  }, [activeTab])
+  return <BottomNavigation
+    id="bottom-nav"
+    fixed
+    activeKey={activeTab}
+    onChange={(key) => setActiveTab(key)}
+  >
+    <BottomNavigation.Item
+      key="/"
+      label="Trang chủ"
+      icon={<Icon icon="zi-home" />}
+    />
+    <BottomNavigation.Item
+      key="/calendar"
+      label="Lịch của tôi"
+      icon={<Icon icon="zi-calendar" />}
+    />
+  </BottomNavigation>
 }
 
 export default NavigationBar;

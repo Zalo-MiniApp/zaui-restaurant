@@ -1,16 +1,5 @@
 @import "./tailwind.css";
 
-body {
-  background-color: var(--zmp-page-bg-color);
-}
-
-.section-container {
-  padding: 16px;
-  background: #ffffff;
-  border-radius: 8px;
-  margin-bottom: 24px;
-}    
-
 /* Your app custom styles here */
 :root {
   --zmp-theme-color: #0068ff;
@@ -18,10 +7,19 @@ body {
   --zmp-page-bg-color: #f4f5f6;
 }
 
+body {
+  background-color: var(--zmp-page-bg-color);
+}
+#bottom-nav .zaui-bottom-navigation-content {
+  height: 64px;
+}
 .no-scrollbar {
   &::-webkit-scrollbar {
     display: none;
   }
+}
+.zaui-tabs-tabbar {
+  overflow-x: auto;
 }
 .zaui-input-prefix {
   .zaui-btn-icon-only .zaui-btn-icon {
@@ -65,4 +63,7 @@ body {
       background: linear-gradient(to left, var(--zmp-page-bg-color) 80%, transparent);
     }
   }
+}
+.swiper-slide-active {
+  font-weight: 600;
 }

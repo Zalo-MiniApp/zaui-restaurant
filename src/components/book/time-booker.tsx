@@ -1,7 +1,11 @@
 import { FunctionComponent, useEffect, useMemo, useRef } from "react";
-import { Box, Button, Swiper, SwiperSlide, Title } from "zmp-ui";
+import { Box, Text } from "zmp-ui";
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Hours } from "../../models";
 import Time from "../format/time";
+import React from "react";
+
+const { Title } = Text;
 
 interface TimeBookerProps {
   onChange: (value: Hours) => void
@@ -41,10 +45,10 @@ const TimeBooker: FunctionComponent<TimeBookerProps> = ({ onChange, hours }) => 
   }, [])
 
   return <Box m={0}>
-    <Title size="small" className="mx-2">Thời gian khả dụng</Title>
+    <Title size="small" className="mx-2 mb-3">Thời gian khả dụng</Title>
     <Swiper ref={swiperRef} className="date-booker" slidesPerView={3} centeredSlides onSlideChange={swiper => onChange(availableHours[swiper.activeIndex])}>
       {availableHours.map((hour, i) => <SwiperSlide key={i}>
-        <div onClick={() => slideTo(i)} className="flex rounded-full bg-white h-12 items-center justify-center py-3 mx-2 whitespace-nowrap"><Time time={hour} /></div>
+        <div onClick={() => slideTo(i)} className="flex rounded-full bg-white px-6 py-4 items-center justify-center mx-2 whitespace-nowrap"><Time time={hour} /></div>
       </SwiperSlide>)}
     </Swiper>
   </Box>;
