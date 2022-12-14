@@ -5,17 +5,17 @@ import { getConfig } from "./components/config-provider";
 import { useRecoilValue } from "recoil";
 import { restaurantsState } from "./state";
 
-export const useRestaurant = (id: number) => {
+export const useRestaurant = (id?: number) => {
   const restaurants = useRecoilValue(restaurantsState);
   const restaurant = useMemo(() => {
-    return restaurants.find(restaurant => restaurant.id == id);
+    return restaurants.find(restaurant => restaurant.id == (id ? id : Number(new URLSearchParams(location.search).get('id'))));
   }, [id])
   return restaurant
 }
 
-export const matchStatusBar = (sheetOpened: boolean) => {
+export const matchStatusBar = (sheetOpened: boolean, color?: string) => {
   api.setNavigationBarColor({
-    statusBarColor: sheetOpened ? '#404040' : getConfig(c => c.app.statusBarColor),
+    statusBarColor: color ?? (sheetOpened ? '#404040' : getConfig(c => c.app.statusBarColor)),
     color: '',
   });
 }

@@ -1,6 +1,9 @@
+import React from "react";
 import { FunctionComponent, useEffect, useState } from "react";
-import { Box, Button, Title } from "zmp-ui";
+import { Box, Button, Text } from "zmp-ui";
 import { Extra } from "../../../models";
+
+const { Title } = Text;
 
 interface ExtraSelectionProps {
   extra: Extra
@@ -15,7 +18,7 @@ const ExtraSelection: FunctionComponent<ExtraSelectionProps> = ({ extra, onChang
   return <>
     <Title size="small">{extra.label}</Title>
     <Box m={0} mt={4} flex alignItems="center" justifyContent="space-between">
-      {extra.options.map(option => <Button className="flex-1 mx-2 first:ml-0 last:mr-0" key={option.key} onClick={() => setSelected(option.key)} typeName={selected === option.key ? 'primary' : 'tertiary'}>{option.label}</Button>)}
+      {extra.options.map(option => <Button size="small" className="flex-1 mx-2 first:ml-0 last:mr-0" key={option.key} onClick={() => setSelected(option.key)} variant={selected === option.key ? 'primary' : 'secondary'}>{option.label}</Button>)}
     </Box>
   </>;
 }

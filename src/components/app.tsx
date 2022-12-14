@@ -7,6 +7,7 @@ import Header from './header';
 import NavigationBar from './navigation-bar';
 import RestaurantPage from '../pages/restaurant';
 import CalendarPage from '../pages/calendar';
+import Cart from './cart';
 
 const MyApp = () => {
   return (
@@ -21,6 +22,7 @@ const MyApp = () => {
               <Route path="/calendar" element={<CalendarPage />}></Route>
             </AnimationRoutes>
             <NavigationBar />
+            <Cart />
           </ZMPRouter>
         </SnackbarProvider>
       </App>

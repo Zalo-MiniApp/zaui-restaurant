@@ -1,7 +1,7 @@
 import React from "react";
 import { useMemo, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { Box, Button, Page, Tabs } from "zmp-ui";
+import { Box, Page, Tabs } from "zmp-ui";
 import BookingItem from "../components/book/booking";
 import { bookingsState } from "../state";
 

@@ -1,12 +1,13 @@
-import { ReactNode, useMemo } from "react";
-import { Box, Button, Sheet, Title } from "zmp-ui";
-import Notch from "../components/notch";
+import { FC, ReactNode, useMemo, useState } from "react";
+import { Box, Button, Sheet, Text } from "zmp-ui";
 import Price from "../components/format/price";
 import { useBookingTotal } from "../hooks";
 import Time from "../components/format/time";
 import CartItem from "../components/cart/cart-item";
-import { useRecoilValue } from "recoil";
-import { bookingsState } from "../state";
+import React from "react";
+import { Booking } from "../models";
+
+const { Title } = Text;
 
 function Section({ left, right }: { left: ReactNode, right: ReactNode }) {
   return <>
@@ -17,36 +18,39 @@ function Section({ left, right }: { left: ReactNode, right: ReactNode }) {
     <hr />
   </>;
 }
-
-function BookingDetail({ zmproute, zmprouter }) {
-  const allBookings = useRecoilValue(bookingsState);
-  const booking = useMemo(() => bookings.find(b => b.id === zmproute.query.id), [zmproute])
+const BookingDetail: FC<{
+  children: (open: () => void) => ReactNode;
+  booking: Booking;
+}> = ({ children, booking }) => {
   const [total] = useBookingTotal(booking);
+  const [visible, setVisible] = useState(false);
 
-  return <Sheet backdrop swipeToClose className="h-auto" swipeHandler=".swiper-handler">
-    <Notch color="black" />
-    {booking && <>
-      <Box className="swiper-handler" p={4} mt={6} flex justifyContent="center">
-        <Title size="small">{booking.bookingInfo ? 'Thông tin đặt bàn' : 'Pizza'}</Title>
-      </Box>
-      <hr />
-      <div className="swiper-handler">
-        {booking.bookingInfo && <>
-          <Section left="Ngày, giờ" right={<>{booking.bookingInfo.date.toLocaleDateString()} - <Time time={booking.bookingInfo.hour} /></>} />
-          <Section left="Bàn số" right={booking.bookingInfo.seats} />
-          <Section left="Số ghế" right={booking.bookingInfo.table} />
-        </>}
-        <Section left="Chi tiết" right={<Price amount={total} />} />
-      </div>
-      {booking.cart && booking.cart.items.length ? <Box m={0} p={2} className="overflow-y-auto" style={{ maxHeight: `calc(50vh - ${booking.bookingInfo ? 54 * 4 : 0}px)`, minHeight: 120 }}>
-        {booking.cart.items.map((item, i) => <CartItem key={i} item={item} />)}
-      </Box> : <Box my={4} flex justifyContent="center">Không có món ăn</Box>}
-      <hr />
-      <Box m={6}>
-        <Button onClick={() => zmprouter.back()} large typeName="secondary" responsive className="rounded-xl">Huỷ</Button>
-      </Box>
-    </>}
-  </Sheet>;
+  return <>
+    {children(() => setVisible(true))}
+    <Sheet visible={visible} onClose={() => setVisible(false)}>
+      {booking && <>
+        <Box className="swiper-handler" p={4} flex justifyContent="center">
+          <Title size="small" className="font-semibold">{booking.bookingInfo ? 'Thông tin đặt bàn' : 'Pizza'}</Title>
+        </Box>
+        <hr />
+        <div className="swiper-handler">
+          {booking.bookingInfo && <>
+            <Section left="Ngày, giờ" right={<>{booking.bookingInfo.date.toLocaleDateString()} - <Time time={booking.bookingInfo.hour} /></>} />
+            <Section left="Bàn số" right={booking.bookingInfo.seats} />
+            <Section left="Số ghế" right={booking.bookingInfo.table} />
+          </>}
+          <Section left="Chi tiết" right={<Price amount={total} />} />
+        </div>
+        {booking.cart && booking.cart.items.length ? <Box m={0} p={2} className="overflow-y-auto" style={{ maxHeight: `calc(50vh - ${booking.bookingInfo ? 54 * 4 : 0}px)`, minHeight: 120 }}>
+          {booking.cart.items.map((item, i) => <CartItem key={i} item={item} />)}
+        </Box> : <Box my={4} flex justifyContent="center">Không có món ăn</Box>}
+        <hr />
+        <Box className="m-6 mt-4">
+          <Button onClick={() => setVisible(false)} variant="secondary" fullWidth>Huỷ</Button>
+        </Box>
+      </>}
+    </Sheet>
+  </>;
 }
 
 export default BookingDetail;

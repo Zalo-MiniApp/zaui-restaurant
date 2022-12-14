@@ -7,7 +7,7 @@ import React from "react";
 
 function RestaurantPage() {
   const location = useLocation();
-  const restaurant = useRestaurant(Number(new URLSearchParams(location.search).get('id')))!;
+  const restaurant = useRestaurant()!;
 
   return <Page>
     <RestaurantContext.Provider value={{ restaurant }}>
