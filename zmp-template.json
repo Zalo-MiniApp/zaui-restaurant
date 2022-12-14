@@ -1,0 +1,14 @@
+{
+  "name": "ZMP Restaurant",
+  "options": {
+    "serviceFee": {
+      "title": "Service Fee",
+      "description": "Fixed amount needed to be paid on each order",
+      "type": "number"
+    },
+    "searchBar": {
+      "title": "Enable search bar",
+      "type": "boolean"
+    }
+  }
+}

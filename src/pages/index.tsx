@@ -59,7 +59,7 @@ const HomePage = () => {
         </Suspense>
         {getConfig(c => c.template.searchBar) && <>
           <Inquiry />
-          <Header className='mt-6 mb-4 font-semibold'>Phân loại nhanh</Header>
+          <Header className='mt-6 font-semibold'>Phân loại nhanh</Header>
         </>}
         <QuickFilter />
       </Box>

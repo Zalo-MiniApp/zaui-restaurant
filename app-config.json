@@ -7,8 +7,8 @@
     "leftButton": "back"
   },
   "template": {
-    "primaryColor": "#0068ff",
-    "secondaryColor": "#ff8a00",
+    "primaryColor": "#174282",
+    "secondaryColor": "#c27d2e",
     "serviceFee": 25000,
     "searchBar": true
   },
