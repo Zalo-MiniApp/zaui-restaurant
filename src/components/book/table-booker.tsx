@@ -1,6 +1,6 @@
 import React from "react";
 import { FunctionComponent } from "react";
-import { Button, Icon, Text } from "zmp-ui";
+import { Button, Icon, Picker, Text } from "zmp-ui";
 
 const { Title } = Text;
 
@@ -12,10 +12,28 @@ interface TableBookerProps {
 const TableBooker: FunctionComponent<TableBookerProps> = ({ value, onChange }) => {
   return <div className="w-36 space-y-2">
     <Title size="small">Bàn số</Title>
-    <div className="relative">
-      <select className="w-full rounded-full bg-white h-14 flex items-center justify-between px-5 border-none text-sm" value={value} onChange={e => onChange(e.target.value)}>
-        {['01', '02', '03', '04', '05'].map(table => <option key={table} value={table}>No.{table}</option>)}
-      </select>
+    <div className="relative w-full rounded-full bg-white h-14 flex items-center justify-between overflow-hidden border-none text-sm table-booker">
+      <Picker
+        mask
+        maskClosable
+        title="Bàn số"
+        action={{
+          text: "Chọn",
+          close: true,
+        }}
+        placeholder="No.01"
+        defaultValue={{ value }}
+        onChange={({ table }) => onChange(table.value as string)}
+        data={[
+          {
+            options: ['01', '02', '03', '04', '05'].map(table => ({
+              value: table,
+              displayName: `No.${table}`
+            })),
+            name: "table",
+          },
+        ]}
+      />
       <Button
         icon={<Icon icon="zi-chevron-down" />}
         variant="secondary"

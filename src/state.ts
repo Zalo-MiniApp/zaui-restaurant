@@ -17,22 +17,26 @@ export const userState = selector({
   }
 });
 
-export const allowLocationState = atom({
-  key: 'allowLocation',
-  default: false
+export const retryLocationState = atom({
+  key: 'retryLocation',
+  default: 0,
 })
 
 export const positionState = selector<Location | undefined>({
   key: "position",
   get: async ({ get }) => {
-    const allow = get(allowLocationState);
-    if (allow) {
-      await get(loginState);
-      const { latitude, longitude } = await sdk.getLocation({});
-      return {
-        lat: Number(latitude),
-        long: Number(longitude),
-      };
+    try {
+      const allow = get(retryLocationState);
+      if (allow) {
+        await get(loginState);
+        const { latitude, longitude } = await sdk.getLocation({});
+        return {
+          lat: Number(latitude),
+          long: Number(longitude),
+        };
+      }
+    } catch (error) {
+      return undefined;
     }
     return undefined;
   }
@@ -361,7 +365,7 @@ export const nearestRestaurantsState = selector<Restaurant[]>({
     const restaurants = get(restaurantsState);
     const position = get(positionState);
     if (position) {
-      restaurants.sort((a, b) => {
+      return [...restaurants].sort((a, b) => {
         const aDistance = calcCrowFliesDistance(position, a.location);
         const bDistance = calcCrowFliesDistance(position, b.location);
         return aDistance - bDistance;

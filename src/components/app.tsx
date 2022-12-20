@@ -20,14 +20,14 @@ const MyApp = () => {
         <App >
           <SnackbarProvider>
             <ZMPRouter>
+              <Cart />
               <Header />
               <AnimationRoutes>
-                <Route path="/" element={<HomePage />}></Route>
+                <Route path="/" element={<HomePage />} />
                 <Route path="/restaurant" element={<RestaurantPage />}></Route>
                 <Route path="/calendar" element={<CalendarPage />}></Route>
               </AnimationRoutes>
               <NavigationBar />
-              <Cart />
             </ZMPRouter>
           </SnackbarProvider>
         </App>

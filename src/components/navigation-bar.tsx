@@ -19,10 +19,8 @@ function NavigationBar() {
   }, [activeTab])
   return <>
     {location.pathname !== '/restaurant' && <>
-      <Box height={64} />
       <BottomNavigation
         id="bottom-nav"
-        fixed
         activeKey={activeTab}
         onChange={(key) => setActiveTab(key)}
       >

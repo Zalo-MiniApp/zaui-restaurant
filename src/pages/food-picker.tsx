@@ -6,6 +6,7 @@ import ExtraSelection from "./restaurant/menu/extra-selection";
 import Price from "../components/format/price";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { cartState, foodsState } from "../state";
+import { createPortal } from "react-dom";
 
 const { Title } = Text;
 
@@ -62,7 +63,7 @@ const FoodPicker: FC<{
 
   return <>
     {children(() => setOpened(true))}
-    <Sheet
+    {createPortal(<Sheet
       visible={opened}
       onClose={() => setOpened(false)}
       autoHeight
@@ -75,7 +76,9 @@ const FoodPicker: FC<{
         console.log("current point", nap);
       }}
     >
-      <img className="w-full aspect-video object-cover -mt-6 pointer-events-none -z-10" src={food.image} />
+      <div className="w-full aspect-video object-cover overflow-hidden -mt-6 pointer-events-none -z-10">
+        <img className="w-full h-full" src={food.image} />
+      </div>
       <Box mt={6} mb={5} flex justifyContent="center" alignItems="center">
         <Button icon={<Icon icon="zi-minus-circle" />} disabled={quantity === 1} onClick={() => setQuantity(q => q - 1)}></Button>
         <Text className="mx-4">{quantity}</Text>
@@ -123,7 +126,7 @@ const FoodPicker: FC<{
           </Box>
         </Box>
       </Box>
-    </Sheet>
+    </Sheet>, document.body)}
   </>;
 }
 

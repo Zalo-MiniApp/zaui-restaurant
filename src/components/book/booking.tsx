@@ -1,7 +1,6 @@
 import React from "react";
 import { FunctionComponent, useState } from "react";
 import { Box, Button, Text } from "zmp-ui";
-import { useNavigate } from 'react-router-dom';
 import { useBookingTotal } from "../../hooks";
 import { Booking } from "../../models";
 import Price from "../format/price";
@@ -9,6 +8,8 @@ import Time from "../format/time";
 import RestaurantItem from "../restaurant";
 import Swipeable from "../swipeable";
 import BookingDetail from "../../pages/booking-detail";
+import { useSetRecoilState } from "recoil";
+import { bookingsState } from "../../state";
 
 interface BookingItemProps {
   booking: Booking
@@ -18,13 +19,13 @@ const { Title } = Text;
 
 const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
   const [total] = useBookingTotal(booking);
-  const navigate = useNavigate();
+  const setBooking = useSetRecoilState(bookingsState);
   const [selectingState, setSelectingState] = useState(false);
   const unbook = (id: string) => {
-
+    setBooking(bs => bs.filter(booking => booking.id !== id));
   }
 
-  return <Box flex alignItems="center" p={4}>
+  return <Box flex alignItems="center" px={4}>
     <Swipeable
       onClick={(e) => {
         if (e.currentTarget === e.target) {

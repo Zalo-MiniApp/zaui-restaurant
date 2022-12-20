@@ -15,8 +15,26 @@ hr {
   height: 0.5px;
   border: none;
 }
+#app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .zaui-routes {
+    flex: 1;
+    .zaui-routes-item {
+      display: flex;
+      .zaui-page {
+        min-height: 0;
+        flex: 1;
+      }
+    }
+  }
+}
 #bottom-nav .zaui-bottom-navigation-content {
   height: 64px;
+}
+.zaui-bottom-navigation-content::after {
+  top: 0;
 }
 .zaui-btn-primary, .zaui-btn-primary.zaui-btn-highlight {
   background-color: var(--zmp-primary-color);
@@ -82,11 +100,21 @@ hr {
 .swiper-slide-active {
   font-weight: 600;
 }
-.cart-preview.collapsed {
-  .zaui-sheet-wrapper {
-    pointer-events: none;
+.cart-preview {
+  &, .zaui-mask, .zaui-modal-wrapper {
+    z-index: 10;
   }
-  .zaui-sheet-content {
-    pointer-events: initial;
+  &.collapsed {
+    .zaui-sheet-wrapper {
+      pointer-events: none;
+    }
+    .zaui-sheet-content {
+      pointer-events: initial;
+    }
+  }
+}
+.table-booker {
+  .zaui-picker-input {
+    border: none;
   }
 }

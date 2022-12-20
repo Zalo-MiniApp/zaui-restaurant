@@ -10,8 +10,8 @@ import { pay } from "../../services/zalo";
 import { message } from "../../utils/notification";
 import RestaurantContext from "./context";
 import { getConfig } from "../../components/config-provider";
-import { useRecoilValue } from "recoil";
-import { totalState } from "../../state";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { bookingsState, totalState } from "../../state";
 import { useNavigate } from 'react-router-dom';
 
 const { Title } = Text;
@@ -21,6 +21,7 @@ function Booking() {
   const { restaurant } = useContext(RestaurantContext);
   const [hour, setHour] = useState(restaurant.hours.opening);
   const [date, setDate] = useState(new Date());
+  const setBookings = useSetRecoilState(bookingsState);
   const [table, setTable] = useState('05');
   const total = useRecoilValue(totalState);
   const navigate = useNavigate();
@@ -28,18 +29,20 @@ function Booking() {
   const book = async () => {
     const serviceFee = getConfig(c => c.template.serviceFee);
     await pay(serviceFee + total);
-    // await store.dispatch('book', {
-    //   restaurant: restaurant,
-    //   id: + new Date() + '',
-    //   bookingInfo: {
-    //     seats,
-    //     hour,
-    //     date,
-    //     table
-    //   }
-    // } as BookingModel)
+    setBookings(bs => bs.concat({
+      restaurant: restaurant,
+      id: + new Date() + '',
+      bookingInfo: {
+        seats,
+        hour,
+        date,
+        table
+      }
+    }));
     message('Đặt bàn thành công');
-    navigate('/calendar');
+    setTimeout(() => {
+      navigate('/calendar');
+    }, 1000)
   }
 
   return <>
@@ -50,7 +53,6 @@ function Booking() {
         <SeatsPicker value={seats} onChange={setSeats} />
       </Box>
       <TimeBooker hours={restaurant.hours} onChange={setHour} />
-      <Box height={80}></Box>
     </Box>
     <Box m={0} p={6} className="bg-white fixed bottom-0 left-0 right-0 shadow z-10 border">
       <Box mb={4} flex justifyContent="space-between">

@@ -27,7 +27,7 @@
     "react-dom": "^18.2.0",
     "recoil": "^0.7.6",
     "swiper": "^8.4.5",
-    "zmp-sdk": "^2.23.2",
+    "zmp-sdk": "^2.23.3",
     "zmp-ui": "^1.5.0"
   },
   "devDependencies": {

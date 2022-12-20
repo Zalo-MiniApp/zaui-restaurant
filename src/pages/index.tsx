@@ -3,7 +3,7 @@ import { Page, Box, Avatar, Text } from 'zmp-ui';
 import { getConfig } from '../components/config-provider';
 import Inquiry, { QuickFilter } from '../components/inquiry';
 import RestaurantItem from '../components/restaurant';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilValue_TRANSITION_SUPPORT_UNSTABLE } from 'recoil';
 import { nearestRestaurantsState, popularRestaurantsState, userState } from '../state';
 
 const { Title, Header } = Text;
@@ -29,7 +29,7 @@ function Popular() {
 }
 
 function Nearest() {
-  const nearests = useRecoilValue(nearestRestaurantsState);
+  const nearests = useRecoilValue_TRANSITION_SUPPORT_UNSTABLE(nearestRestaurantsState);
   return <>
     <Box mx={4} mt={5}>
       <Header className='mt-6 mb-3 font-semibold'>Gần bạn nhất</Header>
@@ -64,7 +64,9 @@ const HomePage = () => {
         <QuickFilter />
       </Box>
       <Popular />
-      <Nearest />
+      <Suspense>
+        <Nearest />
+      </Suspense>
     </Page>
   );
 }
