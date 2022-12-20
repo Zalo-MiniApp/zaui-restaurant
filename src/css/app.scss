@@ -2,7 +2,7 @@
 
 /* Your app custom styles here */
 :root {
-  --zmp-theme-color: #0068ff;
+  --zmp-primary-color: #0068ff;
   --zmp-secondary-color: #ff8a00;
   --zmp-page-bg-color: #f4f5f6;
 }
@@ -17,6 +17,16 @@ hr {
 }
 #bottom-nav .zaui-bottom-navigation-content {
   height: 64px;
+}
+.zaui-btn-primary, .zaui-btn-primary.zaui-btn-highlight {
+  background-color: var(--zmp-primary-color);
+}
+.zaui-btn-tertiary, .zaui-btn-tertiary.zaui-btn-highlight {
+  color: var(--zmp-primary-color);
+}
+.zaui-btn-secondary, .zaui-btn-secondary.zaui-btn-highlight {
+  background-color: white;
+  color: black;
 }
 .zaui-page, .no-scrollbar {
   &::-webkit-scrollbar {

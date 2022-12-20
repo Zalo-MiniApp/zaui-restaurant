@@ -1,6 +1,18 @@
 {
   "name": "ZMP Restaurant",
   "options": {
+    "primaryColor": {
+      "title": "Primary Color",
+      "description": "Buttons, links, icons, highlited items color,...",
+      "type": "color",
+      "optional": true
+    },
+    "secondaryColor": {
+      "title": "Secondary Color",
+      "description": "Price, less important highlighted items color,...",
+      "type": "color",
+      "optional": true
+    },
     "serviceFee": {
       "title": "Service Fee",
       "description": "Fixed amount needed to be paid on each order",

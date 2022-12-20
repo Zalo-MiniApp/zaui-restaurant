@@ -1,3 +1,4 @@
+import React from "react";
 import { FC, ReactNode, useEffect } from "react";
 import appConfig from '../../app-config.json';
 

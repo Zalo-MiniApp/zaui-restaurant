@@ -10,8 +10,9 @@ module.exports = {
         card: '4/3',
       },
       colors: {
-        'primary': 'var(--zmp-theme-color)',
+        'primary': 'var(--zmp-primary-color)',
         'secondary': 'var(--zmp-secondary-color)',
+        'background': 'var(--zmp-page-bg-color)',
       },
     },
   },

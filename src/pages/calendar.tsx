@@ -25,7 +25,7 @@ function CalendarPage() {
     });
   }, [status, allBookings])
 
-  return <Page>
+  return <Page className="min-h-0">
     <Tabs activeKey={status} onChange={setStatus as any}>
       {['upcoming', 'finished'].map(status => <Tabs.Tab key={status} label={labels[status]}>
         {bookings.length === 0 ?

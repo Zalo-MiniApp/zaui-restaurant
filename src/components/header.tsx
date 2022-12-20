@@ -25,8 +25,7 @@ function AppHeader() {
   }, [location.pathname])
 
   return <>
-    <Box height={44} />
-    <Header title={title} style={{ backgroundColor: location.pathname === '/calendar' ? undefined : 'transparent' }} showBackIcon={location.pathname !== '/'} />
+    <Header className="sticky top-0 !bg-background" title={title} style={{ backgroundColor: location.pathname === '/calendar' ? undefined : 'transparent' }} showBackIcon={location.pathname !== '/'} />
   </>;
 }
 

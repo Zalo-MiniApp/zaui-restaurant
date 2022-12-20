@@ -8,24 +8,30 @@ import NavigationBar from './navigation-bar';
 import RestaurantPage from '../pages/restaurant';
 import CalendarPage from '../pages/calendar';
 import Cart from './cart';
+import { ConfigProvider, getConfig } from './config-provider';
 
 const MyApp = () => {
   return (
     <RecoilRoot>
-      <App >
-        <SnackbarProvider>
-          <ZMPRouter>
-            <Header />
-            <AnimationRoutes>
-              <Route path="/" element={<HomePage />}></Route>
-              <Route path="/restaurant" element={<RestaurantPage />}></Route>
-              <Route path="/calendar" element={<CalendarPage />}></Route>
-            </AnimationRoutes>
-            <NavigationBar />
-            <Cart />
-          </ZMPRouter>
-        </SnackbarProvider>
-      </App>
+      <ConfigProvider cssVariables={{
+        '--zmp-primary-color': getConfig(c => c.template.primaryColor),
+        '--zmp-secondary-color': getConfig(c => c.template.secondaryColor),
+      }}>
+        <App >
+          <SnackbarProvider>
+            <ZMPRouter>
+              <Header />
+              <AnimationRoutes>
+                <Route path="/" element={<HomePage />}></Route>
+                <Route path="/restaurant" element={<RestaurantPage />}></Route>
+                <Route path="/calendar" element={<CalendarPage />}></Route>
+              </AnimationRoutes>
+              <NavigationBar />
+              <Cart />
+            </ZMPRouter>
+          </SnackbarProvider>
+        </App>
+      </ConfigProvider>
     </RecoilRoot>
   );
 }

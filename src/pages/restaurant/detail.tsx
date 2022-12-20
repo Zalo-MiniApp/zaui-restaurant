@@ -26,7 +26,7 @@ function RestaurantDetail() {
         <Text className="font-bold">{restaurant.name}</Text>
         <Text className="text-gray-500">{restaurant.address}</Text>
         <Box flex justifyContent="center" mt={0} py={3}>
-          <Button className="text-red-500" prefixIcon={<Icon icon="zi-location-solid" />} variant="tertiary">
+          <Button prefixIcon={<Icon icon="zi-location-solid" className="text-red-500" />} variant="tertiary">
             <span className="text-gray-500"><DistrictName id={restaurant.districtId} /></span>
           </Button>
           <Button prefixIcon={<Icon icon="zi-send-solid" />} variant="tertiary">
