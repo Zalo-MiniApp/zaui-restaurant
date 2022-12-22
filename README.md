@@ -18,7 +18,7 @@ Starter template for building a restaurant's mini program. Main features:
 
 |                          Preview                           |               Open Zalo and scan this QR                |
 | :--------------------------------------------------------: | :-----------------------------------------------------: |
-| <img src="./docs/preview.jpg" alt="Home page" width="250"> | <img src="./docs/qr.png" alt="Entry point" width="250"> |
+| <img src="./docs/preview.jpg" alt="Home page" width="250"> | <img src="https://logo-mapps.zdn.vn/qrcode/cc27187ebc3b55650c2a.png" alt="Entry point" width="250"> |
 
 ## Pre-requisites
 
