@@ -1,4 +1,4 @@
-# ZMP Restaurant
+# ZaUI Restaurant
 
 <p style="display: flex; flex-wrap: wrap; gap: 4px">
   <img alt="react" src="https://badgen.net/badge/react/18.2.0/?icon=npm" />
@@ -91,7 +91,7 @@ Just change the `app.title` property in `app-config.json`:
 ```json
 {
   "app": {
-    "title": "ZMP Restaurant"
+    "title": "ZaUI Restaurant"
   }
 }
 ```

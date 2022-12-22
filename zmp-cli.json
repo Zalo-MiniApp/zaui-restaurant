@@ -1,6 +1,6 @@
 {
   "cwd": "/Users/lap15182-local/Desktop/zalo/zmp-restaurant",
-  "name": "ZMP Restaurant",
+  "name": "ZaUI Restaurant",
   "framework": "react-typescript",
   "cssPreProcessor": "scss",
   "includeTailwind": true,
