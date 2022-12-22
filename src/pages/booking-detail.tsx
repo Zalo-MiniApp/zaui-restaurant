@@ -1,4 +1,4 @@
-import { FC, ReactNode, useMemo, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import { Box, Button, Sheet, Text } from "zmp-ui";
 import Price from "../components/format/price";
 import { useBookingTotal } from "../hooks";
@@ -6,6 +6,7 @@ import Time from "../components/format/time";
 import CartItem from "../components/cart/cart-item";
 import React from "react";
 import { Booking } from "../models";
+import { createPortal } from "react-dom";
 
 const { Title } = Text;
 
@@ -27,7 +28,7 @@ const BookingDetail: FC<{
 
   return <>
     {children(() => setVisible(true))}
-    <Sheet visible={visible} onClose={() => setVisible(false)}>
+    {createPortal(<Sheet visible={visible} onClose={() => setVisible(false)}>
       {booking && <>
         <Box className="swiper-handler" p={4} flex justifyContent="center">
           <Title size="small" className="font-semibold">{booking.bookingInfo ? 'Thông tin đặt bàn' : 'Pizza'}</Title>
@@ -49,7 +50,7 @@ const BookingDetail: FC<{
           <Button onClick={() => setVisible(false)} variant="secondary" fullWidth>Huỷ</Button>
         </Box>
       </>}
-    </Sheet>
+    </Sheet>, document.body)}
   </>;
 }
 

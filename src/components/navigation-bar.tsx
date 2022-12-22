@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { BottomNavigation, Box, Icon } from "zmp-ui";
+import { BottomNavigation, Icon } from "zmp-ui";
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export const hideNavigationBar = () => {
-  throw new Error("To be implemented");
-}
-
-export const showNavigationBar = () => {
-  throw new Error("To be implemented");
-}
+const navItems = [
+  {
+    path: "/",
+    label: "Trang chủ",
+    icon: <Icon icon="zi-home" />,
+  },
+  {
+    path: "/calendar",
+    label: "Lịch của tôi",
+    icon: <Icon icon="zi-calendar" />,
+  },
+];
 
 function NavigationBar() {
   const navigate = useNavigate();
@@ -17,6 +22,12 @@ function NavigationBar() {
   useEffect(() => {
     navigate(activeTab);
   }, [activeTab])
+  useEffect(() => {
+    if (navItems.find(item => item.path === location.pathname)) {
+      setActiveTab(location.pathname);
+    }
+  }, [location]);
+
   return <>
     {location.pathname !== '/restaurant' && <>
       <BottomNavigation
@@ -24,16 +35,11 @@ function NavigationBar() {
         activeKey={activeTab}
         onChange={(key) => setActiveTab(key)}
       >
-        <BottomNavigation.Item
-          key="/"
-          label="Trang chủ"
-          icon={<Icon icon="zi-home" />}
-        />
-        <BottomNavigation.Item
-          key="/calendar"
-          label="Lịch của tôi"
-          icon={<Icon icon="zi-calendar" />}
-        />
+        {navItems.map(({ path, label, icon }) => <BottomNavigation.Item
+          key={path}
+          label={label}
+          icon={icon}
+        />)}
       </BottomNavigation>
     </>}
   </>

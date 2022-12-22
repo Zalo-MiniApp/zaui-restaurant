@@ -34,7 +34,6 @@ function CalendarPage() {
           </>}
       </Tabs.Tab>)}
     </Tabs>
-
   </Page>;
 }
 

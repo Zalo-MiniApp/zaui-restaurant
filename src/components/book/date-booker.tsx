@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import { FunctionComponent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useEffect } from "react";
+import { FunctionComponent, useCallback, useMemo, useRef, useState } from "react";
 import { Box, Button, Icon, Text } from "zmp-ui";
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
@@ -17,6 +17,12 @@ export const DateCell: FC<{ date: Date }> = ({ date }) => {
   const slideToDay = (day: number) => {
     swiper.slideTo(day - 1);
   }
+
+  useEffect(() => {
+    if (date.getDate() === new Date().getDate()) {
+      slideToDay(date.getDate());
+    }
+  }, [])
 
   return <div onClick={() => slideToDay(date.getDate())} className="bg-white rounded-full h-20 pb-2 box-content flex flex-col items-center justify-center w-12 m-auto">
     <span className="whitespace-nowrap mt-2 mb-1 text-xs">{getDayName(date)}</span>

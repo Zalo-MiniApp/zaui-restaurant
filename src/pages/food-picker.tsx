@@ -1,32 +1,29 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { Box, Button, Checkbox, Icon, Input, Sheet, Text } from "zmp-ui";
 import { CartItem, Food } from "../models";
 import ExtraSelection from "./restaurant/menu/extra-selection";
 import Price from "../components/format/price";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { cartState, foodsState } from "../state";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { cartState } from "../state";
 import { createPortal } from "react-dom";
 
 const { Title } = Text;
 
 const FoodPicker: FC<{
   children: (open: () => void) => ReactNode;
-  food: Food;
+  food?: Food;
   cartItemIndex?: number;
-}> = ({ children, food, cartItemIndex }) => {
-  const [extras, setExtras] = useState<string[]>([]);
-  const [options, setOptions] = useState<boolean[]>([]);
-  const [quantity, setQuantity] = useState(1);
-  const [expanded, setExpanded] = useState(false);
-  const [note, setNote] = useState("");
-  const foods = useRecoilValue(foodsState);
+}> = ({ children, food: foodProp, cartItemIndex }) => {
   const [cart, setCart] = useRecoilState(cartState);
-  useEffect(() => {
-    if (food) {
-      setOptions(food.options.map(o => o.selected));
-    }
-  }, [food])
+  const cartItem = useMemo(() => typeof cartItemIndex !== 'undefined' ? cart.items[cartItemIndex] : undefined, [cart, cartItemIndex]);
+  const food = useMemo(() => cartItem ? cartItem.food : foodProp!, [cartItem]);
+
+  const [extras, setExtras] = useState<string[]>(cartItem ? cartItem.food.extras.map(e => e.key) : []);
+  const [options, setOptions] = useState(food.options.map(o => o.selected));
+  const [quantity, setQuantity] = useState(cartItem ? cartItem.quantity : 1);
+  const [note, setNote] = useState(cartItem ? cartItem.note : "");
+
   const addToCart = () => {
     setCart(cart => {
       const item: CartItem = {
@@ -48,7 +45,7 @@ const FoodPicker: FC<{
         }
       }
       const cartItems = [...cart.items];
-      if (cartItemIndex) {
+      if (typeof cartItemIndex !== 'undefined') {
         cartItems[cartItemIndex] = item;
       } else {
         cartItems.push(item);
@@ -72,9 +69,6 @@ const FoodPicker: FC<{
       swipeToClose
       defaultSnapPoint={0}
       snapPoints={[0.4, 0]}
-      onSnap={(nap) => {
-        console.log("current point", nap);
-      }}
     >
       <div className="w-full aspect-video object-cover overflow-hidden -mt-6 pointer-events-none -z-10">
         <img className="w-full h-full" src={food.image} />

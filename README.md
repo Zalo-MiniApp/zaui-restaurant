@@ -6,7 +6,7 @@
   <img alt="zmp-sdk" src="https://badgen.net/badge/zmp-sdk/2.23.3/green?icon=npm" />
   <img alt="recoil" src="https://badgen.net/badge/recoil/0.7.6/black?icon=npm" />
   <img alt="tailwindcss" src="https://badgen.net/badge/tailwindcss/3.2.4/cyan?icon=npm" />
-  <img alt="scss" src="https://badgen.net/badge/scss/8.4.19/pink?icon=npm" />
+  <img alt="scss" src="https://badgen.net/badge/scss/1.56.2/pink?icon=npm" />
 </p>
 
 Starter template for building a restaurant's mini program. Main features:

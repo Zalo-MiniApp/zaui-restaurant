@@ -400,8 +400,9 @@ export const bookingsState = atom<Booking[]>({
   default: [],
   effects: [
     ({ setSelf, getPromise }) => {
+      // generate a demo booking item, can be safely deleted if you don't need it
       Promise.all([getPromise(restaurantsState), getPromise(foodsState)]).then(([restaurants, foods]) => {
-        setSelf([{
+        setSelf(bookings => [...(Array.isArray(bookings) ? bookings : []), {
           id: '1234567890',
           restaurant: restaurants[0],
           cart: {

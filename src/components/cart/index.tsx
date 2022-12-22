@@ -3,12 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { Box, Button, Sheet, Text } from "zmp-ui";
 import { useNavigate, useLocation } from 'react-router-dom';
 import Price from "../format/price";
-import { matchStatusBar, useRestaurant } from "../../hooks";
+import { useRestaurant } from "../../hooks";
 import { pay } from "../../services/zalo";
 import { message } from "../../utils/notification";
 import CartItem from "./cart-item";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { bookingsState, cartState, currentRestaurantTabState, totalState } from "../../state";
+import FoodPicker from "../../pages/food-picker";
 
 const { Title } = Text;
 
@@ -28,7 +29,9 @@ function CartDetail() {
   }
 
   return <Box m={0} p={2} pt={3} className="overflow-y-auto" style={{ maxHeight: '50vh' }}>
-    {cart.items.map((item, i) => <CartItem key={i} item={item} onEdit={() => edit(i)} />)}
+    {cart.items.map((item, i) => <FoodPicker key={i} cartItemIndex={i}>
+      {open => <CartItem item={item} onEdit={open} />}
+    </FoodPicker>)}
   </Box>;
 }
 
@@ -46,7 +49,6 @@ function Cart() {
 
   const nextStep = () => {
     sheetRef.current.snapTo(1);
-    matchStatusBar(true);
     setExpanded(true);
   }
 
@@ -57,18 +59,17 @@ function Cart() {
   const currentTab = useRecoilValue(currentRestaurantTabState);
 
   const book = () => {
-    matchStatusBar(false);
     setRestaurantTab('book');
   }
 
   const payFoods = async () => {
     await pay(total);
-    setBookings(bookings => bookings.concat({
+    setBookings(bookings => [...bookings, {
       id: + new Date() + '',
       restaurant: restaurant!,
-    }));
+      cart,
+    }]);
     message('Đặt thức ăn thành công');
-    matchStatusBar(false);
     navigate('/calendar/');
   }
   const visible = useMemo(() =>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Button, Text } from "zmp-ui";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import DateBooker from "../../components/book/date-booker";
 import TableBooker from "../../components/book/table-booker";
 import SeatsPicker from "../../components/book/seats-booker";
@@ -8,41 +8,40 @@ import TimeBooker from "../../components/book/time-booker";
 import Price from "../../components/format/price";
 import { pay } from "../../services/zalo";
 import { message } from "../../utils/notification";
-import RestaurantContext from "./context";
 import { getConfig } from "../../components/config-provider";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { bookingsState, totalState } from "../../state";
+import { bookingsState, cartState, totalState } from "../../state";
 import { useNavigate } from 'react-router-dom';
+import { Restaurant } from "../../models";
 
 const { Title } = Text;
 
-function Booking() {
+function Booking({ restaurant }: { restaurant: Restaurant }) {
   const [seats, setSeats] = useState(4);
-  const { restaurant } = useContext(RestaurantContext);
   const [hour, setHour] = useState(restaurant.hours.opening);
   const [date, setDate] = useState(new Date());
   const setBookings = useSetRecoilState(bookingsState);
   const [table, setTable] = useState('05');
   const total = useRecoilValue(totalState);
   const navigate = useNavigate();
+  const cart = useRecoilValue(cartState);
 
   const book = async () => {
     const serviceFee = getConfig(c => c.template.serviceFee);
     await pay(serviceFee + total);
-    setBookings(bs => bs.concat({
-      restaurant: restaurant,
+    setBookings(bookings => [...bookings, {
+      restaurant,
       id: + new Date() + '',
+      cart,
       bookingInfo: {
         seats,
         hour,
         date,
         table
       }
-    }));
+    }]);
     message('Đặt bàn thành công');
-    setTimeout(() => {
-      navigate('/calendar');
-    }, 1000)
+    navigate('/calendar');
   }
 
   return <>

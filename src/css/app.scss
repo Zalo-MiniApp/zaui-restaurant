@@ -83,6 +83,7 @@ hr {
       z-index: 10;
       opacity: 0.5;
       background: linear-gradient(to right, var(--zmp-page-bg-color) 80%, transparent);
+      pointer-events: none;
     }
     &::after {
       content: " ";
@@ -94,6 +95,7 @@ hr {
       z-index: 10;
       opacity: 0.5;
       background: linear-gradient(to left, var(--zmp-page-bg-color) 80%, transparent);
+      pointer-events: none;
     }
   }
 }

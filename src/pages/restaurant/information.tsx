@@ -1,15 +1,13 @@
 import React from "react";
-import { Box, Button, Icon, Text } from "zmp-ui";
+import { Box, Icon, Text } from "zmp-ui";
 import api from 'zmp-sdk';
-import { useContext } from "react";
 import Time from "../../components/format/time";
 import Day from "../../components/format/day";
-import RestaurantContext from "./context";
+import { Restaurant } from "../../models";
 
 const { Title } = Text;
 
-function Information() {
-  const { restaurant } = useContext(RestaurantContext);
+function Information({ restaurant }: { restaurant: Restaurant }) {
 
   return <Box mx={2}>
     <Box mx={2} mt={5}>
