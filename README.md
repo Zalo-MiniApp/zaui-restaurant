@@ -68,15 +68,14 @@ Folder structure:
 
   - **`components`**: reusable components written in React.JS
   - **`css`**: Stylesheets, pre-processors also supported
-  - **`pages`**: a Page is also a component but will act as an entire view and must be registered inside `app-config.json` (https://mini.zalo.me/docs/framework/getting-started/app-config/#pages). Sheets (such as `food-picker.tsx`, `booking-detail.tsx`) are also pages, to handle the native back button on Android behavior. They won't be registered inside `app-config.json` but in the `View` component's `routesAdd` property.
+  - **`pages`**: a Page is also a component but will act as an entire view and must be registered inside `app.tsx` as a Route (https://mini.zalo.me/docs/zaui/components/router/ZMPRouter/).
   - **`services`**: reusable logic for complex tasks that should be separated from your component, such as fetching API, getting location from Zalo or caching stuff,...
-  - **`static`**: contain binary assets of your Mini App, such as icon, background, etc,...
-  - **`utils`**: reusable utility functions, such as distance calculation, notification, etc,...
+  - **`utils`**: reusable utility functions, such as math function, get image url, etc,...
   - **`app.ts`**: entry point of your Mini App
-  - **`hooks.ts`**: reusable custom hooks
+  - **`hooks.ts`**: building your own Hooks lets you extract component logic into reusable functions, such as adding product to cart, resetting product picked.
   - **`model.ts`**: contain TypeScript type and interface declarations
   - **`modules.d.ts`**: contain TypeScript declarations for third party modules
-  - **`store.ts`**: centralized state management (https://mini.zalo.me/docs/framework/getting-started/store/)
+  - **`state.ts`**: state management, containing Recoil's atoms and selectors (https://recoiljs.org/docs/introduction/getting-started#atom)
 
 - **`app-config.json`**: Global configuration for your Mini App (https://mini.zalo.me/docs/framework/getting-started/app-config)
 
