@@ -14,7 +14,7 @@ class ErrorBoundary extends React.Component<{ children: ReactNode }> {
 
   componentDidCatch(error, errorInfo) {
     // You can also log the error to an error reporting service
-    console.log('[Error boundary] ', error, errorInfo);
+    console.log("[Error boundary] ", error, errorInfo);
   }
 
   render() {

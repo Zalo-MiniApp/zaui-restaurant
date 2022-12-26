@@ -1,25 +1,29 @@
 import React, { useTransition } from "react";
 import { FunctionComponent, useMemo } from "react";
-import { useRecoilValue, useRecoilValueLoadable, useSetRecoilState } from "recoil";
+import {
+  useRecoilValue,
+  useRecoilValueLoadable,
+  useSetRecoilState,
+} from "recoil";
 import { Location } from "../models";
 import { retryLocationState, positionState } from "../state";
 import { calcCrowFliesDistance } from "../utils/location";
 
 interface DistanceProps {
-  location: Location
+  location: Location;
 }
 
 const Distance: FunctionComponent<DistanceProps> = ({ location }) => {
   const position = useRecoilValueLoadable(positionState);
-  const setRetry = useSetRecoilState(retryLocationState)
+  const setRetry = useSetRecoilState(retryLocationState);
   const [loading, startTransition] = useTransition();
   const allowLocation = () => {
     startTransition(() => {
-      setRetry(r => r + 1);
-    })
+      setRetry((r) => r + 1);
+    });
   };
   const distance = useMemo(() => {
-    if (position.state === 'hasValue' && position.contents) {
+    if (position.state === "hasValue" && position.contents) {
       const d = calcCrowFliesDistance(position.contents, location);
       if (d > 1) {
         return `${Math.round(d * 10) / 10} km`;
@@ -28,10 +32,19 @@ const Distance: FunctionComponent<DistanceProps> = ({ location }) => {
     }
     return 0;
   }, [position, location]);
-  return distance ? <>{distance}</> : <span className="text-primary" onClick={e => {
-    e.stopPropagation();
-    allowLocation();
-  }}>Bật vị trí</span>;
-}
+  return distance ? (
+    <>{distance}</>
+  ) : (
+    <span
+      className="text-primary"
+      onClick={(e) => {
+        e.stopPropagation();
+        allowLocation();
+      }}
+    >
+      Bật vị trí
+    </span>
+  );
+};
 
 export default Distance;

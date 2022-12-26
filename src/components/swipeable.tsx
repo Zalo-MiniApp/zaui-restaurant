@@ -2,11 +2,16 @@ import React from "react";
 import { FunctionComponent } from "react";
 
 interface Swipeable extends React.HTMLAttributes<HTMLDivElement> {
-  onSwipeLeft: () => void
-  onSwipeRight: () => void
+  onSwipeLeft: () => void;
+  onSwipeRight: () => void;
 }
 
-const Swipeable: FunctionComponent<Swipeable> = ({ children, onSwipeLeft, onSwipeRight, ...props }) => {
+const Swipeable: FunctionComponent<Swipeable> = ({
+  children,
+  onSwipeLeft,
+  onSwipeRight,
+  ...props
+}) => {
   const handleTouch = (e: React.TouchEvent<HTMLDivElement>) => {
     const { clientX } = e.touches[0];
     const { clientWidth } = e.currentTarget;
@@ -15,11 +20,13 @@ const Swipeable: FunctionComponent<Swipeable> = ({ children, onSwipeLeft, onSwip
     } else {
       onSwipeRight();
     }
-  }
+  };
 
-  return <div {...props} onTouchMove={handleTouch}>
-    {children}
-  </div>
-}
+  return (
+    <div {...props} onTouchMove={handleTouch}>
+      {children}
+    </div>
+  );
+};
 
 export default Swipeable;

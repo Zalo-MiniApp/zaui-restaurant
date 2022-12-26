@@ -4,9 +4,9 @@ import { calcCrowFliesDistance } from "./utils/location";
 import sdk from "./utils/sdk";
 
 export const loginState = selector({
-  key: 'login',
+  key: "login",
   get: () => sdk.login(),
-})
+});
 
 export const userState = selector({
   key: "user",
@@ -14,13 +14,13 @@ export const userState = selector({
     await get(loginState);
     const { userInfo } = await sdk.getUserInfo({});
     return userInfo;
-  }
+  },
 });
 
 export const retryLocationState = atom({
-  key: 'retryLocation',
+  key: "retryLocation",
   default: 0,
-})
+});
 
 export const positionState = selector<Location | undefined>({
   key: "position",
@@ -39,7 +39,7 @@ export const positionState = selector<Location | undefined>({
       return undefined;
     }
     return undefined;
-  }
+  },
 });
 
 export const restaurantsState = selector<Restaurant[]>({
@@ -102,7 +102,7 @@ export const categoriesState = selector({
 });
 
 export const menuState = selector({
-  key: 'menu',
+  key: "menu",
   get: ({ get }) => {
     const categories = get(categoriesState);
     const foods = get(foodsState);
@@ -110,11 +110,11 @@ export const menuState = selector({
       categories: categories.map((category, index) => ({
         id: String(index),
         name: category,
-        foods: foods.filter(food => food.categories.includes(category))
-      }))
-    }
-  }
-})
+        foods: foods.filter((food) => food.categories.includes(category)),
+      })),
+    };
+  },
+});
 
 export const foodsState = selector({
   key: "foods",
@@ -372,58 +372,69 @@ export const nearestRestaurantsState = selector<Restaurant[]>({
       });
     }
     return restaurants;
-  }
+  },
 });
 
 export const currentRestaurantTabState = atom<TabType>({
-  key: 'currentRestaurantTab',
-  default: 'info'
-})
+  key: "currentRestaurantTab",
+  default: "info",
+});
 
 export const cartState = atom<Cart>({
-  key: 'cart',
+  key: "cart",
   default: {
-    items: []
-  }
+    items: [],
+  },
 });
 
 export const totalState = selector({
-  key: 'total',
+  key: "total",
   get: ({ get }) => {
     const cart = get(cartState);
-    return cart.items.reduce((total, item) => total + item.quantity * item.food.price, 0)
-  }
-})
+    return cart.items.reduce(
+      (total, item) => total + item.quantity * item.food.price,
+      0
+    );
+  },
+});
 
 export const bookingsState = atom<Booking[]>({
-  key: 'bookings',
+  key: "bookings",
   default: [],
   effects: [
     ({ setSelf, getPromise }) => {
       // generate a demo booking item, can be safely deleted if you don't need it
-      Promise.all([getPromise(restaurantsState), getPromise(foodsState)]).then(([restaurants, foods]) => {
-        setSelf(bookings => [...(Array.isArray(bookings) ? bookings : []), {
-          id: '1234567890',
-          restaurant: restaurants[0],
-          cart: {
-            items: [{
-              quantity: 1,
-              food: foods[0],
-              note: ''
-            }, {
-              quantity: 2,
-              food: foods[1],
-              note: 'Kèm ớt trái'
-            }]
-          },
-          bookingInfo: {
-            date: new Date(),
-            hour: [20, 0, 'PM'],
-            table: '05',
-            seats: 4,
-          }
-        }])
-      })
-    }
-  ]
+      Promise.all([getPromise(restaurantsState), getPromise(foodsState)]).then(
+        ([restaurants, foods]) => {
+          setSelf((bookings) => [
+            ...(Array.isArray(bookings) ? bookings : []),
+            {
+              id: "1234567890",
+              restaurant: restaurants[0],
+              cart: {
+                items: [
+                  {
+                    quantity: 1,
+                    food: foods[0],
+                    note: "",
+                  },
+                  {
+                    quantity: 2,
+                    food: foods[1],
+                    note: "Kèm ớt trái",
+                  },
+                ],
+              },
+              bookingInfo: {
+                date: new Date(),
+                hour: [20, 0, "PM"],
+                table: "05",
+                seats: 4,
+              },
+            },
+          ]);
+        }
+      );
+    },
+  ],
 });

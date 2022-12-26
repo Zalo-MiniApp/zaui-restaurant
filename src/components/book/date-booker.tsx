@@ -1,7 +1,13 @@
 import React, { FC, useEffect } from "react";
-import { FunctionComponent, useCallback, useMemo, useRef, useState } from "react";
+import {
+  FunctionComponent,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Box, Button, Icon, Text } from "zmp-ui";
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 
 const { Title } = Text;
 
@@ -9,27 +15,36 @@ interface DateBookerProps {
   onChange: (date: Date) => void;
 }
 
-const getDayName = (date: Date) => ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'CN'][date.getDay()];
+const getDayName = (date: Date) =>
+  ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "CN"][date.getDay()];
 
 export const DateCell: FC<{ date: Date }> = ({ date }) => {
   const swiper = useSwiper();
 
   const slideToDay = (day: number) => {
     swiper.slideTo(day - 1);
-  }
+  };
 
   useEffect(() => {
     if (date.getDate() === new Date().getDate()) {
       slideToDay(date.getDate());
     }
-  }, [])
+  }, []);
 
-  return <div onClick={() => slideToDay(date.getDate())} className="bg-white rounded-full h-20 pb-2 box-content flex flex-col items-center justify-center w-12 m-auto">
-    <span className="whitespace-nowrap mt-2 mb-1 text-xs">{getDayName(date)}</span>
-    <Text className="font-semibold" size="large">{date.getDate()}</Text>
-  </div>
-}
-
+  return (
+    <div
+      onClick={() => slideToDay(date.getDate())}
+      className="bg-white rounded-full h-20 pb-2 box-content flex flex-col items-center justify-center w-12 m-auto"
+    >
+      <span className="whitespace-nowrap mt-2 mb-1 text-xs">
+        {getDayName(date)}
+      </span>
+      <Text className="font-semibold" size="large">
+        {date.getDate()}
+      </Text>
+    </div>
+  );
+};
 
 const DateBooker: FunctionComponent<DateBookerProps> = ({ onChange }) => {
   const swiperRef = useRef<any>();
@@ -52,7 +67,7 @@ const DateBooker: FunctionComponent<DateBookerProps> = ({ onChange }) => {
     } else {
       setMonth(month + 1);
     }
-  }
+  };
 
   const prev = () => {
     if (month === 0) {
@@ -61,24 +76,49 @@ const DateBooker: FunctionComponent<DateBookerProps> = ({ onChange }) => {
     } else {
       setMonth(month - 1);
     }
-  }
+  };
 
-  const handleSlideChange = useCallback((swiper) => {
-    onChange(datesOfMonth[swiper.activeIndex])
-  }, [datesOfMonth])
+  const handleSlideChange = useCallback(
+    (swiper) => {
+      onChange(datesOfMonth[swiper.activeIndex]);
+    },
+    [datesOfMonth]
+  );
 
-  return <>
-    <Box flex alignItems="center" className="gap-4 mb-4">
-      <Title size="small">Tháng {month + 1} {year}</Title>
-      <Button onClick={prev} variant="secondary" icon={<Icon icon="zi-chevron-left" className="font-bold" />} size="small"></Button>
-      <Button onClick={next} variant="secondary" icon={<Icon icon="zi-chevron-right" className="font-bold" />} size="small"></Button>
-    </Box>
-    <Swiper ref={swiperRef} className="date-booker fade-corner" slidesPerView={5} centeredSlides onSlideChange={handleSlideChange}>
-      {datesOfMonth.map((date, i) => <SwiperSlide key={i}>
-        <DateCell key={i} date={date} />
-      </SwiperSlide>)}
-    </Swiper>
-  </>;
-}
+  return (
+    <>
+      <Box flex alignItems="center" className="gap-4 mb-4">
+        <Title size="small">
+          Tháng {month + 1} {year}
+        </Title>
+        <Button
+          onClick={prev}
+          variant="secondary"
+          icon={<Icon icon="zi-chevron-left" className="font-bold" />}
+          size="small"
+        ></Button>
+        <Button
+          onClick={next}
+          variant="secondary"
+          icon={<Icon icon="zi-chevron-right" className="font-bold" />}
+          size="small"
+        ></Button>
+      </Box>
+      <Swiper
+        ref={swiperRef}
+        className="date-booker fade-corner"
+        slidesPerView={5}
+        centeredSlides
+        onSlideChange={handleSlideChange}
+      >
+        {datesOfMonth.map((date, i) => (
+          <SwiperSlide key={i}>
+            <DateCell key={i} date={date} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </>
+  );
+};
 
 export default DateBooker;

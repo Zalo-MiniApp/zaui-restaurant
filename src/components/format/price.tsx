@@ -7,6 +7,6 @@ interface PriceProps {
 
 const Price: FunctionComponent<PriceProps> = ({ amount }) => {
   return <>đ {amount.toLocaleString()}</>;
-}
+};
 
 export default Price;
