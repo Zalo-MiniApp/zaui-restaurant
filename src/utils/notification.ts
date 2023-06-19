@@ -1,6 +1,7 @@
-import api from "zmp-sdk";
+import { showToast } from "zmp-sdk";
+
 export const message = (s: string) => {
-  api.showToast({
+  showToast({
     message: s,
   });
 };

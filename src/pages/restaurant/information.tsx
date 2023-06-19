@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Icon, Text } from "zmp-ui";
-import api from "zmp-sdk";
 import Time from "../../components/format/time";
 import Day from "../../components/format/day";
 import { Restaurant } from "../../models";
+import { openPhone } from "zmp-sdk";
 
 const { Title } = Text;
 
@@ -43,7 +43,7 @@ function Information({ restaurant }: { restaurant: Restaurant }) {
           Hotline liên hệ
         </Title>
         <Box flex mx={0} alignItems="center" justifyContent="space-between">
-          <a onClick={() => api.openPhone({ phoneNumber: restaurant.hotline })}>
+          <a onClick={() => openPhone({ phoneNumber: restaurant.hotline })}>
             <Icon icon="zi-call" className="text-green-500 mr-1" />
             <span className="text-primary">{restaurant.hotline}</span>
           </a>

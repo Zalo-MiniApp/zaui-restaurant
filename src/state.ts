@@ -1,18 +1,12 @@
 import { atom, selector } from "recoil";
+import { getLocation, getUserInfo } from "zmp-sdk";
 import { Booking, Cart, Location, Restaurant, TabType } from "./models";
 import { calcCrowFliesDistance } from "./utils/location";
-import sdk from "./utils/sdk";
-
-export const loginState = selector({
-  key: "login",
-  get: () => sdk.login(),
-});
 
 export const userState = selector({
   key: "user",
-  get: async ({ get }) => {
-    await get(loginState);
-    const { userInfo } = await sdk.getUserInfo({});
+  get: async () => {
+    const { userInfo } = await getUserInfo({});
     return userInfo;
   },
 });
@@ -28,8 +22,17 @@ export const positionState = selector<Location | undefined>({
     try {
       const allow = get(retryLocationState);
       if (allow) {
-        await get(loginState);
-        const { latitude, longitude } = await sdk.getLocation({});
+        const { latitude, longitude, token } = await getLocation({});
+        if (token) {
+          console.warn(
+            "Gửi token này lên server để giải mã vị trí. Xem hướng dẫn tại: https://mini.zalo.me/blog/thong-bao-thay-doi-luong-truy-xuat-thong-tin-nguoi-dung-tren-zalo-mini-app",
+            token
+          );
+          return {
+            lat: 10.762701,
+            long: 106.681974,
+          }; // VNG Campus
+        }
         return {
           lat: Number(latitude),
           long: Number(longitude),
