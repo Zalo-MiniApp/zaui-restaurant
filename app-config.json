@@ -7,6 +7,7 @@
     "leftButton": "back"
   },
   "template": {
+    "name": "zaui-restaurant",
     "primaryColor": "",
     "secondaryColor": "",
     "serviceFee": 25000,
